@@ -1,0 +1,1 @@
+export const OpeningScreen = require("./OpeningScreen.jpg")
