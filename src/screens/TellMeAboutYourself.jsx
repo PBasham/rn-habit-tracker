@@ -3,6 +3,10 @@
 ========================================*/
 import React, { useState } from 'react'
 import { Dimensions, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native'
+import AsyncStorage from "@react-native-async-storage/async-storage"
+/*========================================
+        Import Components
+========================================*/
 import { RoundIconBtn } from "../components/buttons/RoundIconBtn"
 /*========================================
         Import Styles
@@ -14,12 +18,17 @@ const TellMeAboutYourself = () => {
     /*==== Variables ====*/
 
     /*==== useState ====*/
-    const [user, setUser] = useState("")
+    const [name, setName] = useState("")
     /*==== useEffect ====*/
 
     /*==== Functions START ====*/
     // get Update username when entering name.
-    const handleOnChangeText = text => setUser(text)
+    const handleOnChangeText = text => setName(text)
+    
+    const handleSubmit = async () => {
+        const user = { name: name }
+        await AsyncStorage.setItem("habitTrackerUser", JSON.stringify(user))
+    }
     /*==== Functions END ====*/
 
     return (
@@ -29,13 +38,20 @@ const TellMeAboutYourself = () => {
                 <Text style={styles.generalText}>What's your name?</Text>
                 <View style={styles.inputContainer}>
                     <Text style={styles.header}>Name</Text>
-                    <TextInput value={user} onChangeText={handleOnChangeText} style={styles.textInput} />
+                    <TextInput value={name} onChangeText={handleOnChangeText} style={styles.textInput} />
                     {/* <Text style={styles.header}>Birthday</Text>
                     <TextInput value={""} onChangeText={""} style={styles.textInput} /> */}
                 </View>
-                
-                {user.trim().length > 0 ? <RoundIconBtn antIconName={"right"} size={36} iconColor={colors.lightblue}/> : null}
-                
+
+                {name.trim().length > 0 ?
+                    <RoundIconBtn
+                        antIconName={"right"}
+                        size={36}
+                        iconColor={colors.lightblue}
+                        onPress={handleSubmit}
+                    />
+                    : null}
+
                 {/* <StandardAntBtn 
                     antIconName={"check"}
                 /> */}
