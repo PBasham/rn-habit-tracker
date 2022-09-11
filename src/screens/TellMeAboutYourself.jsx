@@ -33,7 +33,9 @@ const TellMeAboutYourself = () => {
                     {/* <Text style={styles.header}>Birthday</Text>
                     <TextInput value={""} onChangeText={""} style={styles.textInput} /> */}
                 </View>
-                <RoundIconBtn antIconName={"right"} size={36} iconColor={colors.blue}/>
+                
+                {user.trim().length > 0 ? <RoundIconBtn antIconName={"right"} size={36} iconColor={colors.lightblue}/> : null}
+                
                 {/* <StandardAntBtn 
                     antIconName={"check"}
                 /> */}
@@ -76,10 +78,12 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         padding: 10,
         width,
-        height: 40,
+        height: 50,
         textAlign: "center",
         color: colors.blue,
         fontSize: 20,
+        borderColor: colors.blue,
+        borderRadius: 10,
         backgroundColor: colors.light,
     }
 })
