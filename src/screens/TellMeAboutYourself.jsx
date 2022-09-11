@@ -1,20 +1,26 @@
-import { Dimensions, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native'
+/*========================================
+        Import Dependencies
+========================================*/
 import React, { useState } from 'react'
+import { Dimensions, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native'
+import { RoundIconBtn } from "../components/buttons/RoundIconBtn"
+/*========================================
+        Import Styles
+========================================*/
 import colors from "../misc/colors"
-import { StandardAntBtn } from "../components/buttons/StandardAntBtn"
 
 const TellMeAboutYourself = () => {
 
-/*==== Variables ====*/
+    /*==== Variables ====*/
 
-/*==== useState ====*/
-const [user, setUser] = useState("")
-/*==== useEffect ====*/
+    /*==== useState ====*/
+    const [user, setUser] = useState("")
+    /*==== useEffect ====*/
 
-/*==== Functions START ====*/
-// get Update username when entering name.
-const handleOnChangeText = text => setUser(text)
-/*==== Functions END ====*/
+    /*==== Functions START ====*/
+    // get Update username when entering name.
+    const handleOnChangeText = text => setUser(text)
+    /*==== Functions END ====*/
 
     return (
         <>
@@ -27,9 +33,10 @@ const handleOnChangeText = text => setUser(text)
                     {/* <Text style={styles.header}>Birthday</Text>
                     <TextInput value={""} onChangeText={""} style={styles.textInput} /> */}
                 </View>
-                <StandardAntBtn 
+                <RoundIconBtn antIconName={"right"} size={36} iconColor={colors.blue}/>
+                {/* <StandardAntBtn 
                     antIconName={"check"}
-                />
+                /> */}
             </View>
         </>
     )
