@@ -1,4 +1,5 @@
 export default {
+    blue: "rgb(56,182,255)",
     light: "#FFF",
     greyish: "#1e1e1e",
     dark: "#000",
@@ -6,5 +7,5 @@ export default {
     lightblue: "#CCEAFF",
     brightblue: "#72EEFF",
     mintgreen: "#32EDD4",
-    transparentDark: "rgba(0,0,0,.9)",
+    transparentDark: "rgba(0,0,0,.8)",
 }
