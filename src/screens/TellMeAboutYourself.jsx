@@ -24,7 +24,7 @@ const TellMeAboutYourself = () => {
     /*==== Functions START ====*/
     // get Update username when entering name.
     const handleOnChangeText = text => setName(text)
-    
+
     const handleSubmit = async () => {
         const user = { name: name }
         await AsyncStorage.setItem("habitTrackerUser", JSON.stringify(user))

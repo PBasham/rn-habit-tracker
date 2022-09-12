@@ -5,7 +5,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from 'react-native';
-import { OpeningQuote } from "./src/screens/OpeningQuote";
+/*========================================
+        Import Screens / Components
+========================================*/
+import Manage from "./src/screens/Manage";
+import HomeScreen from "./src/screens/HomeScreen";
+import OpeningQuote from "./src/screens/OpeningQuote";
 import TellMeAboutYourself from "./src/screens/TellMeAboutYourself";
 
 export default function App() {
@@ -23,10 +28,11 @@ export default function App() {
     const [firstTimeOpen, setFirstTimeOpen] = useState(true)
     /*==== useEffect ====*/
     useEffect(() => {
-        (async () => {
-            const userFound = await findUser()
-            setFirstTimeOpen(!userFound)
-        })()
+        findUser()
+        // (async () => {
+            // const userFound = await findUser()
+            // setFirstTimeOpen(!userFound)
+        // })()
     }, [])
 
     /*==== Functions START ====*/
@@ -35,8 +41,10 @@ export default function App() {
 
     return (
         <>
-            {firstTimeOpen ? <TellMeAboutYourself /> : null}
             {/* <OpeningQuote /> */}
+            {/* {firstTimeOpen ? <TellMeAboutYourself /> : null} */}
+            {/* <Manage /> */}
+            <HomeScreen />
         </>
     )
 }
