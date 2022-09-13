@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { StatusBar, StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView, Pressable, TouchableOpacity } from 'react-native'
 import { backgroundOne } from "../../assets/imgs/images.js"
 import { RoundIconBtn } from "../components/buttons/RoundIconBtn"
+import GoalsContainer from "../components/HomeScreen/GoalsContainer.jsx"
 import colors from "../misc/colors"
 
 // SCREEN GOALS
@@ -53,56 +54,9 @@ const Manage = ({ user }) => {
                 <View style={styles.container}>
                     <Text style={styles.header} >{`Good ${greet}, ${user.name}`}</Text>
                     <Text style={styles.header} >Todays Goals</Text>
-                    <View style={styles.goalsContainer}>
-                        <ScrollView>
-
-                        </ScrollView>
-                    </View>
+                    <GoalsContainer />
                     <Text style={styles.header}>How do you feel today?</Text>
-                    <View style={[{ backgroundColor: emotionColor || "white" }, styles.feelingsContainer]}>
-                        <TouchableOpacity
-                            style={[styles.emotionColor, styles.backgroundGreen]}
-                            onPress={() => handleEmotionColorPress("Green")}
-                            onLongPress={() => handleLongPress()}
-                        >
-
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.emotionColor, styles.backgroundYellow]}
-                            onPress={() => handleEmotionColorPress("Yellow")}
-                            onLongPress={() => handleLongPress()}
-                        >
-
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.emotionColor, styles.backgroundOrange]}
-                            onPress={() => handleEmotionColorPress("Orange")}
-                            onLongPress={() => handleLongPress()}
-                        >
-
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.emotionColor, styles.backgroundRed]}
-                            onPress={() => handleEmotionColorPress("Red")}
-                            onLongPress={() => handleLongPress()}
-                        >
-
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.emotionColor, styles.backgroundPurple]}
-                            onPress={() => handleEmotionColorPress("Purple")}
-                            onLongPress={() => handleLongPress()}
-                        >
-
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.emotionColor, styles.backgroundBlue]}
-                            onPress={() => handleEmotionColorPress("Blue")}
-                            onLongPress={() => handleLongPress()}
-                        >
-
-                        </TouchableOpacity>
-                    </View>
+                    
                 </View>
             </ImageBackground>
         </>
@@ -127,11 +81,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 25,
     },
-    goalsContainer: {
-        height: "50%",
-        backgroundColor: colors.greyish,
-        opacity: .1,
-    },
+    
     feelingsContainer: {
         flexDirection: "row",
         justifyContent: "space-evenly",
