@@ -15,10 +15,14 @@ import TellMeAboutYourself from "./src/screens/TellMeAboutYourself";
 
 export default function App() {
 
+
+    const [user, setUser] = useState({})
+    
     /*==== Functions START ====*/
     const findUser = async () => {
         const result = await AsyncStorage.getItem("habitTrackerUser")
         console.log("result ", result)
+        setUser(JSON.parse(result))
         return result
     }
     /*==== Functions END ====*/
@@ -29,6 +33,7 @@ export default function App() {
     /*==== useEffect ====*/
     useEffect(() => {
         findUser()
+
         // (async () => {
             // const userFound = await findUser()
             // setFirstTimeOpen(!userFound)
@@ -44,7 +49,7 @@ export default function App() {
             {/* <OpeningQuote /> */}
             {/* {firstTimeOpen ? <TellMeAboutYourself /> : null} */}
             {/* <Manage /> */}
-            <HomeScreen />
+            <HomeScreen user={user}/>
         </>
     )
 }

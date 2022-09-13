@@ -1,7 +1,7 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { StatusBar, StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView, Pressable, TouchableOpacity } from 'react-native'
 import { backgroundOne } from "../../assets/imgs/images.js"
 import { RoundIconBtn } from "../components/buttons/RoundIconBtn"
@@ -14,12 +14,20 @@ import colors from "../misc/colors"
 //?4. Below this will be next habits by day.
 // SECTION END
 
-const Manage = () => {
+const Manage = ({ user }) => {
 
     const [emotionColor, setEmotionColor] = useState(null)
 
+    const [emotionColorModalOpen, setEmotionColorModalOpen] = useState(false)
 
+    const [greet, setGreet] = useState(null)
 
+    const findGreet = () => {
+        const hrs = new Date().getHours()
+        if (hrs === 0 || hrs < 12) return setGreet("Morning")
+        if (hrs === 1 || hrs < 17) return setGreet("Afternoon")
+        setGreet("Evening")
+    }
 
     const handleEmotionColorPress = (color) => {
         console.log(color)
@@ -27,13 +35,23 @@ const Manage = () => {
     const handleLongPress = (color) => {
         setEmotionColor(color)
         console.log("Long Press!")
+        console.log(Date.now())
+        setEmotionColor(color)
     }
+
+
+    useEffect(() => {
+        findGreet()
+    }, [])
+
+
 
     return (
         <>
             {/* <StatusBar /> */}
             <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}>
                 <View style={styles.container}>
+                    <Text style={styles.header} >{`Good ${greet}, ${user.name}`}</Text>
                     <Text style={styles.header} >Todays Goals</Text>
                     <View style={styles.goalsContainer}>
                         <ScrollView>
@@ -41,7 +59,7 @@ const Manage = () => {
                         </ScrollView>
                     </View>
                     <Text style={styles.header}>How do you feel today?</Text>
-                    <View style={[,styles.feelingsContainer]}>
+                    <View style={[{ backgroundColor: emotionColor || "white" }, styles.feelingsContainer]}>
                         <TouchableOpacity
                             style={[styles.emotionColor, styles.backgroundGreen]}
                             onPress={() => handleEmotionColorPress("Green")}
@@ -101,13 +119,13 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        marginTop: "20%",
+        marginTop: "15%",
         marginBottom: "5%",
         marginHorizontal: 25,
     },
     header: {
         textAlign: "center",
-        fontSize: 32,
+        fontSize: 25,
     },
     goalsContainer: {
         height: "50%",
