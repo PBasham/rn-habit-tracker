@@ -1,8 +1,11 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import { StatusBar, StyleSheet, Text, View, ImageBackground, Dimensions } from 'react-native'
+import { useState } from "react"
+import { StatusBar, StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView, Pressable, TouchableOpacity } from 'react-native'
 import { backgroundOne } from "../../assets/imgs/images.js"
+import { RoundIconBtn } from "../components/buttons/RoundIconBtn"
+import colors from "../misc/colors"
 
 // SCREEN GOALS
 // 1. Display the users goals for today.
@@ -12,12 +15,76 @@ import { backgroundOne } from "../../assets/imgs/images.js"
 // SECTION END
 
 const Manage = () => {
+
+    const [emotionColor, setEmotionColor] = useState(null)
+
+
+
+
+    const handleEmotionColorPress = (color) => {
+        console.log(color)
+    }
+    const handleLongPress = (color) => {
+        setEmotionColor(color)
+        console.log("Long Press!")
+    }
+
     return (
         <>
             {/* <StatusBar /> */}
             <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}>
                 <View style={styles.container}>
-                    <Text style={styles.header} >Home Screen</Text>
+                    <Text style={styles.header} >Todays Goals</Text>
+                    <View style={styles.goalsContainer}>
+                        <ScrollView>
+
+                        </ScrollView>
+                    </View>
+                    <Text style={styles.header}>How do you feel today?</Text>
+                    <View style={[,styles.feelingsContainer]}>
+                        <TouchableOpacity
+                            style={[styles.emotionColor, styles.backgroundGreen]}
+                            onPress={() => handleEmotionColorPress("Green")}
+                            onLongPress={() => handleLongPress()}
+                        >
+
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.emotionColor, styles.backgroundYellow]}
+                            onPress={() => handleEmotionColorPress("Yellow")}
+                            onLongPress={() => handleLongPress()}
+                        >
+
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.emotionColor, styles.backgroundOrange]}
+                            onPress={() => handleEmotionColorPress("Orange")}
+                            onLongPress={() => handleLongPress()}
+                        >
+
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.emotionColor, styles.backgroundRed]}
+                            onPress={() => handleEmotionColorPress("Red")}
+                            onLongPress={() => handleLongPress()}
+                        >
+
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.emotionColor, styles.backgroundPurple]}
+                            onPress={() => handleEmotionColorPress("Purple")}
+                            onLongPress={() => handleLongPress()}
+                        >
+
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.emotionColor, styles.backgroundBlue]}
+                            onPress={() => handleEmotionColorPress("Blue")}
+                            onLongPress={() => handleLongPress()}
+                        >
+
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </ImageBackground>
         </>
@@ -34,13 +101,48 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        marginTop: "10%",
+        marginTop: "20%",
         marginBottom: "5%",
         marginHorizontal: 25,
-        backgroundColor: "red",
     },
     header: {
+        textAlign: "center",
         fontSize: 32,
-        fontFamily: "Open sans",
-    }
+    },
+    goalsContainer: {
+        height: "50%",
+        backgroundColor: colors.greyish,
+        opacity: .1,
+    },
+    feelingsContainer: {
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        height: "10%",
+        borderRadius: 15,
+        backgroundColor: colors.light,
+    },
+    emotionColor: {
+        flex: 1,
+        borderRadius: 15,
+        margin: 2,
+        opacity: .6,
+    },
+    backgroundGreen: {
+        backgroundColor: "green",
+    },
+    backgroundYellow: {
+        backgroundColor: "yellow",
+    },
+    backgroundOrange: {
+        backgroundColor: "orange",
+    },
+    backgroundRed: {
+        backgroundColor: "red",
+    },
+    backgroundPurple: {
+        backgroundColor: "purple",
+    },
+    backgroundBlue: {
+        backgroundColor: "blue",
+    },
 })
