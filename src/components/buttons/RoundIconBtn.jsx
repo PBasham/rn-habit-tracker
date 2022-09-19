@@ -36,7 +36,10 @@ const styles = StyleSheet.create({
         backgroundColor: colors.blue,
         elevation: 10,
         shadowColor: colors.greyish,
-        shadowOffset: 0,
+        shadowOffset: {
+            width: 0,
+            height: 0,
+        },
         shadowRadius: 5,
         shadowOpacity: .4,
     },

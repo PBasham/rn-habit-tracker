@@ -52,11 +52,14 @@ const Manage = ({ user }) => {
             {/* <StatusBar /> */}
             <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}>
                 <View style={styles.container}>
-                    <Text style={styles.header} >{`Good ${greet}, ${user.name}`}</Text>
-                    <Text style={styles.header} >Todays Goals</Text>
+                    {/* Greeting */}
+                    <Text style={[{marginBottom: 20},styles.header]} >{`Good ${greet}, ${user.name}`}</Text>
+                    {/* Goals Section */}
+                    <Text style={[{marginBottom: 20},styles.header]} >Todays Goals</Text>
                     <GoalsContainer />
-                    <Text style={styles.header}>How do you feel today?</Text>
-                    
+                    {/* Emotion Picker */}
+                    <Text style={[{marginTop: 20, marginBottom: 20},styles.header]}>How do you feel today?</Text>
+                    <Pressable style={[{ backgroundColor: emotionColor || "white" }, styles.feelingsContainer]}></Pressable>
                 </View>
             </ImageBackground>
         </>
@@ -79,7 +82,7 @@ const styles = StyleSheet.create({
     },
     header: {
         textAlign: "center",
-        fontSize: 25,
+        fontSize: 32,
     },
     
     feelingsContainer: {
@@ -87,7 +90,8 @@ const styles = StyleSheet.create({
         justifyContent: "space-evenly",
         height: "10%",
         borderRadius: 15,
-        backgroundColor: colors.light,
+        borderWidth: 6,
+        borderColor: "white",
     },
     emotionColor: {
         flex: 1,
@@ -95,6 +99,8 @@ const styles = StyleSheet.create({
         margin: 2,
         opacity: .6,
     },
+
+
     backgroundGreen: {
         backgroundColor: "green",
     },

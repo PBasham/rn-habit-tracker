@@ -22,6 +22,11 @@ export default function App() {
     const findUser = async () => {
         const result = await AsyncStorage.getItem("habitTrackerUser")
         console.log("result ", result)
+        if (result ===  null) {
+             setUser({name: "Patrick"})
+             return result
+        }
+
         setUser(JSON.parse(result))
         return result
     }
