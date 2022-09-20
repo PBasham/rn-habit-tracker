@@ -3,9 +3,13 @@
 ========================================*/
 import { useEffect, useState } from "react"
 import { StatusBar, StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView, Pressable, TouchableOpacity } from 'react-native'
+/*========================================
+        Import Components
+========================================*/
 import { backgroundOne } from "../../assets/imgs/images.js"
 import { RoundIconBtn } from "../components/buttons/RoundIconBtn"
 import GoalsContainer from "../components/HomeScreen/GoalsContainer.jsx"
+import HeaderOne from "../components/Text/HeaderOne.jsx"
 import colors from "../misc/colors"
 
 // SCREEN GOALS
@@ -53,12 +57,12 @@ const Manage = ({ user }) => {
             <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}>
                 <View style={styles.container}>
                     {/* Greeting */}
-                    <Text style={[{marginBottom: 20},styles.header]} >{`Good ${greet}, ${user.name}`}</Text>
+                    <HeaderOne style={{marginBottom: 20,}} content={`Good ${greet}, ${user.name}`}/>
                     {/* Goals Section */}
-                    <Text style={[{marginBottom: 20},styles.header]} >Todays Goals</Text>
+                    <HeaderOne style={{marginBottom: 20,}} content={"Today's Goals"}/>
                     <GoalsContainer />
                     {/* Emotion Picker */}
-                    <Text style={[{marginTop: 20, marginBottom: 20},styles.header]}>How do you feel today?</Text>
+                    <HeaderOne style={{marginTop: 20, marginBottom: 20,}} content={"How do you feel today?"} />
                     <Pressable style={[{ backgroundColor: emotionColor || "white" }, styles.feelingsContainer]}></Pressable>
                 </View>
             </ImageBackground>
@@ -79,12 +83,7 @@ const styles = StyleSheet.create({
         marginTop: "15%",
         marginBottom: "5%",
         marginHorizontal: 25,
-    },
-    header: {
-        textAlign: "center",
-        fontSize: 32,
-    },
-    
+    },    
     feelingsContainer: {
         flexDirection: "row",
         justifyContent: "space-evenly",

@@ -8,7 +8,7 @@ const GoalsContainer = () => {
     return (
         <View style={styles.goalsContainer}>
             <ScrollView>
-
+                <Text>You don't currently have any goals for today!</Text>
             </ScrollView>
         </View>
     )
