@@ -4,18 +4,36 @@
 import { useState } from "react"
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import colors from "../../misc/colors"
+import { RoundIconBtn } from "../buttons/RoundIconBtn"
 import HeaderOne from "../Text/HeaderOne"
 
 const GoalsContainer = () => {
 
-    const [todaysGoals, SetTodaysGoals] = useState([{id: "namecreatedDate", name: "Hello", yes:"no", created: ""}])
+    // const [todaysGoals, SetTodaysGoals] = useState([{id: "namecreatedDate", name: "Hello", yes:"no", created: ""}])
+    const [todaysGoals, SetTodaysGoals] = useState([])
+
+
+    const handleAddTodayGoalPress = () => {
+        console.log("This will open the add goal modal!!")
+    }
 
     return (
         <View style={styles.goalsContainer}>
-            <View style={styles.backgroundView}>
-            </View>
+            <RoundIconBtn
+                antIconName="plus"
+                onPress={handleAddTodayGoalPress}
+                style={{
+                    position: "absolute",
+                    margin: 20,
+                    bottom: 0,
+                    right: 0,
+                    zIndex: 99,
+                    elevation: 3,
+                }}
+            />
+            <View style={styles.backgroundView}></View>
             {todaysGoals.length > 0 ?
-                <FlatList data={todaysGoals} >
+                <FlatList style={styles.todaysGoalsList} data={todaysGoals} >
                 </FlatList>
                 :
                 <HeaderOne
@@ -40,6 +58,7 @@ const styles = StyleSheet.create({
         position: "relative",
         height: "50%",
         padding: 10,
+        zIndex: 0,
     },
     backgroundView: {
         position: "absolute",
@@ -47,7 +66,12 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 0,
         right: 0,
+        borderRadius: 15,
         backgroundColor: colors.greyish,
         opacity: .2,
+        zIndex: -1,
     },
+    todaysGoalsList: {
+        flex: 1,
+    }
 })

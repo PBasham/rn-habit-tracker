@@ -18,12 +18,14 @@ export const RoundIconBtn = ({
 
 
     return (
-        <Pressable onPress={onPress} style={styles.button}>
+        <Pressable onPress={onPress} style={
+            [{...style}, styles.button]
+            }>
             <AntDesign
                 name={antIconName} 
                 size={size || 24} 
                 color={iconColor || colors.light} 
-                style={[styles.icon, {...style}]}
+                style={[styles.icon]}
                 />
         </Pressable>
     )
@@ -31,9 +33,12 @@ export const RoundIconBtn = ({
 
 const styles = StyleSheet.create({
     button: {
-        padding: 15,
+        justifyContent: 'center',
+        alignItems: "center",
         borderRadius: 50,
-        backgroundColor: colors.blue,
+        width: 50,
+        height: 50,
+        backgroundColor: colors.mintgreen,
         elevation: 10,
         shadowColor: colors.greyish,
         shadowOffset: {

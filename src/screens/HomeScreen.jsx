@@ -34,8 +34,8 @@ const Manage = ({ user }) => {
         setGreet("Evening")
     }
 
-    const handleEmotionColorPress = (color) => {
-        console.log(color)
+    const handleEmotionBarPress = (color) => {
+        console.log(`You're trying to open the emotion color modal!`)
     }
     const handleLongPress = (color) => {
         setEmotionColor(color)
@@ -63,7 +63,9 @@ const Manage = ({ user }) => {
                     <GoalsContainer />
                     {/* Emotion Picker */}
                     <HeaderOne style={{marginTop: 20, marginBottom: 20,}} content={"How do you feel today?"} />
-                    <Pressable style={[{ backgroundColor: emotionColor || "white" }, styles.feelingsContainer]}></Pressable>
+                    <Pressable onPress={handleEmotionBarPress} style={[{ backgroundColor: emotionColor || "white" }, styles.feelingsContainer]}>
+                        <Text style={{fontSize: 36, opacity: .5}}>+</Text>
+                    </Pressable>
                 </View>
             </ImageBackground>
         </>
@@ -86,7 +88,8 @@ const styles = StyleSheet.create({
     },    
     feelingsContainer: {
         flexDirection: "row",
-        justifyContent: "space-evenly",
+        justifyContent: "center",
+        alignItems: "center",
         height: "10%",
         borderRadius: 15,
         borderWidth: 6,
