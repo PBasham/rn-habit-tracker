@@ -2,21 +2,21 @@
         Import Dependencies
 ========================================*/
 import { useState } from "react"
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
 import colors from "../../misc/colors"
 import HeaderOne from "../Text/HeaderOne"
 
 const GoalsContainer = () => {
 
-    const [todaysGoals, SetTodaysGoals] = useState([])
+    const [todaysGoals, SetTodaysGoals] = useState([{id: "namecreatedDate", name: "Hello", yes:"no", created: ""}])
 
     return (
         <View style={styles.goalsContainer}>
             <View style={styles.backgroundView}>
             </View>
             {todaysGoals.length > 0 ?
-                <ScrollView>
-                </ScrollView>
+                <FlatList data={todaysGoals} >
+                </FlatList>
                 :
                 <HeaderOne
                     style={{
@@ -24,7 +24,7 @@ const GoalsContainer = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         opacity: .5,
-                        padding: 10,
+                        marginTop: 20,
                     }}
                     content={"You don't currently have any goals for today!"}
                 />
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     goalsContainer: {
         position: "relative",
         height: "50%",
+        padding: 10,
     },
     backgroundView: {
         position: "absolute",
