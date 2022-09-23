@@ -1,6 +1,7 @@
 /*========================================
         Import Dependencies
 ========================================*/
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useEffect, useState } from "react"
 import { StatusBar, StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView, Pressable, TouchableOpacity } from 'react-native'
 /*========================================
@@ -28,6 +29,8 @@ const Manage = ({ user }) => {
 
     const [emotionModalVisible, setEmotionModalVisible] = useState(false)
 
+    const [feelingsLog, setFeelingsLog] = useState({})
+
     const findGreet = () => {
         const hrs = new Date().getHours()
         if (hrs === 0 || hrs < 12) return setGreet("Morning")
@@ -35,15 +38,52 @@ const Manage = ({ user }) => {
         setGreet("Evening")
     }
 
+    const findFeelingsLog = async () => {
+        const result = await AsyncStorage.getItem("feelingsLog")
+        console.log("result ", result)
+        if (result === null) return
+        setFeelingsLog(JSON.parse(result))
+        if (`${new Date().getMonth()}/${new Date().getDay()}/${new Date().getFullYear()}` in JSON.parse(result)) {
+            console.log("Entry for today exist!")
+        }
+    }
+
     const handleEmotionBarOpen = () => {
-        console.log("Open Emotion Modal!")
         setEmotionModalVisible(true)
     }
 
 
     useEffect(() => {
         findGreet()
+        findFeelingsLog()
+        console.log("feelingsLog: ", feelingsLog)
+        // AsyncStorage.clear()
     }, [])
+
+
+    const handleEmotionPick = (feeling, color) => {
+
+        const todaysDate = `${new Date().getMonth()}/${new Date().getDay()}/${new Date().getFullYear()}`
+
+        console.log("date: ", todaysDate)
+
+        const todaysEmotion = {
+                id: Date.now(),
+                feeling: feeling,
+                color: color,
+            }
+        // check if there is already a color logged for today
+
+        // if so, replace it
+        const updatedFeelignsLog = { ...feelingsLog, [todaysDate]: todaysEmotion }
+        setFeelingsLog(updatedFeelignsLog)
+
+        // otherwise create it
+        AsyncStorage.setItem("feelingsLog", JSON.stringify(updatedFeelignsLog))
+
+
+        console.log(`todaysEmotion:`, todaysEmotion)
+    }
 
 
 
@@ -72,7 +112,13 @@ const Manage = ({ user }) => {
                     </Pressable>
                 </View>
             </ImageBackground>
-            <EmotionColorModal setEmotionModalVisible={setEmotionModalVisible} selectedEmotion={selectedEmotion} setSelectedEmotion={setSelectedEmotion} visible={emotionModalVisible} />
+            <EmotionColorModal
+                visible={emotionModalVisible}
+                setEmotionModalVisible={setEmotionModalVisible}
+                selectedEmotion={selectedEmotion}
+                setSelectedEmotion={setSelectedEmotion}
+                handleEmotionPick={handleEmotionPick}
+            />
         </>
     )
 }

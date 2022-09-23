@@ -1,45 +1,41 @@
 /*========================================
         Import Dependencies
 ========================================*/
+import { useState } from "react"
 import { Dimensions, Modal, Pressable, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
 import { emotionColors } from "../../misc/emotionColors"
+/* styling */
 import colors from "../../misc/colors"
 /*========================================
         Import Components
 ========================================*/
 import HeaderOne from "../Text/HeaderOne"
-import { useEffect, useState } from "react"
 import { StandardAntBtn } from "../buttons/StandardAntBtn"
 
-const EmotionColorModal = ({ setEmotionModalVisible, selectedEmotion, setSelectedEmotion, visible }) => {
+const EmotionColorModal = ({ visible, setEmotionModalVisible, selectedEmotion, setSelectedEmotion, handleEmotionPick}) => {
 
     const [currentSelected, setCurrentSelected] = useState("")
 
     const onModalOpen = () => {
-        console.log("selectedEmotion: ", selectedEmotion)
-        console.log("currentSelected: ", currentSelected)
         setCurrentSelected(selectedEmotion.feeling)
     }
 
     const handleEmotionPress = (feeling, color) => {
         if (currentSelected === feeling) {
             // if you haven't selected a feeling yet, set selected feeling as currentSelected and change style to outline this one with a light blue.
-            console.log(`Confirming ${feeling} - ${color}`)
             setSelectedEmotion({
                 feeling: feeling,
                 color: color,
             })
+            handleEmotionPick(feeling, color)
             handleModalClose()
         } else {
-            console.log(`Selected ${feeling} - ${color}`)
-            console.log(`Current selected - ${currentSelected}`)
             setCurrentSelected(feeling)
         }
 
     }
 
     const handleModalClose = () => {
-        console.log("Closing emotion Modal")
         setCurrentSelected("")
         setEmotionModalVisible(false)
     }
@@ -53,7 +49,7 @@ const EmotionColorModal = ({ setEmotionModalVisible, selectedEmotion, setSelecte
                 onShow={onModalOpen}
             >
                 <StandardAntBtn
-                    antIconName={"left"}
+                    antIconName={"down"}
                     backColor="white"
                     iconColor={"black"}
                     style={{
