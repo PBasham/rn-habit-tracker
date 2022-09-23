@@ -8,6 +8,7 @@ import { StatusBar, StyleSheet, Text, View, ImageBackground, Dimensions, ScrollV
 ========================================*/
 import { backgroundOne } from "../../assets/imgs/images.js"
 import { RoundIconBtn } from "../components/buttons/RoundIconBtn"
+import EmotionColorModal from "../components/HomeScreen/EmotionColorModal.jsx"
 import GoalsContainer from "../components/HomeScreen/GoalsContainer.jsx"
 import HeaderOne from "../components/Text/HeaderOne.jsx"
 import colors from "../misc/colors"
@@ -68,6 +69,7 @@ const Manage = ({ user }) => {
                     </Pressable>
                 </View>
             </ImageBackground>
+            <EmotionColorModal visible={true} />
         </>
     )
 }
