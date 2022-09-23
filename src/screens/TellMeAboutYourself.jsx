@@ -13,7 +13,7 @@ import { RoundIconBtn } from "../components/buttons/RoundIconBtn"
 ========================================*/
 import colors from "../misc/colors"
 
-const TellMeAboutYourself = () => {
+const TellMeAboutYourself = ({onFinish}) => {
 
     /*==== Variables ====*/
 
@@ -30,6 +30,7 @@ const TellMeAboutYourself = () => {
     const handleSubmit = async () => {
         const user = { name: name }
         await AsyncStorage.setItem("habitTrackerUser", JSON.stringify(user))
+        if (onFinish) onFinish()
     }
     /*==== Functions END ====*/
 

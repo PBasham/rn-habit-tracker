@@ -22,13 +22,8 @@ export default function App() {
     const findUser = async () => {
         const result = await AsyncStorage.getItem("habitTrackerUser")
         console.log("result ", result)
-        if (result ===  null) {
-             setUser({name: "Patrick"})
-             return result
-        }
-
+        if (!result) return
         setUser(JSON.parse(result))
-        return result
     }
     /*==== Functions END ====*/
     /*==== Variables ====*/
@@ -38,11 +33,6 @@ export default function App() {
     /*==== useEffect ====*/
     useEffect(() => {
         findUser()
-
-        // (async () => {
-            // const userFound = await findUser()
-            // setFirstTimeOpen(!userFound)
-        // })()
     }, [])
 
     /*==== Functions START ====*/
@@ -52,10 +42,11 @@ export default function App() {
     return (
         <>
             {/* <OpeningQuote /> */}
-            {/* {firstTimeOpen ? <TellMeAboutYourself /> : null} */}
             {/* <Manage /> */}
-            {!user.name ? <TellMeAboutYourself />
-            : <HomeScreen user={user}/>}
+            {!user.name ? <TellMeAboutYourself onFinish={findUser}/>
+            : 
+            <HomeScreen user={user}/>
+            }
         </>
     )
 }
