@@ -2,11 +2,12 @@
         Import Dependencies
 ========================================*/
 import React, { useState } from 'react'
-import { Dimensions, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Dimensions, StatusBar, StyleSheet, Text, TextInput, View, ImageBackground } from 'react-native'
 import AsyncStorage from "@react-native-async-storage/async-storage"
 /*========================================
         Import Components
 ========================================*/
+import { backgroundOne } from "../../assets/imgs/images.js"
 import { RoundIconBtn } from "../components/buttons/RoundIconBtn"
 /*========================================
         Import Styles
@@ -35,7 +36,7 @@ const TellMeAboutYourself = ({onFinish}) => {
     /*==== Functions END ====*/
 
     return (
-        <>
+        <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}>
             <StatusBar hidden />
             <View style={styles.container}>
                 <Text style={styles.generalText}>What's your name?</Text>
@@ -49,17 +50,12 @@ const TellMeAboutYourself = ({onFinish}) => {
                 {name.trim().length > 0 ?
                     <RoundIconBtn
                         antIconName={"right"}
-                        size={36}
-                        iconColor={colors.lightblue}
+                        iconColor={colors.greyish}
                         onPress={handleSubmit}
                     />
                     : null}
-
-                {/* <StandardAntBtn 
-                    antIconName={"check"}
-                /> */}
             </View>
-        </>
+        </ImageBackground>
     )
 }
 
@@ -71,12 +67,14 @@ const width = Dimensions.get('window').width - 100
         StyleSheet
 ========================================*/
 const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+    },
     container: {
         flex: 1,
         justifyContent: "flex-start",
         alignItems: "center",
         padding: 100,
-        backgroundColor: colors.lightblue,
     },
     generalText: {
         marginBottom: 75,
