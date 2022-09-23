@@ -66,7 +66,7 @@ const Manage = ({ user }) => {
                             styles.feelingsContainer
                         ]}
                     >
-                        <Text style={{ fontSize: 36, color: colors.light }}>
+                        <Text style={{ fontSize: 36, color: selectedEmotion.color ? colors.light : colors.transparentDark }}>
                             {selectedEmotion.feeling || `+`}
                         </Text>
                     </Pressable>
