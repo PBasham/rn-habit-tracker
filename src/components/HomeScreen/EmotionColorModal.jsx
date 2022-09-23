@@ -8,25 +8,39 @@ import colors from "../../misc/colors"
         Import Components
 ========================================*/
 import HeaderOne from "../Text/HeaderOne"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { StandardAntBtn } from "../buttons/StandardAntBtn"
 
-const EmotionColorModal = ({ setEmotionModalVisible, setSelectedEmotion, visible }) => {
+const EmotionColorModal = ({ setEmotionModalVisible, selectedEmotion, setSelectedEmotion, visible }) => {
 
-    useEffect(() => {
-    }, [])
+    const [currentSelected, setCurrentSelected] = useState("")
 
-    const handleEmotionLongPress = (feeling, color) => {
-        console.log(`Selected ${feeling} - ${color}`)
-        setSelectedEmotion({
-            feeling: feeling,
-            color: color,
-        })
-        handleModalClose()
+    const onModalOpen = () => {
+        console.log("selectedEmotion: ", selectedEmotion)
+        console.log("currentSelected: ", currentSelected)
+        setCurrentSelected(selectedEmotion.feeling)
+    }
+
+    const handleEmotionPress = (feeling, color) => {
+        if (currentSelected === feeling) {
+            // if you haven't selected a feeling yet, set selected feeling as currentSelected and change style to outline this one with a light blue.
+            console.log(`Confirming ${feeling} - ${color}`)
+            setSelectedEmotion({
+                feeling: feeling,
+                color: color,
+            })
+            handleModalClose()
+        } else {
+            console.log(`Selected ${feeling} - ${color}`)
+            console.log(`Current selected - ${currentSelected}`)
+            setCurrentSelected(feeling)
+        }
+
     }
 
     const handleModalClose = () => {
         console.log("Closing emotion Modal")
+        setCurrentSelected("")
         setEmotionModalVisible(false)
     }
 
@@ -36,6 +50,7 @@ const EmotionColorModal = ({ setEmotionModalVisible, setSelectedEmotion, visible
             <Modal
                 visible={visible}
                 animationType="slide"
+                onShow={onModalOpen}
             >
                 <StandardAntBtn
                     antIconName={"left"}
@@ -57,10 +72,11 @@ const EmotionColorModal = ({ setEmotionModalVisible, setSelectedEmotion, visible
                             <Pressable
                                 key={element.feeling}
                                 style={[
-                                    { backgroundColor: element.color },
-                                    styles.emotionContainer
+                                    { backgroundColor: element.color, },
+                                    styles.emotionContainer,
+                                    currentSelected === element.feeling ? styles.selected : null
                                 ]}
-                                onLongPress={() => handleEmotionLongPress(element.feeling, element.color)}
+                                onPress={() => handleEmotionPress(element.feeling, element.color)}
                             >
                                 <HeaderOne content={element.feeling} color={colors.light} />
                             </Pressable>
@@ -81,7 +97,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginHorizontal: 25,
-        paddingTop: "20%",
+        // paddingTop: "10%",
         backgroundColor: colors.light,
         width: width,
     },
@@ -99,6 +115,10 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: colors.light,
         // width: width - 50,
+    },
+    selected: {
+        borderWidth: 4,
+        borderColor: colors.blue,
     }
 })
 
