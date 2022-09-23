@@ -11,13 +11,18 @@ import HeaderOne from "../Text/HeaderOne"
 import { useEffect } from "react"
 import { StandardAntBtn } from "../buttons/StandardAntBtn"
 
-const EmotionColorModal = ({ setEmotionModalVisible, setEmotionColor, visible }) => {
+const EmotionColorModal = ({ setEmotionModalVisible, setSelectedEmotion, visible }) => {
 
     useEffect(() => {
     }, [])
 
-    const handleEmotionLongPress = (emotion) => {
-
+    const handleEmotionLongPress = (feeling, color) => {
+        console.log(`Selected ${feeling} - ${color}`)
+        setSelectedEmotion({
+            feeling: feeling,
+            color: color,
+        })
+        handleModalClose()
     }
 
     const handleModalClose = () => {
@@ -49,9 +54,16 @@ const EmotionColorModal = ({ setEmotionModalVisible, setEmotionColor, visible })
                     <HeaderOne style={{ marginBottom: 40, paddingHorizontal: 10, }} content={"Select the word that represents how you feel the best."} />
                     <ScrollView style={styles.scrollContainer}>
                         {emotionColors.map(element => (
-                            <View key={element.feeling} style={[{ backgroundColor: element.color }, styles.emotionContainer]}>
+                            <Pressable
+                                key={element.feeling}
+                                style={[
+                                    { backgroundColor: element.color },
+                                    styles.emotionContainer
+                                ]}
+                                onLongPress={() => handleEmotionLongPress(element.feeling, element.color)}
+                            >
                                 <HeaderOne content={element.feeling} color={colors.light} />
-                            </View>
+                            </Pressable>
                         ))}
                     </ScrollView>
                 </View>

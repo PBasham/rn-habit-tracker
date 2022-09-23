@@ -72,7 +72,7 @@ const Manage = ({ user }) => {
                     </Pressable>
                 </View>
             </ImageBackground>
-            <EmotionColorModal setEmotionModalVisible={setEmotionModalVisible} setEmotionColor={setSelectedEmotion} visible={emotionModalVisible} />
+            <EmotionColorModal setEmotionModalVisible={setEmotionModalVisible} setSelectedEmotion={setSelectedEmotion} visible={emotionModalVisible} />
         </>
     )
 }
