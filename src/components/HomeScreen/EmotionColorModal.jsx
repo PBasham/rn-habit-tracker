@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginHorizontal: 25,
-        // paddingTop: "10%",
         backgroundColor: colors.light,
         width: width,
     },
