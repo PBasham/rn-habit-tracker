@@ -18,17 +18,20 @@ export const StandardAntBtn = ({
     size,
     iconColor,
     onPress,
+    style
 }) => {
 
 
     return (
-        <Pressable style={[styles.btnContainer, {
+        <Pressable style={[{ ...style }, styles.btnContainer, {
             padding: padding || 15,
             height: height || 50,
             width: width || "auto",
             borderRadius: bdrRad || 20,
             backgroundColor: backColor || colors.blue,
-        }]}>
+        }]}
+            onPress={onPress}
+        >
             <Text style={{
                 color: color || colors.pink,
                 fontSize: fontSize || 16,

@@ -22,11 +22,11 @@ import colors from "../misc/colors"
 
 const Manage = ({ user }) => {
 
-    const [emotionColor, setEmotionColor] = useState(null)
-
-    const [emotionColorModalOpen, setEmotionColorModalOpen] = useState(false)
+    const [selectedEmotion, setSelectedEmotion] = useState({})
 
     const [greet, setGreet] = useState(null)
+
+    const [emotionModalVisible, setEmotionModalVisible] = useState(false)
 
     const findGreet = () => {
         const hrs = new Date().getHours()
@@ -35,14 +35,9 @@ const Manage = ({ user }) => {
         setGreet("Evening")
     }
 
-    const handleEmotionBarPress = (color) => {
-        console.log(`You're trying to open the emotion color modal!`)
-    }
-    const handleLongPress = (color) => {
-        setEmotionColor(color)
-        console.log("Long Press!")
-        console.log(Date.now())
-        setEmotionColor(color)
+    const handleEmotionBarOpen = () => {
+        console.log("Open Emotion Modal!")
+        setEmotionModalVisible(true)
     }
 
 
@@ -58,18 +53,26 @@ const Manage = ({ user }) => {
             <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}>
                 <View style={styles.container}>
                     {/* Greeting */}
-                    <HeaderOne style={{marginBottom: 20,}} content={`Good ${greet}, ${user.name}`}/>
+                    <HeaderOne style={{ marginBottom: 20, }} content={`Good ${greet}, ${user.name}`} />
                     {/* Goals Section */}
-                    <HeaderOne style={{marginBottom: 20,}} content={"Today's Goals"}/>
+                    <HeaderOne style={{ marginBottom: 20, }} content={"Today's Goals"} />
                     <GoalsContainer />
                     {/* Emotion Picker */}
-                    <HeaderOne style={{marginTop: 20, marginBottom: 20,}} content={"How do you feel today?"} />
-                    <Pressable onPress={handleEmotionBarPress} style={[{ backgroundColor: emotionColor || "white" }, styles.feelingsContainer]}>
-                        <Text style={{fontSize: 36, opacity: .5}}>+</Text>
+                    <HeaderOne style={{ marginTop: 20, marginBottom: 20, }} content={"How do you feel today?"} />
+                    <Pressable
+                        onPress={handleEmotionBarOpen}
+                        style={[
+                            { backgroundColor: selectedEmotion.color || "white" },
+                            styles.feelingsContainer
+                        ]}
+                    >
+                        <Text style={{ fontSize: 36, opacity: .5 }}>
+                            {selectedEmotion.feeling || `+`}
+                        </Text>
                     </Pressable>
                 </View>
             </ImageBackground>
-            <EmotionColorModal visible={true} />
+            <EmotionColorModal setEmotionModalVisible={setEmotionModalVisible} setEmotionColor={setSelectedEmotion} visible={emotionModalVisible} />
         </>
     )
 }
@@ -87,7 +90,7 @@ const styles = StyleSheet.create({
         marginTop: "15%",
         marginBottom: "5%",
         marginHorizontal: 25,
-    },    
+    },
     feelingsContainer: {
         flexDirection: "row",
         justifyContent: "center",

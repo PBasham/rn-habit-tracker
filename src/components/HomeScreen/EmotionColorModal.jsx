@@ -9,11 +9,21 @@ import colors from "../../misc/colors"
 ========================================*/
 import HeaderOne from "../Text/HeaderOne"
 import { useEffect } from "react"
+import { StandardAntBtn } from "../buttons/StandardAntBtn"
 
-const EmotionColorModal = ({ emotionColor, visible }) => {
+const EmotionColorModal = ({ setEmotionModalVisible, setEmotionColor, visible }) => {
 
     useEffect(() => {
     }, [])
+
+    const handleEmotionLongPress = (emotion) => {
+
+    }
+
+    const handleModalClose = () => {
+        console.log("Closing emotion Modal")
+        setEmotionModalVisible(false)
+    }
 
     return (
         <>
@@ -22,12 +32,24 @@ const EmotionColorModal = ({ emotionColor, visible }) => {
                 visible={visible}
                 animationType="slide"
             >
+                <StandardAntBtn
+                    antIconName={"left"}
+                    backColor="white"
+                    iconColor={"black"}
+                    style={{
+                        positon: "absolute",
+                        top: 0,
+                        left: 0,
+                        margin: 15,
+                        zIndex: 999,
+                    }}
+                    onPress={handleModalClose}
+                />
                 <View style={styles.container}>
-                    <HeaderOne style={{marginBottom: 40, paddingHorizontal: 10,}} content={"Select the word that represents how you feel the best."} />
+                    <HeaderOne style={{ marginBottom: 40, paddingHorizontal: 10, }} content={"Select the word that represents how you feel the best."} />
                     <ScrollView style={styles.scrollContainer}>
                         {emotionColors.map(element => (
-                            <View key={element.feeling} style={[{backgroundColor: element.color}, styles.emotionContainer]}>
-                                {console.log(element)}
+                            <View key={element.feeling} style={[{ backgroundColor: element.color }, styles.emotionContainer]}>
                                 <HeaderOne content={element.feeling} color={colors.light} />
                             </View>
                         ))}
