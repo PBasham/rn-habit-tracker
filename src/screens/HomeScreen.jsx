@@ -66,7 +66,7 @@ const Manage = ({ user }) => {
                             styles.feelingsContainer
                         ]}
                     >
-                        <Text style={{ fontSize: 36, opacity: .5 }}>
+                        <Text style={{ fontSize: 36, color: colors.light }}>
                             {selectedEmotion.feeling || `+`}
                         </Text>
                     </Pressable>
@@ -97,8 +97,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         height: "10%",
         borderRadius: 15,
-        borderWidth: 6,
-        borderColor: "white",
+        borderWidth: 3,
+        borderColor: colors.light,
     },
     emotionColor: {
         flex: 1,

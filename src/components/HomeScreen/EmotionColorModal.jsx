@@ -114,11 +114,10 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 10,
         borderColor: colors.light,
-        // width: width - 50,
     },
     selected: {
         borderWidth: 4,
-        borderColor: colors.blue,
+        borderColor: colors.transparentDark,
     }
 })
 
