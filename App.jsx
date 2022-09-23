@@ -54,7 +54,8 @@ export default function App() {
             {/* <OpeningQuote /> */}
             {/* {firstTimeOpen ? <TellMeAboutYourself /> : null} */}
             {/* <Manage /> */}
-            <HomeScreen user={user}/>
+            {!user.name ? <TellMeAboutYourself />
+            : <HomeScreen user={user}/>}
         </>
     )
 }

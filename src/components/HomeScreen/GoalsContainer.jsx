@@ -22,6 +22,7 @@ const GoalsContainer = () => {
             <RoundIconBtn
                 antIconName="plus"
                 onPress={handleAddTodayGoalPress}
+                iconColor={colors.greyish}
                 style={{
                     position: "absolute",
                     margin: 20,

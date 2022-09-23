@@ -6,6 +6,6 @@ export default {
     pink: "#F7EEFF",
     lightblue: "#CCEAFF",
     brightblue: "#72EEFF",
-    mintgreen: "#32EDD4",
+    mintgreen: "#E4F3C2",
     transparentDark: "rgba(0,0,0,.8)",
 }
