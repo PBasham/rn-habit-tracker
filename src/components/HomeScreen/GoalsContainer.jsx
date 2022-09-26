@@ -13,15 +13,15 @@ const GoalsContainer = () => {
     const [todaysGoals, SetTodaysGoals] = useState([])
 
 
-    const handleAddTodayGoalPress = () => {
-        console.log("This will open the add goal modal!!")
+    const handleOpenManageScreen = () => {
+        console.log("This will open the Manage Screen!!")
     }
 
     return (
         <View style={styles.goalsContainer}>
             <RoundIconBtn
                 antIconName="plus"
-                onPress={handleAddTodayGoalPress}
+                onPress={handleOpenManageScreen}
                 iconColor={colors.greyish}
                 style={{
                     position: "absolute",

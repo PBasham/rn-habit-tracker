@@ -35,17 +35,13 @@ export default function App() {
         findUser()
     }, [])
 
-    /*==== Functions START ====*/
-
-    /*==== Functions END ====*/
-
     return (
         <>
             {/* <OpeningQuote /> */}
-            {/* <Manage /> */}
             {!user.name ? <TellMeAboutYourself onFinish={findUser}/>
             : 
             <HomeScreen user={user}/>
+            /* <Manage /> */
             }
         </>
     )
