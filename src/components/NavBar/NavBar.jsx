@@ -52,8 +52,7 @@ export default NavBar
 const styles = StyleSheet.create({
     tabBar: {
         height: 50,
-        // width: "100%",
-        backgroundColor: colors.mintgreen,
+        backgroundColor: colors.light,
     },
     activeBackground: {
         position: "absolute",
