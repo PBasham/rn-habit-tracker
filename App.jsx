@@ -16,7 +16,7 @@ import OpeningQuote from "./src/screens/OpeningQuote";
 import TellMeAboutYourself from "./src/screens/TellMeAboutYourself";
 import NavBar from "./src/components/NavBar/NavBar";
 
-const Stack = createNativeStackNavigator()
+const Tab = createNativeStackNavigator()
 
 export default function App() {
 
@@ -49,10 +49,14 @@ export default function App() {
                 :
                 <>
                     <NavigationContainer>
-                        <Stack.Navigator>
-                            <Stack.Screen component={renderHomeScreen} name="Home" />
-                            <Stack.Screen component={Manage} name="Manage" />
-                        </Stack.Navigator>
+                        <Tab.Navigator
+                            tabBar={(props) => <NavBar {...props} />}
+                        >
+                            <Tab.Screen name="Home" component={renderHomeScreen} />
+                            <Tab.Screen name="Manage" component={Manage} />
+                            <Tab.Screen name="Something" component={Manage} />
+                            <Tab.Screen name="Settings" component={Manage} />
+                        </Tab.Navigator>
                     </NavigationContainer>
                     <NavBar />
                 </>

@@ -1,16 +1,47 @@
+/*========================================
+        Import Dependencies
+========================================*/
 import { StyleSheet, Text, View } from 'react-native'
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+/*========================================
+        Import Styles
+========================================*/
 import colors from "../../misc/colors"
 
+
+
+const Stack = createNativeStackNavigator()
+
+
+
 const NavBar = () => {
+
     return (
-        <View style={styles.container} >
-            <View style={styles.selected}>
-                <View style={styles.selectedCircle}></View>
-                <View style={styles.selectedBar}></View>
-                <View style={styles.selectedCornerLeft}></View>
-                <View style={styles.selectedCornerRight}></View>
-            </View>
-            {/* <View stye={styles.routes}></View> */}
+
+        
+        <View style={[styles.tabBar]} >
+            {/* <View style={styles.selected}>
+                    <View style={styles.selectedCircle}></View>
+                    <View style={styles.selectedBar}></View>
+                    <View style={styles.selectedCornerLeft}></View>
+                    <View style={styles.selectedCornerRight}></View>
+                </View>
+                <View stye={styles.routes}></View> */}
+            <Svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={110}
+                height={60}
+                fill="none"
+                {...props}
+                style={styles.activeBackground}
+            >
+                <Path
+                    fill="#000"
+                    d="M20 0H0c11.046 0 20 8.954 20 20v5c0 19.33 15.67 35 35 35s35-15.67 35-35v-5c0-11.046 8.954-20 20-20H20z"
+                />
+            </Svg>
         </View>
     )
 }
@@ -18,33 +49,36 @@ const NavBar = () => {
 export default NavBar
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 4,
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        flexDirection: "row",
-        marginHorizontal: "auto",
-        height: "10%",
+    tabBar: {
         backgroundColor: colors.mintgreen,
     },
-    selected: {
+    activeBackground: {
         position: "absolute",
     },
-    selectedCircle: {
-        width: "20%",
+    tabBarContainer: { 
+        flexDirection: "row",
+    },
+    component: {
+        height: 60,
+        width: 60,
+        marginTop: -5,
+    },
+    componentCircle: {
+        flex: 1,
+        borderRadius: 30,
+        backgroundColor: "white",
+    },
+    iconContainer: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: "center",
+    },
+    icon: {
+        height: 36,
         aspectRatio: 1,
-        borderRadius: 50,
-        backgroundColor: colors.light,
-    },
-    selectedBar: {
-        backgroundColor: colors.light,
-    },
-    selectedCornerLeft: {
-        backgroundColor: colors.light,
-    },
-    selectedCornerRight: {
-        backgroundColor: colors.light,
     },
 })
