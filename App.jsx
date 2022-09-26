@@ -14,6 +14,7 @@ import Manage from "./src/screens/Manage";
 import HomeScreen from "./src/screens/HomeScreen";
 import OpeningQuote from "./src/screens/OpeningQuote";
 import TellMeAboutYourself from "./src/screens/TellMeAboutYourself";
+import NavBar from "./src/components/NavBar/NavBar";
 
 const Stack = createNativeStackNavigator()
 
@@ -39,19 +40,22 @@ export default function App() {
         findUser()
     }, [])
 
-    const renderHomeScreen = (props) => <HomeScreen {...props} user={user}/>
+    const renderHomeScreen = (props) => <HomeScreen {...props} user={user} />
 
     return (
         <>
             {/* <OpeningQuote /> */}
             {!user.name ? <TellMeAboutYourself onFinish={findUser} />
                 :
-                <NavigationContainer>
-                    <Stack.Navigator>
-                        <Stack.Screen component={renderHomeScreen} name="Home" />
-                        <Stack.Screen component={Manage} name="Manage" />
-                    </Stack.Navigator>
-                </NavigationContainer>
+                <>
+                    <NavigationContainer>
+                        <Stack.Navigator>
+                            <Stack.Screen component={renderHomeScreen} name="Home" />
+                            <Stack.Screen component={Manage} name="Manage" />
+                        </Stack.Navigator>
+                    </NavigationContainer>
+                    <NavBar />
+                </>
             }
         </>
     )
