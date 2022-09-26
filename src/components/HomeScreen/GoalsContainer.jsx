@@ -7,21 +7,21 @@ import colors from "../../misc/colors"
 import { RoundIconBtn } from "../buttons/RoundIconBtn"
 import HeaderOne from "../Text/HeaderOne"
 
-const GoalsContainer = () => {
+const GoalsContainer = ({ openManageScreen }) => {
 
     // const [todaysGoals, SetTodaysGoals] = useState([{id: "namecreatedDate", name: "Hello", yes:"no", created: ""}])
     const [todaysGoals, SetTodaysGoals] = useState([])
 
 
-    const handleOpenManageScreen = () => {
-        console.log("This will open the Manage Screen!!")
-    }
+    // const handleOpenManageScreen = () => {
+    //     console.log("This will open the Manage Screen!!")
+    // }
 
     return (
         <View style={styles.goalsContainer}>
             <RoundIconBtn
                 antIconName="plus"
-                onPress={handleOpenManageScreen}
+                onPress={() => openManageScreen()}
                 iconColor={colors.greyish}
                 style={{
                     position: "absolute",

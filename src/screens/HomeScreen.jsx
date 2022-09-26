@@ -21,8 +21,9 @@ import colors from "../misc/colors"
 //?4. Below this will be next habits by day.
 // SECTION END
 
-const Manage = ({ user }) => {
+const Manage = ({ user, navigation }) => {
 
+    /* State */
     const [selectedEmotion, setSelectedEmotion] = useState({})
 
     const [greet, setGreet] = useState(null)
@@ -31,6 +32,7 @@ const Manage = ({ user }) => {
 
     const [feelingsLog, setFeelingsLog] = useState({})
 
+    /* Functions */
     const findGreet = () => {
         const hrs = new Date().getHours()
         if (hrs === 0 || hrs < 12) return setGreet("Morning")
@@ -52,7 +54,7 @@ const Manage = ({ user }) => {
         setEmotionModalVisible(true)
     }
 
-
+    /** UseEffect */
     useEffect(() => {
         findGreet()
         findFeelingsLog()
@@ -60,7 +62,7 @@ const Manage = ({ user }) => {
         // AsyncStorage.clear()
     }, [])
 
-
+    /** Functions */
     const handleEmotionPick = (feeling, color) => {
 
         const todaysDate = `${new Date().getMonth()}/${new Date().getDay()}/${new Date().getFullYear()}`
@@ -86,6 +88,12 @@ const Manage = ({ user }) => {
     }
 
 
+    /*========================================
+            Navigation function
+    ========================================*/
+    const openManageScreen = () => {
+        navigation.navigate("Manage")
+    }
 
     return (
         <>
@@ -96,7 +104,7 @@ const Manage = ({ user }) => {
                     <HeaderOne style={{ marginBottom: 20, }} content={`Good ${greet}, ${user.name}`} />
                     {/* Goals Section */}
                     <HeaderOne style={{ marginBottom: 20, }} content={"Today's Goals"} />
-                    <GoalsContainer />
+                    <GoalsContainer openManageScreen={openManageScreen} />
                     {/* Emotion Picker */}
                     <HeaderOne style={{ marginTop: 20, marginBottom: 20, }} content={"How do you feel today?"} />
                     <Pressable
