@@ -4,7 +4,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import Svg, { Path } from "react-native-svg"
 /*========================================
         Import Styles
 ========================================*/
@@ -21,7 +21,7 @@ const NavBar = () => {
     return (
 
         
-        <View style={[styles.tabBar]} >
+        <View style={[styles.tabBar,{ paddingBottom: "20%"}]} >
             {/* <View style={styles.selected}>
                     <View style={styles.selectedCircle}></View>
                     <View style={styles.selectedBar}></View>
@@ -30,15 +30,16 @@ const NavBar = () => {
                 </View>
                 <View stye={styles.routes}></View> */}
             <Svg
-                xmlns="http://www.w3.org/2000/svg"
+                // xmlns="http://www.w3.org/2000/svg"
                 width={110}
                 height={60}
-                fill="none"
-                {...props}
+                viewBox="0 0 110 60"
+                // fill="none"
+                // {...props}
                 style={styles.activeBackground}
             >
                 <Path
-                    fill="#000"
+                    fill="#afedd8"
                     d="M20 0H0c11.046 0 20 8.954 20 20v5c0 19.33 15.67 35 35 35s35-15.67 35-35v-5c0-11.046 8.954-20 20-20H20z"
                 />
             </Svg>
@@ -50,6 +51,8 @@ export default NavBar
 
 const styles = StyleSheet.create({
     tabBar: {
+        height: 50,
+        // width: "100%",
         backgroundColor: colors.mintgreen,
     },
     activeBackground: {
@@ -57,6 +60,7 @@ const styles = StyleSheet.create({
     },
     tabBarContainer: { 
         flexDirection: "row",
+        justifyContent: 'space-evenly',
     },
     component: {
         height: 60,
