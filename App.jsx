@@ -3,7 +3,7 @@
 ========================================*/
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -16,11 +16,14 @@ import OpeningQuote from "./src/screens/OpeningQuote";
 import TellMeAboutYourself from "./src/screens/TellMeAboutYourself";
 import NavBar from "./src/components/NavBar/NavBar";
 
-const Tab = createNativeStackNavigator()
+const Stack = createNativeStackNavigator()
+
+export const UserContext = createContext()
 
 export default function App() {
 
 
+    /*==== useState ====*/
     const [user, setUser] = useState({})
 
     /*==== Functions START ====*/
@@ -31,36 +34,35 @@ export default function App() {
         setUser(JSON.parse(result))
     }
     /*==== Functions END ====*/
-    /*==== Variables ====*/
 
-    /*==== useState ====*/
-    const [firstTimeOpen, setFirstTimeOpen] = useState(true)
     /*==== useEffect ====*/
     useEffect(() => {
         findUser()
     }, [])
 
-    const renderHomeScreen = (props) => <HomeScreen {...props} user={user} />
+    // const renderHomeScreen = (props) => <HomeScreen {...props} user={user} />
 
     return (
         <>
             {/* <OpeningQuote /> */}
-            {!user.name ? <TellMeAboutYourself onFinish={findUser} />
-                :
-                <>
-                    <NavigationContainer>
-                        <Tab.Navigator
-                            tabBar={(props) => <NavBar {...props} />}
-                        >
-                            <Tab.Screen name="Home" component={renderHomeScreen} />
-                            <Tab.Screen name="Manage" component={Manage} />
-                            <Tab.Screen name="Something" component={Manage} />
-                            <Tab.Screen name="Settings" component={Manage} />
-                        </Tab.Navigator>
-                    </NavigationContainer>
-                    <NavBar />
-                </>
-            }
+            <UserContext.Provider value={user}>
+                {!user.name ? <TellMeAboutYourself onFinish={findUser} />
+                    :
+                    <>
+                        <NavigationContainer>
+                            <Stack.Navigator
+                                tabBar={(props) => <NavBar {...props} />}
+                            >
+                                <Stack.Screen name="Home" component={HomeScreen} />
+                                <Stack.Screen name="Manage" component={Manage} />
+                                <Stack.Screen name="Something" component={Manage} />
+                                <Stack.Screen name="Settings" component={Manage} />
+                            </Stack.Navigator>
+                        </NavigationContainer>
+                        {/* <NavBar /> */}
+                    </>
+                }
+            </UserContext.Provider>
         </>
     )
 }

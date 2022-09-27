@@ -9,6 +9,7 @@ import Svg, { Path } from "react-native-svg"
         Import Styles
 ========================================*/
 import colors from "../../misc/colors"
+import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
 
 
@@ -22,30 +23,42 @@ const NavBar = () => {
 
         
         <View style={[styles.tabBar,{ paddingBottom: "20%"}]} >
-            {/* <View style={styles.selected}>
-                    <View style={styles.selectedCircle}></View>
-                    <View style={styles.selectedBar}></View>
-                    <View style={styles.selectedCornerLeft}></View>
-                    <View style={styles.selectedCornerRight}></View>
-                </View>
-                <View stye={styles.routes}></View> */}
             <Svg
-                // xmlns="http://www.w3.org/2000/svg"
                 width={110}
                 height={60}
                 viewBox="0 0 110 60"
-                // fill="none"
-                // {...props}
                 style={styles.activeBackground}
             >
                 <Path
-                    fill="#afedd8"
+                    fill={colors.navBar.activeBackground}
                     d="M20 0H0c11.046 0 20 8.954 20 20v5c0 19.33 15.67 35 35 35s35-15.67 35-35v-5c0-11.046 8.954-20 20-20H20z"
                 />
             </Svg>
+            <View style={styles.tabBarContainer} >
+                <TabBarComponent />
+                <TabBarComponent />
+                <TabBarComponent />
+                <TabBarComponent />
+            </View>
         </View>
     )
 }
+
+// ----------------------------------------------------------------------
+
+const TabBarComponent = () => {
+
+    return (
+        <Pressable style={styles.component}>
+            <View style={styles.componentCircle}/>
+            <View style={styles.iconContainer}>
+                <Text>?</Text>
+            </View>
+        </Pressable>
+    )
+}
+
+// ----------------------------------------------------------------------
 
 export default NavBar
 

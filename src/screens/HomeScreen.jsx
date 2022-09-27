@@ -2,8 +2,9 @@
         Import Dependencies
 ========================================*/
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { useEffect, useState } from "react"
-import { StatusBar, StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView, Pressable, TouchableOpacity } from 'react-native'
+import { useContext, useEffect, useState } from "react"
+import { StatusBar, StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView, Pressable } from 'react-native'
+import { UserContext } from "../../App.jsx"
 /*========================================
         Import Components
 ========================================*/
@@ -12,6 +13,9 @@ import { RoundIconBtn } from "../components/buttons/RoundIconBtn"
 import EmotionColorModal from "../components/HomeScreen/EmotionColorModal.jsx"
 import GoalsContainer from "../components/HomeScreen/GoalsContainer.jsx"
 import HeaderOne from "../components/Text/HeaderOne.jsx"
+/*========================================
+        Import Styles
+========================================*/
 import colors from "../misc/colors"
 
 // SCREEN GOALS
@@ -21,7 +25,10 @@ import colors from "../misc/colors"
 //?4. Below this will be next habits by day.
 // SECTION END
 
-const Manage = ({ user, navigation }) => {
+
+const Manage = ({ navigation }) => {
+
+    const user = useContext(UserContext)
 
     /* State */
     const [selectedEmotion, setSelectedEmotion] = useState({})
@@ -70,10 +77,10 @@ const Manage = ({ user, navigation }) => {
         console.log("date: ", todaysDate)
 
         const todaysEmotion = {
-                id: Date.now(),
-                feeling: feeling,
-                color: color,
-            }
+            id: Date.now(),
+            feeling: feeling,
+            color: color,
+        }
         // check if there is already a color logged for today
 
         // if so, replace it
