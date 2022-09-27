@@ -10,8 +10,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 /*========================================
         Import Screens / Components
 ========================================*/
-import Manage from "./src/screens/Manage";
 import HomeScreen from "./src/screens/HomeScreen";
+import Manage from "./src/screens/Manage";
 import OpeningQuote from "./src/screens/OpeningQuote";
 import TellMeAboutYourself from "./src/screens/TellMeAboutYourself";
 import NavBar from "./src/components/NavBar/NavBar";

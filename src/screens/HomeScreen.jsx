@@ -4,6 +4,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useContext, useEffect, useState } from "react"
 import { StatusBar, StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView, Pressable } from 'react-native'
+// Context
 import { UserContext } from "../../App.jsx"
 /*========================================
         Import Components
@@ -26,8 +27,9 @@ import colors from "../misc/colors"
 // SECTION END
 
 
-const Manage = ({ navigation }) => {
+const HomeScreen = ({ navigation }) => {
 
+    /** useContext **/
     const user = useContext(UserContext)
 
     /* State */
@@ -138,7 +140,12 @@ const Manage = ({ navigation }) => {
     )
 }
 
-export default Manage
+export default HomeScreen
+
+
+/*========================================
+        Styling / Variables for styling
+========================================*/
 
 const width = Dimensions.get('window').width - 50
 
