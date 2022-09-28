@@ -7,6 +7,7 @@ import { createContext, useEffect, useState } from "react";
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 /*========================================
         Import Screens / Components
 ========================================*/
@@ -47,25 +48,26 @@ export default function App() {
 
     return (
         <>
-            {/* <OpeningQuote /> */}
-            <UserContext.Provider value={user}>
-                {!user.name ? <TellMeAboutYourself onFinish={findUser} />
-                    :
-                    <>
-                        <NavigationContainer>
-                            <Stack.Navigator
-                                tabBar={(props) => <NavBar {...props} />}
-                            >
-                                <Stack.Screen name="Home" component={HomeScreen} />
-                                <Stack.Screen name="Manage" component={Manage} />
-                                <Stack.Screen name="Something" component={Manage} />
-                                <Stack.Screen name="Settings" component={Manage} />
-                            </Stack.Navigator>
-                        </NavigationContainer>
-                        {/* <NavBar /> */}
-                    </>
-                }
-            </UserContext.Provider>
+            {!user.name ?
+                <>
+                    <OpeningQuote />
+                    < TellMeAboutYourself onFinish={findUser} />
+                </>
+                :
+                <UserContext.Provider value={user}>
+                    <NavigationContainer>
+                        <Stack.Navigator
+                            // tabBar={(props) => <NavBar {...props} />}
+                        >
+                            <Stack.Screen name="Home" component={HomeScreen} />
+                            <Stack.Screen name="Manage" component={Manage} />
+                            <Stack.Screen name="Something" component={Manage} />
+                            <Stack.Screen name="Settings" component={Manage} />
+                        </Stack.Navigator>
+                        <NavBar />
+                    </NavigationContainer>
+                </UserContext.Provider>
+            }
         </>
     )
 }

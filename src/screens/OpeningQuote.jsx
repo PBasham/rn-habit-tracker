@@ -12,7 +12,7 @@ import { OpeningScreen } from "../../assets/imgs/images"
 import { StandardAntBtn } from "../components/buttons/StandardAntBtn"
 
 
-export const OpeningQuote = () => {
+const OpeningQuote = () => {
 
     /*==== Variables ====*/
 
@@ -34,7 +34,7 @@ export const OpeningQuote = () => {
                 <ImageBackground source={OpeningScreen} resizeMode="cover" style={styles.backgroundImage}>
                     <View style={styles.container}>
                         <View style={styles.quoteBox}>
-                            <Text style={styles.quoteText}>Set piece of mind as your highest goal, and organize your life around it.</Text>
+                            <Text style={styles.quoteText}>"Set piece of mind as your highest goal, and organize your life around it."</Text>
                             <Text style={[styles.quoteText, styles.quoteName]}>- Brian Tracey</Text>
                         </View>
                         <View style={styles.buttonContainer}>
@@ -51,6 +51,8 @@ export const OpeningQuote = () => {
         </>
     )
 }
+
+export default OpeningQuote
 
 /*========================================
         StyleSheet
@@ -85,6 +87,7 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         color: colors.light,
         fontSize: 18,
+        fontStyle: "italic",
     },
     quoteName: {
         marginTop: "auto",

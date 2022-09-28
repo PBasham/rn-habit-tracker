@@ -4,6 +4,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import Svg, { Path } from "react-native-svg"
 /*========================================
         Import Styles
@@ -16,13 +17,31 @@ import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 const Stack = createNativeStackNavigator()
 
 
-
-const NavBar = () => {
+const NavBar = ({ navigation }) => {
+    
+    const routes = [
+        {
+            key: "home",
+            name: "Home",
+        },
+        {
+            key: "manage",
+            name: "Manage",
+        },
+        {
+            key: "something",
+            name: "Something",
+        },
+        {
+            key: "settings",
+            name: "Settings",
+        },
+    ]
 
     return (
 
-        
-        <View style={[styles.tabBar,{ paddingBottom: "20%"}]} >
+
+        <View style={[styles.tabBar, { paddingBottom: "20%" }]} >
             <Svg
                 width={110}
                 height={60}
@@ -34,23 +53,27 @@ const NavBar = () => {
                     d="M20 0H0c11.046 0 20 8.954 20 20v5c0 19.33 15.67 35 35 35s35-15.67 35-35v-5c0-11.046 8.954-20 20-20H20z"
                 />
             </Svg>
+
             <View style={styles.tabBarContainer} >
-                <TabBarComponent />
-                <TabBarComponent />
-                <TabBarComponent />
-                <TabBarComponent />
+                {routes.map((route, index) => (
+                    <TabBarComponent
+                        key={route.key}
+                        onPress={() => navigation.navigate(route.name)}
+                    />
+                ))}
             </View>
+
         </View>
     )
 }
 
 // ----------------------------------------------------------------------
 
-const TabBarComponent = () => {
+const TabBarComponent = ({ onPress }) => {
 
     return (
-        <Pressable style={styles.component}>
-            <View style={styles.componentCircle}/>
+        <Pressable onPress={onPress} style={styles.component}>
+            <View style={styles.componentCircle} />
             <View style={styles.iconContainer}>
                 <Text>?</Text>
             </View>
@@ -70,7 +93,7 @@ const styles = StyleSheet.create({
     activeBackground: {
         position: "absolute",
     },
-    tabBarContainer: { 
+    tabBarContainer: {
         flexDirection: "row",
         justifyContent: 'space-evenly',
     },

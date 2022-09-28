@@ -21,7 +21,7 @@ const GoalsContainer = ({ openManageScreen }) => {
         <View style={styles.goalsContainer}>
             <RoundIconBtn
                 antIconName="plus"
-                onPress={() => openManageScreen()}
+                onPress={openManageScreen}
                 iconColor={colors.greyish}
                 style={{
                     position: "absolute",
