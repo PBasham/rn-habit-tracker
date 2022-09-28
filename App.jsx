@@ -15,10 +15,12 @@ import Manage from "./src/screens/Manage";
 import OpeningQuote from "./src/screens/OpeningQuote";
 import TellMeAboutYourself from "./src/screens/TellMeAboutYourself";
 import NavBar from "./src/components/NavBar/NavBar";
+// context
+import { UserContext } from "./src/context/UserContext";
 
 const Stack = createNativeStackNavigator()
 
-export const UserContext = createContext()
+// export const UserContext = createContext()
 
 export default function App() {
 

@@ -5,7 +5,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useContext, useEffect, useState } from "react"
 import { StatusBar, StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView, Pressable } from 'react-native'
 // Context
-import { UserContext } from "../../App.jsx"
+// import { UserContext } from "../../App.jsx"
+import { UserContext } from "../context/UserContext.jsx"
 /*========================================
         Import Components
 ========================================*/
