@@ -50,16 +50,33 @@ const HomeScreen = ({ navigation }) => {
         setGreet("Evening")
     }
 
+    // gets the users feelingLog
     const findFeelingsLog = async () => {
         const result = await AsyncStorage.getItem("feelingsLog")
         console.log("result ", result)
+        // checks if the user has any entries
         if (result === null) return
-        setFeelingsLog(JSON.parse(result))
-        if (`${new Date().getMonth()}/${new Date().getDay()}/${new Date().getFullYear()}` in JSON.parse(result)) {
+        // if they do, parse it and set it in state
+        const currentFeelingsLog = JSON.parse(result)
+        setFeelingsLog(currentFeelingsLog)
+        // check if there is already an entry or today. if so, update Bar to respective feeling / color
+        const mm = String(new Date().getMonth() + 1).padStart(2, "0")
+        const dd = String(new Date().getDate()).padStart(2, "0")
+        const yyyy = new Date().getFullYear()
+
+        const todaysDate = `${mm}/${dd}/${yyyy}`
+        if (todaysDate in currentFeelingsLog) {
             console.log("Entry for today exist!")
+            // set bar to respective feeling and color
+            console.log("currentFeelingsLog: ", currentFeelingsLog)
+            setSelectedEmotion({
+                feeling: currentFeelingsLog[todaysDate].feeling,
+                color: currentFeelingsLog[todaysDate].color
+            })
         }
     }
 
+    // Opens emotion Modal
     const handleEmotionBarOpen = () => {
         setEmotionModalVisible(true)
     }
@@ -75,7 +92,13 @@ const HomeScreen = ({ navigation }) => {
     /** Functions */
     const handleEmotionPick = (feeling, color) => {
 
-        const todaysDate = `${new Date().getMonth()}/${new Date().getDay()}/${new Date().getFullYear()}`
+        console.log(`\n\nCurrent Feelings log: `, feelingsLog, `\n\n`)
+
+        const mm = String(new Date().getMonth() + 1).padStart(2, "0")
+        const dd = String(new Date().getDate()).padStart(2, "0")
+        const yyyy = new Date().getFullYear()
+
+        const todaysDate = `${mm}/${dd}/${yyyy}`
 
         console.log("date: ", todaysDate)
 
@@ -85,13 +108,18 @@ const HomeScreen = ({ navigation }) => {
             color: color,
         }
         // check if there is already a color logged for today
+        const updatedFeelingsLog = { ...feelingsLog, [todaysDate]: todaysEmotion }
+        if (todaysDate in feelingsLog) {
+            // if so, replace it
+            console.log("Already an entry for today. Just update the bar.")
+        } else {
+            // otherwise create it
+            console.log("Create new entry for log!")
+        }
+        console.log("Updated feelings log: ", updatedFeelingsLog)
+        AsyncStorage.setItem("feelingsLog", JSON.stringify(updatedFeelingsLog))
+        setFeelingsLog(updatedFeelingsLog)
 
-        // if so, replace it
-        const updatedFeelignsLog = { ...feelingsLog, [todaysDate]: todaysEmotion }
-        setFeelingsLog(updatedFeelignsLog)
-
-        // otherwise create it
-        AsyncStorage.setItem("feelingsLog", JSON.stringify(updatedFeelignsLog))
 
 
         console.log(`todaysEmotion:`, todaysEmotion)

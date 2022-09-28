@@ -40,6 +40,7 @@ export default function App() {
     /*==== useEffect ====*/
     useEffect(() => {
         findUser()
+        // AsyncStorage.clear()
     }, [])
 
     // const renderHomeScreen = (props) => <HomeScreen {...props} user={user} />
