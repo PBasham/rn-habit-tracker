@@ -44,8 +44,6 @@ export default function App() {
         // AsyncStorage.clear()
     }, [])
 
-    // const renderHomeScreen = (props) => <HomeScreen {...props} user={user} />
-
     return (
         <>
             {!user.name ?
@@ -56,6 +54,7 @@ export default function App() {
                 :
                 <UserContext.Provider value={user}>
                     <NavigationContainer>
+                        {/* Because createBottomTabNavigation is used, I can pass the NavBar through this function, to tabBar as props with destructured props that contain "navigation". Yay */}
                         <Tab.Navigator
                             tabBar={(props) => <NavBar {...props} />}
                         >
@@ -64,7 +63,6 @@ export default function App() {
                             <Tab.Screen name="Something" component={Manage} />
                             <Tab.Screen name="Settings" component={Manage} />
                         </Tab.Navigator>
-                        {/* <NavBar /> */}
                     </NavigationContainer>
                 </UserContext.Provider>
             }

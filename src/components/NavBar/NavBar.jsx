@@ -10,32 +10,21 @@ import Svg, { Path } from "react-native-svg"
         Import Styles
 ========================================*/
 import colors from "../../misc/colors"
+import { useEffect } from "react";
 
 
 
 const Stack = createNativeStackNavigator()
 
 
-const NavBar = ({ navigation }) => {
-    
-    const routes = [
-        {
-            key: "home",
-            name: "Home",
-        },
-        {
-            key: "manage",
-            name: "Manage",
-        },
-        {
-            key: "something",
-            name: "Something",
-        },
-        {
-            key: "settings",
-            name: "Settings",
-        },
-    ]
+const NavBar = ({ state: {index: activeIndex, routes}, navigation }) => {
+
+
+    useEffect(() => {
+        // console.log("activeIndex: ", activeIndex)
+        // console.log("routes: ", routes)
+    }, [activeIndex])
+
 
     return (
 
