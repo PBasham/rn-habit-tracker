@@ -19,7 +19,7 @@ import NavBar from "./src/components/NavBar/NavBar";
 // context
 import { UserContext } from "./src/context/UserContext";
 
-const Stack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator()
 
 // export const UserContext = createContext()
 
@@ -56,15 +56,15 @@ export default function App() {
                 :
                 <UserContext.Provider value={user}>
                     <NavigationContainer>
-                        <Stack.Navigator
-                            // tabBar={(props) => <NavBar {...props} />}
+                        <Tab.Navigator
+                            tabBar={(props) => <NavBar {...props} />}
                         >
-                            <Stack.Screen name="Home" component={HomeScreen} />
-                            <Stack.Screen name="Manage" component={Manage} />
-                            <Stack.Screen name="Something" component={Manage} />
-                            <Stack.Screen name="Settings" component={Manage} />
-                        </Stack.Navigator>
-                        <NavBar />
+                            <Tab.Screen name="Home" component={HomeScreen} />
+                            <Tab.Screen name="Manage" component={Manage} />
+                            <Tab.Screen name="Something" component={Manage} />
+                            <Tab.Screen name="Settings" component={Manage} />
+                        </Tab.Navigator>
+                        {/* <NavBar /> */}
                     </NavigationContainer>
                 </UserContext.Provider>
             }

@@ -1,7 +1,7 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Pressable } from 'react-native'
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -10,7 +10,6 @@ import Svg, { Path } from "react-native-svg"
         Import Styles
 ========================================*/
 import colors from "../../misc/colors"
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
 
 
@@ -39,7 +38,6 @@ const NavBar = ({ navigation }) => {
     ]
 
     return (
-
 
         <View style={[styles.tabBar, { paddingBottom: "20%" }]} >
             <Svg
