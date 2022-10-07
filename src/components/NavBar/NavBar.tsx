@@ -6,11 +6,12 @@ import { StyleSheet, Text, View, Pressable, LayoutChangeEvent } from 'react-nati
 // svg
 import Svg, { Path } from "react-native-svg"
 // reanimated
-import Animated, {useAnimatedStyle, withTiming, useDerivedValue} from "react-native-reanimated";
+import Animated, { useAnimatedStyle, withTiming, useDerivedValue } from "react-native-reanimated";
 /*========================================
         Import Styles
 ========================================*/
 import colors from "../../misc/colors"
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 
 // Reanimated --------------------------------------------------
 
@@ -19,20 +20,20 @@ const AnimatedSvg = Animated.createAnimatedComponent(Svg)
 // --------------------------------------------------
 
 
-const NavBar = ({ state: { index: activeIndex, routes }, navigation, descriptors }) => {
+const NavBar = ({ state: { index: activeIndex, routes }, navigation, descriptors }: BottomTabBarProps) => {
 
 
     // useEffect(() => {
     // }, [activeIndex])
-    
-    
+
+
     // get information about components position on screen.
     const reducer = (state: any, action: { x: number, index: number }) => {
         return [...state, { x: action.x, index: action.index }]
     }
 
     const [layout, dispatch] = useReducer(reducer, [])
-    console.log("\nActive Index: ", activeIndex,"\nlayout: \n", layout)
+    console.log("\nActive Index: ", activeIndex, "\nlayout: \n", layout)
 
     const handleLayout = (event: LayoutChangeEvent, index: number) => {
         dispatch({ x: event.nativeEvent.layout.x, index })
@@ -40,20 +41,20 @@ const NavBar = ({ state: { index: activeIndex, routes }, navigation, descriptors
 
     // Calculations for animation of BottomTabBar --------------------------------------------------
 
-     const xOffset = useDerivedValue(() => {
+    const xOffset = useDerivedValue(() => {
         // return if the component has not yet finished rendering.
         if (layout.length !== routes.length) return 0
 
         // 
-        return [...layout].find(({ index }) => index === activeIndex)!.x -25
-     }, [activeIndex, layout])
+        return [...layout].find(({ index }) => index === activeIndex)!.x - 25
+    }, [activeIndex, layout])
 
-     const animatedStyles = useAnimatedStyle(() => {
+    const animatedStyles = useAnimatedStyle(() => {
         return {
-            transform: [{ translateX: withTiming(xOffset.value, { duration: 150 }) }],
+            transform: [{ translateX: withTiming(xOffset.value, { duration: 250 }) }],
         }
-     })
-          
+    })
+
 
     return (
 
@@ -71,13 +72,19 @@ const NavBar = ({ state: { index: activeIndex, routes }, navigation, descriptors
             </AnimatedSvg>
 
             <View style={styles.tabBarContainer} >
-                {routes.map((route, index) => (
-                    <TabBarComponent
-                        key={route.key}
-                        onLayout={(e) => handleLayout(e, index)}
-                        onPress={() => navigation.navigate(route.name)}
-                    />
-                ))}
+                {routes.map((route, index) => {
+                    const active = index === activeIndex
+
+                    return (
+
+                        <TabBarComponent
+                            key={route.key}
+                            active = { active }
+                            onLayout={(e) => handleLayout(e, index)}
+                            onPress={() => navigation.navigate(route.name)}
+                        />
+                    )
+                })}
             </View>
 
         </View>
@@ -88,11 +95,28 @@ const NavBar = ({ state: { index: activeIndex, routes }, navigation, descriptors
 
 // LOOKATME - Look more into what this is and how it works
 type TabBarComponentProps = {
+    active?: boolean
     onLayout: (e: LayoutChangeEvent) => void
     onPress: () => void
 }
 
-const TabBarComponent = ({ onPress, onLayout }: TabBarComponentProps) => {
+const TabBarComponent = ({ onPress, active, onLayout }: TabBarComponentProps) => {
+
+    const animatedComponentCircleStyles = useAnimatedStyle(() => {
+        return {
+            transform: [
+                {
+                    scale: withTiming(active ? 1 : 0, { duration: 250 })
+                }
+            ]
+        }
+    })
+
+    const animatedIconContainerStyles = useAnimatedStyle(() => {
+        return {
+            opacity: withTiming(active ? 1 : 0.5, { duration: 250 })
+        }
+    })
 
     return (
         <Pressable
@@ -100,10 +124,10 @@ const TabBarComponent = ({ onPress, onLayout }: TabBarComponentProps) => {
             onLayout={onLayout}
             style={styles.component}
         >
-            <View style={styles.componentCircle} />
-            <View style={styles.iconContainer}>
+            <Animated.View style={[styles.componentCircle, animatedComponentCircleStyles]} />
+            <Animated.View style={[styles.iconContainer, animatedIconContainerStyles]}>
                 <Text>?</Text>
-            </View>
+            </Animated.View>
         </Pressable>
     )
 }
