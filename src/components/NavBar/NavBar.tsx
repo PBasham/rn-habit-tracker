@@ -26,9 +26,9 @@ const NavBar = ({ state: { index: activeIndex, routes }, navigation }) => {
     }, [activeIndex])
 
     // get information about components position on screen.
-    // const reducer = (state: any, action: {x: Number, index: number}) => {
-    //     return [...state, {x: action.x, index: action.index }]
-    // }
+    const reducer = (state: any, action: {x: number, index: number}) => {
+        return [...state, {x: action.x, index: action.index }]
+    }
 
 
     return (
