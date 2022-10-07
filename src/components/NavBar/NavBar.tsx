@@ -1,56 +1,74 @@
 /*========================================
         Import Dependencies
 ========================================*/
+import { useEffect, useReducer } from "react";
 import { StyleSheet, Text, View, Pressable, LayoutChangeEvent } from 'react-native'
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+// svg
 import Svg, { Path } from "react-native-svg"
+// reanimated
+import Animated, {useAnimatedStyle, withTiming, useDerivedValue} from "react-native-reanimated";
 /*========================================
         Import Styles
 ========================================*/
 import colors from "../../misc/colors"
-import { useEffect, useReducer } from "react";
 
+// Reanimated --------------------------------------------------
 
+const AnimatedSvg = Animated.createAnimatedComponent(Svg)
 
-const Stack = createNativeStackNavigator()
+// --------------------------------------------------
 
 
 const NavBar = ({ state: { index: activeIndex, routes }, navigation, descriptors }) => {
 
 
-    useEffect(() => {
-    }, [activeIndex])
-
+    // useEffect(() => {
+    // }, [activeIndex])
+    
+    
     // get information about components position on screen.
     const reducer = (state: any, action: { x: number, index: number }) => {
         return [...state, { x: action.x, index: action.index }]
     }
 
     const [layout, dispatch] = useReducer(reducer, [])
-    console.log(layout)
+    console.log("\nActive Index: ", activeIndex,"\nlayout: \n", layout)
 
     const handleLayout = (event: LayoutChangeEvent, index: number) => {
         dispatch({ x: event.nativeEvent.layout.x, index })
     }
 
+    // Calculations for animation of BottomTabBar --------------------------------------------------
 
+     const xOffset = useDerivedValue(() => {
+        // return if the component has not yet finished rendering.
+        if (layout.length !== routes.length) return 0
+
+        // 
+        return [...layout].find(({ index }) => index === activeIndex)!.x -25
+     }, [activeIndex, layout])
+
+     const animatedStyles = useAnimatedStyle(() => {
+        return {
+            transform: [{ translateX: withTiming(xOffset.value, { duration: 150 }) }],
+        }
+     })
+          
 
     return (
 
         <View style={[styles.tabBar, { paddingBottom: "20%" }]} >
-            <Svg
+            <AnimatedSvg
                 width={110}
                 height={60}
                 viewBox="0 0 110 60"
-                style={styles.activeBackground}
+                style={[styles.activeBackground, animatedStyles]}
             >
                 <Path
                     fill={colors.navBar.activeBackground}
                     d="M20 0H0c11.046 0 20 8.954 20 20v5c0 19.33 15.67 35 35 35s35-15.67 35-35v-5c0-11.046 8.954-20 20-20H20z"
                 />
-            </Svg>
+            </AnimatedSvg>
 
             <View style={styles.tabBarContainer} >
                 {routes.map((route, index) => (
