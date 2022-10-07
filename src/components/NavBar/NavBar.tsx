@@ -74,7 +74,7 @@ type TabBarComponentProps = {
     onPress: () => void
 }
 
-const TabBarComponent = ({ onPress, onLayout }) => {
+const TabBarComponent = ({ onPress, onLayout }: TabBarComponentProps) => {
 
     return (
         <Pressable
