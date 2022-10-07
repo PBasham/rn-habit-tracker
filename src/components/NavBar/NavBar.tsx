@@ -17,13 +17,18 @@ import { useEffect } from "react";
 const Stack = createNativeStackNavigator()
 
 
-const NavBar = ({ state: {index: activeIndex, routes}, navigation }) => {
+const NavBar = ({ state: { index: activeIndex, routes }, navigation }) => {
 
 
     useEffect(() => {
         // console.log("activeIndex: ", activeIndex)
         // console.log("routes: ", routes)
     }, [activeIndex])
+
+    // get information about components position on screen.
+    // const reducer = (state: any, action: {x: Number, index: number}) => {
+    //     return [...state, {x: action.x, index: action.index }]
+    // }
 
 
     return (
