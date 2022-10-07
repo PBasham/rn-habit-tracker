@@ -1,7 +1,7 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import { StyleSheet, Text, View, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Pressable, LayoutChangeEvent } from 'react-native'
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -10,25 +10,31 @@ import Svg, { Path } from "react-native-svg"
         Import Styles
 ========================================*/
 import colors from "../../misc/colors"
-import { useEffect } from "react";
+import { useEffect, useReducer } from "react";
 
 
 
 const Stack = createNativeStackNavigator()
 
 
-const NavBar = ({ state: { index: activeIndex, routes }, navigation }) => {
+const NavBar = ({ state: { index: activeIndex, routes }, navigation, descriptors }) => {
 
 
     useEffect(() => {
-        // console.log("activeIndex: ", activeIndex)
-        // console.log("routes: ", routes)
     }, [activeIndex])
 
     // get information about components position on screen.
-    const reducer = (state: any, action: {x: number, index: number}) => {
-        return [...state, {x: action.x, index: action.index }]
+    const reducer = (state: any, action: { x: number, index: number }) => {
+        return [...state, { x: action.x, index: action.index }]
     }
+
+    const [layout, dispatch] = useReducer(reducer, [])
+    console.log(layout)
+
+    const handleLayout = (event: LayoutChangeEvent, index: number) => {
+        dispatch({ x: event.nativeEvent.layout.x, index })
+    }
+
 
 
     return (
@@ -50,6 +56,7 @@ const NavBar = ({ state: { index: activeIndex, routes }, navigation }) => {
                 {routes.map((route, index) => (
                     <TabBarComponent
                         key={route.key}
+                        onLayout={(e) => handleLayout(e, index)}
                         onPress={() => navigation.navigate(route.name)}
                     />
                 ))}
@@ -61,10 +68,20 @@ const NavBar = ({ state: { index: activeIndex, routes }, navigation }) => {
 
 // ----------------------------------------------------------------------
 
-const TabBarComponent = ({ onPress }) => {
+// LOOKATME - Look more into what this is and how it works
+type TabBarComponentProps = {
+    onLayout: (e: LayoutChangeEvent) => void
+    onPress: () => void
+}
+
+const TabBarComponent = ({ onPress, onLayout }) => {
 
     return (
-        <Pressable onPress={onPress} style={styles.component}>
+        <Pressable
+            onPress={onPress}
+            onLayout={onLayout}
+            style={styles.component}
+        >
             <View style={styles.componentCircle} />
             <View style={styles.iconContainer}>
                 <Text>?</Text>
