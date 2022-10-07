@@ -82,7 +82,7 @@ export default function App() {
                                 component={Manage}
                                 />
                             <Tab.Screen
-                                name="Something"
+                                name="Progress"
                                 options={{
                                     tabBarIcon: ({ref}) => <Image
                                         ref={ref}
