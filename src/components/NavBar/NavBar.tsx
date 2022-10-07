@@ -1,7 +1,7 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import { StyleSheet, Text, View, Pressable, LayoutChangeEvent } from 'react-native'
 // svg
 import Svg, { Path } from "react-native-svg"
@@ -11,7 +11,7 @@ import Animated, { useAnimatedStyle, withTiming, useDerivedValue } from "react-n
         Import Styles
 ========================================*/
 import colors from "../../misc/colors"
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import { BottomTabBarProps, BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 
 // Reanimated --------------------------------------------------
 
@@ -59,6 +59,7 @@ const NavBar = ({ state: { index: activeIndex, routes }, navigation, descriptors
     return (
 
         <View style={[styles.tabBar, { paddingBottom: "20%" }]} >
+
             <AnimatedSvg
                 width={110}
                 height={60}
@@ -74,12 +75,14 @@ const NavBar = ({ state: { index: activeIndex, routes }, navigation, descriptors
             <View style={styles.tabBarContainer} >
                 {routes.map((route, index) => {
                     const active = index === activeIndex
+                    const { options } = descriptors[route.key]
 
                     return (
 
                         <TabBarComponent
                             key={route.key}
-                            active = { active }
+                            active={active}
+                            options={options}
                             onLayout={(e) => handleLayout(e, index)}
                             onPress={() => navigation.navigate(route.name)}
                         />
@@ -96,11 +99,16 @@ const NavBar = ({ state: { index: activeIndex, routes }, navigation, descriptors
 // LOOKATME - Look more into what this is and how it works
 type TabBarComponentProps = {
     active?: boolean
+    options: BottomTabNavigationOptions
     onLayout: (e: LayoutChangeEvent) => void
     onPress: () => void
 }
 
-const TabBarComponent = ({ onPress, active, onLayout }: TabBarComponentProps) => {
+const TabBarComponent = ({ onPress, active, options, onLayout }: TabBarComponentProps) => {
+
+    const ref = useRef(null)
+
+    // useEffect(() => {})
 
     const animatedComponentCircleStyles = useAnimatedStyle(() => {
         return {
@@ -119,14 +127,13 @@ const TabBarComponent = ({ onPress, active, onLayout }: TabBarComponentProps) =>
     })
 
     return (
-        <Pressable
-            onPress={onPress}
-            onLayout={onLayout}
-            style={styles.component}
-        >
-            <Animated.View style={[styles.componentCircle, animatedComponentCircleStyles]} />
+        <Pressable onPress={onPress} onLayout={onLayout} style={styles.component}>
+            <Animated.View
+                style={[styles.componentCircle, animatedComponentCircleStyles]}
+            />
             <Animated.View style={[styles.iconContainer, animatedIconContainerStyles]}>
-                <Text>?</Text>
+                {/* @ts-ignore */}
+                {options.tabBarIcon ? options.tabBarIcon({ ref }) : <Text>?</Text>}
             </Animated.View>
         </Pressable>
     )
@@ -169,6 +176,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         height: 36,
-        aspectRatio: 1,
-    },
+        width: 36,
+        zIndex: 100,
+    }
 })

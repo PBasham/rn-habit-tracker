@@ -4,7 +4,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from 'expo-status-bar';
 import { createContext, useEffect, useState } from "react";
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
@@ -18,6 +18,7 @@ import TellMeAboutYourself from "./src/screens/TellMeAboutYourself";
 import NavBar from "./src/components/NavBar/NavBar";
 // context
 import { UserContext } from "./src/context/UserContext";
+import { homeIcon, manageIcon, progressIcon, settingsIcon } from "./assets/icons/icons";
 
 const Tab = createBottomTabNavigator()
 
@@ -58,10 +59,50 @@ export default function App() {
                         <Tab.Navigator
                             tabBar={(props) => <NavBar {...props} />}
                         >
-                            <Tab.Screen name="Home" component={HomeScreen} />
-                            <Tab.Screen name="Manage" component={Manage} />
-                            <Tab.Screen name="Something" component={Manage} />
-                            <Tab.Screen name="Settings" component={Manage} />
+                            <Tab.Screen
+                                name="Home"
+                                component={HomeScreen}
+                                options={{
+                                    tabBarIcon: ({ref}) => <Image
+                                        ref={ref}
+                                        style={styles.icon}
+                                        source={homeIcon}
+                                    />
+                                }}
+                                />
+                            <Tab.Screen
+                                name="Manage"
+                                options={{
+                                    tabBarIcon: ({ref}) => <Image
+                                        ref={ref}
+                                        style={styles.icon}
+                                        source={manageIcon}
+                                    />
+                                }}
+                                component={Manage}
+                                />
+                            <Tab.Screen
+                                name="Something"
+                                options={{
+                                    tabBarIcon: ({ref}) => <Image
+                                        ref={ref}
+                                        style={styles.icon}
+                                        source={progressIcon}
+                                    />
+                                }}
+                                component={Manage}
+                                />
+                            <Tab.Screen
+                                name="Settings"
+                                options={{
+                                    tabBarIcon: ({ref}) => <Image
+                                        ref={ref}
+                                        style={styles.icon}
+                                        source={settingsIcon}
+                                    />
+                                }}
+                                component={Manage}
+                            />
                         </Tab.Navigator>
                     </NavigationContainer>
                 </UserContext.Provider>
@@ -77,4 +118,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    icon: {
+        height: 36,
+        width: 36,
+    }
 });
