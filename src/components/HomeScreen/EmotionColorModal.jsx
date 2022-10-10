@@ -50,8 +50,8 @@ const EmotionColorModal = ({ visible, setEmotionModalVisible, selectedEmotion, s
             >
                 <StandardAntBtn
                     antIconName={"down"}
-                    backColor="white"
-                    iconColor={"black"}
+                    backColor={colors.general.light}
+                    iconColor={colors.button.textDark}
                     style={{
                         positon: "absolute",
                         top: 0,
@@ -74,7 +74,7 @@ const EmotionColorModal = ({ visible, setEmotionModalVisible, selectedEmotion, s
                                 ]}
                                 onPress={() => handleEmotionPress(element.feeling, element.color)}
                             >
-                                <HeaderOne content={element.feeling} color={colors.light} />
+                                <HeaderOne content={element.feeling} color={colors.general.darkTransparent} />
                             </Pressable>
                         ))}
                     </ScrollView>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginHorizontal: 25,
-        backgroundColor: colors.light,
+        backgroundColor: colors.general.light,
         width: width,
     },
     scrollContainer: {
@@ -106,13 +106,11 @@ const styles = StyleSheet.create({
         marginHorizontal: 25,
         marginVertical: 5,
         paddingVertical: 20,
-        borderWidth: 2,
         borderRadius: 10,
-        borderColor: colors.light,
     },
     selected: {
-        borderWidth: 4,
-        borderColor: colors.transparentDark,
+        borderWidth: 3,
+        borderColor: colors.general.darkTransparent,
     }
 })
 

@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         borderRadius: 15,
-        backgroundColor: colors.greyish,
+        backgroundColor: colors.general.darkTransparent,
         opacity: .2,
         zIndex: -1,
     },
