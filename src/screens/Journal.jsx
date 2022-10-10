@@ -3,6 +3,7 @@
 ========================================*/
 import { useEffect, useState } from "react"
 import { StyleSheet, Text, View } from 'react-native'
+import NotesContainer from "../components/JournalScreen/NotesContainer"
 import HeaderOne from "../components/Text/HeaderOne"
 /*========================================
         Import Styles
@@ -24,6 +25,7 @@ const Journal = () => {
             <HeaderOne content={"Your thoughts on today?"} />
             {/* Search/filter bar will go here in the future. */}
             <View style={styles.searchBar}></View>
+            <NotesContainer JournalEntries={JournalEntries}/>
         </View>
     )
 }
