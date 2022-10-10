@@ -1,6 +1,7 @@
 /*========================================
         Import Dependencies
 ========================================*/
+import { useEffect, useState } from "react"
 import { StyleSheet, Text, View } from 'react-native'
 import HeaderOne from "../components/Text/HeaderOne"
 /*========================================
@@ -9,13 +10,22 @@ import HeaderOne from "../components/Text/HeaderOne"
 import colors from "../misc/colors"
 
 const Journal = () => {
-  return (
-    <View style={styles.container}>
-        <HeaderOne content={"Your thoughts on today?"}/>
-        {/* Search/filter bar will go here in the future. */}
-        <View style={styles.searchBar}></View>
-    </View>
-  )
+
+    const [JournalEntries, setJournalEntries] = useState({})
+
+    useEffect(() => {
+        // Go into AsyncStorage and get users Journal Entries in date order.
+        console.log("JournalScreen:\nGetting user Journal Entries")
+    }, [JournalEntries])
+
+
+    return (
+        <View style={styles.container}>
+            <HeaderOne content={"Your thoughts on today?"} />
+            {/* Search/filter bar will go here in the future. */}
+            <View style={styles.searchBar}></View>
+        </View>
+    )
 }
 
 export default Journal
