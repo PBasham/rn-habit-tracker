@@ -50,9 +50,12 @@ export default NotesContainer
 const styles = StyleSheet.create({
     notesContainer: {
         flex: 1,
-        flexDirection: "row",
-        flexWrap: "wrap",
+        flexDirection: "column",
+        // flexWrap: "wrap",
         alignItems: "flex-start",
+        paddingTop: 30,
+        borderTopWidth: 2,
+        borderTopColor: colors.general.darkTransparent,
     },
 
 })

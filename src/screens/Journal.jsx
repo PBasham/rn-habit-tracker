@@ -22,7 +22,7 @@ const Journal = () => {
 
     return (
         <View style={styles.container}>
-            <HeaderOne content={"Your thoughts on today?"} />
+            <HeaderOne content={"Your thoughts on today?"} color={colors.text.darkTransparent}/>
             {/* Search/filter bar will go here in the future. */}
             <View style={styles.searchBar}></View>
             <NotesContainer JournalEntries={JournalEntries}/>
@@ -42,8 +42,5 @@ const styles = StyleSheet.create({
     },
     searchBar: {
         marginTop: 30,
-        marginBottom: 30,
-        borderBottomWidth: 2,
-        borderBottomColor: colors.general.darkTransparent,
     },
 })

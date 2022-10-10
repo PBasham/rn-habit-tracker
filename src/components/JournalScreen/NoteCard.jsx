@@ -18,14 +18,16 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: "center",
         alignItems: "center",
-        width: "50%",
-        padding: 10,
+        paddingTop: 8,
+        paddingBottom: 8,
+        width: "100%",
     },
     note: {
-        height: 80,
+        minHeight: 60,
         width: 150,
-        borderRadius: 15,
-        padding: 10,
+        // borderRadius: 15,
+        padding: "3%",
+        width: "100%",
         backgroundColor: colors.general.light
     },
     noteTitle: {
@@ -33,13 +35,14 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: colors.text.dark,
         opacity: .8,
-        paddingBottom: 3,
+        paddingBottom: "1%",
         borderBottomWidth: 1,
         borderBottomColor: colors.general.dark,
     },
     noteDate: {
         marginTop: "auto",
         alignSelf: "flex-end",
+        paddingTop: "1%",
         color: colors.text.dark,
         fontSize: 16,
     },
