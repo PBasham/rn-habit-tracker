@@ -203,24 +203,4 @@ const styles = StyleSheet.create({
         margin: 2,
         opacity: .6,
     },
-
-
-    // backgroundGreen: {
-    //     backgroundColor: "green",
-    // },
-    // backgroundYellow: {
-    //     backgroundColor: "yellow",
-    // },
-    // backgroundOrange: {
-    //     backgroundColor: "orange",
-    // },
-    // backgroundRed: {
-    //     backgroundColor: "red",
-    // },
-    // backgroundPurple: {
-    //     backgroundColor: "purple",
-    // },
-    // backgroundBlue: {
-    //     backgroundColor: "blue",
-    // },
 })

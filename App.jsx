@@ -22,6 +22,7 @@ import NavBar from "./src/components/NavBar/NavBar";
 import { UserContext } from "./src/context/UserContext";
 import { homeIcon, manageIcon, progressIcon, journalIcon, settingsIcon } from "./assets/icons/icons";
 import colors from "./src/misc/colors";
+import Journal from "./src/screens/Journal";
 
 const Tab = createBottomTabNavigator()
 
@@ -107,7 +108,7 @@ export default function App() {
                                         source={journalIcon}
                                     />
                                 }}
-                                component={Progress}
+                                component={Journal}
                                 />
                             <Tab.Screen
                                 name="Settings"

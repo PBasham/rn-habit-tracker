@@ -2,6 +2,7 @@
         Import Dependencies
 ========================================*/
 import { StyleSheet, Text, View } from 'react-native'
+import HeaderOne from "../components/Text/HeaderOne"
 /*========================================
         Import Styles
 ========================================*/
@@ -9,8 +10,10 @@ import colors from "../misc/colors"
 
 const Journal = () => {
   return (
-    <View styles={styles.container}>
-      <Text>Journal</Text>
+    <View style={styles.container}>
+        <HeaderOne content={"Your thoughts on today?"}/>
+        {/* Search/filter bar will go here in the future. */}
+        <View style={styles.searchBar}></View>
     </View>
   )
 }
@@ -20,6 +23,15 @@ export default Journal
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop: "15%",
+        paddingBottom: "5%",
+        paddingHorizontal: 25,
         backgroundColor: colors.general.background,
-    }
+    },
+    searchBar: {
+        marginTop: 30,
+        marginBottom: 30,
+        borderBottomWidth: 2,
+        borderBottomColor: colors.general.darkTransparent,
+    },
 })
