@@ -20,6 +20,14 @@ export default {
     navBar: {
         activeBackground: "#C9F1EA",
         bar: "#FFF",
-        icons: "#000"
-    }
+        icons: "#000",
+        activeIcon: "#000",
+    },
+    button: {
+        light: "#FFF",
+        dark: "#000",
+        textLight: "#FFF",
+        textDark: "#000",
+        shadow: "#1e1e1e",
+    },
 }

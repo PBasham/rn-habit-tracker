@@ -108,8 +108,6 @@ const TabBarComponent = ({ onPress, active, options, onLayout }: TabBarComponent
 
     const ref = useRef(null)
 
-    // useEffect(() => {})
-
     const animatedComponentCircleStyles = useAnimatedStyle(() => {
         return {
             transform: [
@@ -146,7 +144,7 @@ export default NavBar
 const styles = StyleSheet.create({
     tabBar: {
         height: 50,
-        backgroundColor: colors.light,
+        backgroundColor: colors.navBar.bar,
     },
     activeBackground: {
         position: "absolute",
@@ -163,7 +161,7 @@ const styles = StyleSheet.create({
     componentCircle: {
         flex: 1,
         borderRadius: 30,
-        backgroundColor: "white",
+        backgroundColor: colors.navBar.bar,
     },
     iconContainer: {
         position: "absolute",
