@@ -6,15 +6,18 @@ import { StatusBar, StyleSheet, Text, View, ImageBackground } from 'react-native
         Import Styles
 ========================================*/
 import { backgroundOne } from "../../assets/imgs/images.js"
+import colors from "../misc/colors.js"
 const Settings = () => {
-  return (
-    <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}>
-            {/* <StatusBar /> */}
-            <View style={styles.container}>
-                <Text>Update your settings</Text>
-            </View>
-        </ImageBackground>
-  )
+    return (
+        <>
+            {/* <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}> */}
+                {/* <StatusBar /> */}
+                <View style={styles.container}>
+                    <Text>Update your settings</Text>
+                </View>
+            {/* </ImageBackground> */}
+        </>
+    )
 }
 
 export default Settings
@@ -25,5 +28,6 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
+        backgroundColor: colors.general.background,
     }
 })

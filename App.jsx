@@ -61,6 +61,9 @@ export default function App() {
                         {/* Because createBottomTabNavigation is used, I can pass the NavBar through this function, to tabBar as props with destructured props that contain "navigation". Yay */}
                         <Tab.Navigator
                             tabBar={(props) => <NavBar {...props} />}
+                            screenOptions={{
+                                headerShown: false,
+                            }}
                         >
                             <Tab.Screen
                                 name="Home"

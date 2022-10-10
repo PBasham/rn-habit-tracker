@@ -9,7 +9,7 @@ export default {
     mintgreen: "#E4F3C2",
     transparentDark: "rgba(0,0,0,.8)",
     general: {
-        background: "#EBFFFB",
+        background: "#C9F1EA",
         light: "#FFFFFF",
         darkTransparent: "rgba(0,0,0,.8)",
     },
@@ -18,7 +18,7 @@ export default {
         light: "#FFF",
     },
     navBar: {
-        activeBackground: "#EBFFFB",
+        activeBackground: "#C9F1EA",
         bar: "#FFF",
         icons: "#000"
     }
