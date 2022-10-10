@@ -8,9 +8,18 @@ export default {
     brightblue: "#72EEFF",
     mintgreen: "#E4F3C2",
     transparentDark: "rgba(0,0,0,.8)",
+    general: {
+        background: "#EBFFFB",
+        light: "#FFFFFF",
+        darkTransparent: "rgba(0,0,0,.8)",
+    },
+    text: {
+        dark: "#000",
+        light: "#FFF",
+    },
     navBar: {
-        activeBackground: "#afedd8",
-        bar: "",
-        
+        activeBackground: "#EBFFFB",
+        bar: "#FFF",
+        icons: "#000"
     }
 }

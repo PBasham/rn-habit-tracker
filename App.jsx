@@ -13,12 +13,15 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 ========================================*/
 import HomeScreen from "./src/screens/HomeScreen";
 import Manage from "./src/screens/Manage";
+import Progress from "./src/screens/Progress";
+import Settings from "./src/screens/Settings";
 import OpeningQuote from "./src/screens/OpeningQuote";
 import TellMeAboutYourself from "./src/screens/TellMeAboutYourself";
 import NavBar from "./src/components/NavBar/NavBar";
 // context
 import { UserContext } from "./src/context/UserContext";
-import { homeIcon, manageIcon, progressIcon, settingsIcon } from "./assets/icons/icons";
+import { homeIcon, manageIcon, progressIcon, journalIcon, settingsIcon } from "./assets/icons/icons";
+import colors from "./src/misc/colors";
 
 const Tab = createBottomTabNavigator()
 
@@ -53,7 +56,7 @@ export default function App() {
                     < TellMeAboutYourself onFinish={findUser} />
                 </>
                 :
-                <UserContext.Provider value={user}>
+                <UserContext.Provider value={user} style={styles.container}>
                     <NavigationContainer>
                         {/* Because createBottomTabNavigation is used, I can pass the NavBar through this function, to tabBar as props with destructured props that contain "navigation". Yay */}
                         <Tab.Navigator
@@ -90,7 +93,18 @@ export default function App() {
                                         source={progressIcon}
                                     />
                                 }}
-                                component={Manage}
+                                component={Progress}
+                                />
+                            <Tab.Screen
+                                name="Journal"
+                                options={{
+                                    tabBarIcon: ({ref}) => <Image
+                                        ref={ref}
+                                        style={styles.icon}
+                                        source={journalIcon}
+                                    />
+                                }}
+                                component={Progress}
                                 />
                             <Tab.Screen
                                 name="Settings"
@@ -101,7 +115,7 @@ export default function App() {
                                         source={settingsIcon}
                                     />
                                 }}
-                                component={Manage}
+                                component={Settings}
                             />
                         </Tab.Navigator>
                     </NavigationContainer>
@@ -114,9 +128,9 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: colors.general.background,
     },
     icon: {
         height: 36,

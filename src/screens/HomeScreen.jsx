@@ -135,7 +135,7 @@ const HomeScreen = ({ navigation }) => {
     return (
         <>
             {/* <StatusBar /> */}
-            <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}>
+            {/* <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}> */}
                 <View style={styles.container}>
                     {/* Greeting */}
                     <HeaderOne style={{ marginBottom: 20, }} content={`Good ${greet}, ${user.name}`} />
@@ -156,7 +156,7 @@ const HomeScreen = ({ navigation }) => {
                         </Text>
                     </Pressable>
                 </View>
-            </ImageBackground>
+            {/* </ImageBackground> */}
             <EmotionColorModal
                 visible={emotionModalVisible}
                 setEmotionModalVisible={setEmotionModalVisible}
@@ -178,14 +178,15 @@ export default HomeScreen
 const width = Dimensions.get('window').width - 50
 
 const styles = StyleSheet.create({
-    backgroundImage: {
-        flex: 1,
-    },
+    // backgroundImage: {
+    //     flex: 1,
+    // },
     container: {
         flex: 1,
-        marginTop: "15%",
-        marginBottom: "5%",
-        marginHorizontal: 25,
+        paddingTop: "15%",
+        paddingBottom: "5%",
+        paddingHorizontal: 25,
+        backgroundColor: colors.general.background,
     },
     feelingsContainer: {
         flexDirection: "row",
@@ -204,22 +205,22 @@ const styles = StyleSheet.create({
     },
 
 
-    backgroundGreen: {
-        backgroundColor: "green",
-    },
-    backgroundYellow: {
-        backgroundColor: "yellow",
-    },
-    backgroundOrange: {
-        backgroundColor: "orange",
-    },
-    backgroundRed: {
-        backgroundColor: "red",
-    },
-    backgroundPurple: {
-        backgroundColor: "purple",
-    },
-    backgroundBlue: {
-        backgroundColor: "blue",
-    },
+    // backgroundGreen: {
+    //     backgroundColor: "green",
+    // },
+    // backgroundYellow: {
+    //     backgroundColor: "yellow",
+    // },
+    // backgroundOrange: {
+    //     backgroundColor: "orange",
+    // },
+    // backgroundRed: {
+    //     backgroundColor: "red",
+    // },
+    // backgroundPurple: {
+    //     backgroundColor: "purple",
+    // },
+    // backgroundBlue: {
+    //     backgroundColor: "blue",
+    // },
 })
