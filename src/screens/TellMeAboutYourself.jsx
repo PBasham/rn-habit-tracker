@@ -8,7 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
         Import Components
 ========================================*/
 import { backgroundOne } from "../../assets/imgs/images.js"
-import { RoundIconBtn } from "../components/buttons/RoundIconBtn"
+import { RoundIconBtn } from "../components/buttons/"
 /*========================================
         Import Styles
 ========================================*/

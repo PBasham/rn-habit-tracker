@@ -15,6 +15,8 @@ const Journal = () => {
 
     const [JournalEntries, setJournalEntries] = useState({})
 
+    const [enableAdditionalSettings, setEnableAdditionalSettings] = useState(false)
+
     useEffect(() => {
         // Go into AsyncStorage and get users Journal Entries in date order.
         console.log("JournalScreen:\nGetting user Journal Entries")

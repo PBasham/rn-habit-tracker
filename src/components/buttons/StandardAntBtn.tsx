@@ -1,6 +1,7 @@
 /*========================================
         Import Dependencies
 ========================================*/
+import { FC } from "react"
 import { Pressable, StyleSheet, Text, View, _View } from 'react-native'
 import { AntDesign } from "@expo/vector-icons"
 /*========================================
@@ -8,7 +9,23 @@ import { AntDesign } from "@expo/vector-icons"
 ========================================*/
 import colors from "../../misc/colors"
 
-export const StandardAntBtn = ({
+interface StandardAntBtnProps {
+    text?: string
+    height?: number
+    width?: number
+    color?: string
+    backColor?: string
+    bdrRad?: number
+    padding?: number
+    fontSize?: number
+    antIconName?: string
+    size?: number
+    iconColor?: string
+    onPress: () => void
+    style?: any
+}
+
+export const StandardAntBtn: FC<StandardAntBtnProps> = ({
     text,
     height,
     width,
@@ -40,6 +57,7 @@ export const StandardAntBtn = ({
                 fontSize: fontSize || 16,
             }}
             >{text}</Text>
+            {/* @ts-ignore */}
             <AntDesign name={antIconName} size={size || 24} color={iconColor || colors.light} />
         </Pressable>
     )

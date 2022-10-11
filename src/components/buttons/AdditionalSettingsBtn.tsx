@@ -2,7 +2,7 @@
         Import Dependencies
 ========================================*/
 import React, { FC } from "react";
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 // Entypo icons
 import { Entypo } from '@expo/vector-icons';
 /*========================================
@@ -12,20 +12,20 @@ import colors from "../../misc/colors";
 
 
 interface AdditionalSettingsBtnProps {
-    color?: string | string;
-    style?: object;
+    color?: string | string
+    style?: any
+    onPress: () => void
 }
 
-const AdditionalSettingsBtn: FC<AdditionalSettingsBtnProps> = ({ color, style, children }) => {
-
+export const AdditionalSettingsBtn: FC<AdditionalSettingsBtnProps> = ({ onPress, color, style }) => {
+    console.log(style);
+    
     return (
-        <View style={[styles.container, {...style}]} >
+        <Pressable onPress={onPress} style={[styles.container, ...style]} >
             <Entypo name="dots-three-vertical" size={24} color={color || colors.button.textDark} />
-        </View>
+        </Pressable>
     )
 }
-
-export default AdditionalSettingsBtn
 
 const styles = StyleSheet.create({
     container: {

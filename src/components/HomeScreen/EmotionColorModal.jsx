@@ -10,7 +10,7 @@ import colors from "../../misc/colors"
         Import Components
 ========================================*/
 import HeaderOne from "../Text/HeaderOne"
-import { StandardAntBtn } from "../buttons/StandardAntBtn"
+import { StandardAntBtn } from "../buttons"
 
 const EmotionColorModal = ({ visible, setEmotionModalVisible, selectedEmotion, setSelectedEmotion, handleEmotionPick}) => {
 

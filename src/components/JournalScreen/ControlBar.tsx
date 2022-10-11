@@ -1,25 +1,35 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import { StyleSheet, Text, View } from 'react-native'
+import { FC } from "react"
+import { StyleSheet, Text, useColorScheme, View } from 'react-native'
 /*========================================
         Import Components
 ========================================*/
-import { AdditionalSettingsBtn } from "../buttons"
+import { AdditionalSettingsBtn, StandardAntBtn } from "../buttons"
+
 /*========================================
         Import Styles
 ========================================*/
 import colors from "../../misc/colors"
 
+interface ControlBarProps {
+    enableAdditionalSettings: boolean
+}
 
+const ControlBar: FC<ControlBarProps> = ({ enableAdditionalSettings }) => {
 
-const ControlBar = () => {
+    const handleAdditionalSettingsClick = () => {
+        console.log("handle additional settings!")
+    }
+
     return (
         <View style={styles.container}>
             {/* Search bar to come */}
             {/* Add item */}
+            <StandardAntBtn onPress={()=> console.log("Ive been pressed")}/>
             {/* Additional Settings */}
-            <AdditionalSettingsBtn style={[styles.buttons, styles.settingsBtn]}color={"blue"}/>
+            <AdditionalSettingsBtn onPress={handleAdditionalSettingsClick} style={[styles.settingsBtn]} color={colors.button.dark}/>
         </View>
     )
 }
@@ -30,6 +40,7 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         marginVertical: 30,
+        padding: 10,
         height: 50,
         width: "100%",
         elevation: 15,
@@ -37,10 +48,10 @@ const styles = StyleSheet.create({
         backgroundColor: colors.general.accentBlue,
     },
     buttons: {
-        backgroundColor: "blue",
+
     },
     settingsBtn: {
         position: "absolute",
-        left: 0,
+        right: 10,
     }
 })

@@ -6,7 +6,7 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native'
         Import Components
 ========================================*/
 import NoteCard from "./NoteCard"
-import { RoundIconBtn } from "../buttons/RoundIconBtn"
+import { RoundIconBtn } from "../buttons/"
 import colors from "../../misc/colors"
 
 

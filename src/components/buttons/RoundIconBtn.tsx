@@ -1,6 +1,7 @@
 /*========================================
         Import Dependencies
 ========================================*/
+import { FC } from "react"
 import { View, StyleSheet, Pressable } from 'react-native'
 import { AntDesign } from "@expo/vector-icons"
 /*========================================
@@ -8,7 +9,15 @@ import { AntDesign } from "@expo/vector-icons"
 ========================================*/
 import colors from "../../misc/colors"
 
-export const RoundIconBtn = ({
+interface RoundIconBtnProps {
+    antIconName?: any
+    size?: any
+    iconColor?: any
+    style?: any
+    onPress: () => void
+}
+
+export const RoundIconBtn: FC<RoundIconBtnProps> = ({
     antIconName,
     size,
     iconColor,
@@ -27,6 +36,7 @@ export const RoundIconBtn = ({
 
             }>
             <AntDesign
+            // @ts-ignore
                 name={antIconName}
                 size={size || 24}
                 color={iconColor || colors.button.textDark}

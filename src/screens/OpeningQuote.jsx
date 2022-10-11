@@ -9,7 +9,7 @@ import { Dimensions, ImageBackground, Modal, StatusBar, StyleSheet, Text, View }
 import colors from "../misc/colors"
 // Import Image
 import { OpeningScreen } from "../../assets/imgs/images"
-import { StandardAntBtn } from "../components/buttons/StandardAntBtn"
+import { StandardAntBtn } from "../components/buttons"
 
 
 const OpeningQuote = () => {
