@@ -3,6 +3,9 @@
 ========================================*/
 import { Pressable, StyleSheet, Text, View, _View } from 'react-native'
 import { AntDesign } from "@expo/vector-icons"
+/*========================================
+        Import Styles
+========================================*/
 import colors from "../../misc/colors"
 
 export const StandardAntBtn = ({

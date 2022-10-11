@@ -13,6 +13,9 @@ export default {
         dark: "#000",
         darkTransparent: "rgba(0,0,0,.5)",
         background: "#C9F1EA",
+        borders: "#D9D9D9",
+        shadow: "#D9D9D9",
+        accentBlue: "#DBF4F0",
     },
     text: {
         dark: "#000",
@@ -33,5 +36,6 @@ export default {
         lightBlue: "#C9F1EA",
         textDarkTransparent: "rgba(0,0,0,.5)",
         shadow: "#1e1e1e",
+        grey: "#D9D9D9",
     },
 }

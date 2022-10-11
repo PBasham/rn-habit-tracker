@@ -2,7 +2,8 @@
         Import Dependencies
 ========================================*/
 import { useEffect, useState } from "react"
-import { StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import ControlBar from "../components/JournalScreen/ControlBar"
 import NotesContainer from "../components/JournalScreen/NotesContainer"
 import HeaderOne from "../components/Text/HeaderOne"
 /*========================================
@@ -22,9 +23,9 @@ const Journal = () => {
 
     return (
         <View style={styles.container}>
-            <HeaderOne content={"Your thoughts on today?"} color={colors.text.darkTransparent}/>
+            <HeaderOne content={"Your thoughts on today?"} style={{width: width - 50}} color={colors.text.darkTransparent}/>
             {/* Search/filter bar will go here in the future. */}
-            <View style={styles.searchBar}></View>
+            <ControlBar />
             <NotesContainer JournalEntries={JournalEntries}/>
         </View>
     )
@@ -32,15 +33,14 @@ const Journal = () => {
 
 export default Journal
 
+const width = Dimensions.get("screen").width
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: "center",
         paddingTop: "15%",
         paddingBottom: "5%",
-        paddingHorizontal: 25,
         backgroundColor: colors.general.background,
-    },
-    searchBar: {
-        marginTop: 30,
     },
 })

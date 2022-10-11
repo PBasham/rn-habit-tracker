@@ -1,7 +1,7 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import { StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, View } from 'react-native'
 /*========================================
         Import Components
 ========================================*/
@@ -47,15 +47,15 @@ const NotesContainer = ({ JournalEntries }) => {
 
 export default NotesContainer
 
+const width = Dimensions.get("screen").width
+
 const styles = StyleSheet.create({
     notesContainer: {
         flex: 1,
         flexDirection: "column",
         // flexWrap: "wrap",
         alignItems: "flex-start",
-        paddingTop: 30,
-        borderTopWidth: 2,
-        borderTopColor: colors.general.darkTransparent,
+        width: width - 25,
     },
 
 })
