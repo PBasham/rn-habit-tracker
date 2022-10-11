@@ -22,25 +22,13 @@ const NotesContainer = ({ JournalEntries }) => {
 
     return (
         <View style={styles.notesContainer}>
+            {/* Flatlist */}
             {/* This will be a map of the users journal entries once I've set that up. */}
             <NoteCard onPress={openNoteDetail}/>
             <NoteCard onPress={openNoteDetail}/>
             <NoteCard onPress={openNoteDetail}/>
             <NoteCard onPress={openNoteDetail}/>
             <NoteCard onPress={openNoteDetail}/>
-            <RoundIconBtn
-                antIconName="plus"
-                onPress={onPress}
-                iconColor={colors.button.textDark}
-                style={{
-                    position: "absolute",
-                    margin: 20,
-                    bottom: 0,
-                    right: 0,
-                    zIndex: 99,
-                    elevation: 3,
-                }}
-            />
         </View>
     )
 }
@@ -55,7 +43,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         // flexWrap: "wrap",
         alignItems: "flex-start",
-        width: width - 25,
+        width: width,
     },
 
 })

@@ -11,18 +11,21 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 /*========================================
         Import Screens / Components
 ========================================*/
+// Screens --------------------------------------------------
 import HomeScreen from "./src/screens/HomeScreen";
 import Manage from "./src/screens/Manage";
 import Progress from "./src/screens/Progress";
+import Journal from "./src/screens/Journal";
 import Settings from "./src/screens/Settings";
+// Components --------------------------------------------------
+import NavBar from "./src/components/NavBar/NavBar";
 import OpeningQuote from "./src/screens/OpeningQuote";
 import TellMeAboutYourself from "./src/screens/TellMeAboutYourself";
-import NavBar from "./src/components/NavBar/NavBar";
 // context
 import { UserContext } from "./src/context/UserContext";
+// Styling/misc --------------------------------------------------
 import { homeIcon, manageIcon, progressIcon, journalIcon, settingsIcon } from "./assets/icons/icons";
 import colors from "./src/misc/colors";
-import Journal from "./src/screens/Journal";
 
 const Tab = createBottomTabNavigator()
 

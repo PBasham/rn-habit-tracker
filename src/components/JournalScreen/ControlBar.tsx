@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: "center",
         marginVertical: 30,
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
         height: 60,
         width: "100%",
         elevation: 15,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     settingsBtn: {
     },
     addNoteBtn: {
-        marginRight: 10,
+        marginRight: 15,
         elevation: 0,
         backgroundColor: "transparent",
     }
