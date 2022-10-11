@@ -14,7 +14,7 @@ import { RoundIconBtn } from "../components/buttons/RoundIconBtn"
 ========================================*/
 import colors from "../misc/colors"
 
-const TellMeAboutYourself = ({onFinish}) => {
+const TellMeAboutYourself = ({ onFinish }) => {
 
     /*==== Variables ====*/
 
@@ -36,7 +36,8 @@ const TellMeAboutYourself = ({onFinish}) => {
     /*==== Functions END ====*/
 
     return (
-        <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}>
+        // <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}>
+        <View style={styles.container}>
             <StatusBar hidden />
             <View style={styles.container}>
                 <Text style={styles.generalText}>What's your name?</Text>
@@ -50,12 +51,13 @@ const TellMeAboutYourself = ({onFinish}) => {
                 {name.trim().length > 0 ?
                     <RoundIconBtn
                         antIconName={"right"}
-                        iconColor={colors.greyish}
+                        iconColor={colors.button.dark}
                         onPress={handleSubmit}
                     />
                     : null}
             </View>
-        </ImageBackground>
+        </View>
+        // </ImageBackground>
     )
 }
 
@@ -72,9 +74,11 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        justifyContent: "flex-start",
         alignItems: "center",
-        padding: 100,
+        paddingTop: "15%",
+        paddingBottom: "5%",
+        paddingHorizontal: 25,
+        backgroundColor: colors.general.background,
     },
     generalText: {
         marginBottom: 75,
@@ -97,10 +101,10 @@ const styles = StyleSheet.create({
         width,
         height: 50,
         textAlign: "center",
-        color: colors.blue,
+        color: colors.text.darkTransparent,
         fontSize: 20,
-        borderColor: colors.blue,
+        borderColor: colors.general.dark,
         borderRadius: 10,
-        backgroundColor: colors.light,
+        backgroundColor: colors.general.light,
     }
 })

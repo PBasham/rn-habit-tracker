@@ -30,6 +30,7 @@ export default {
         dark: "#000",
         textLight: "#FFF",
         textDark: "#000",
+        lightBlue: "#C9F1EA",
         textDarkTransparent: "rgba(0,0,0,.5)",
         shadow: "#1e1e1e",
     },

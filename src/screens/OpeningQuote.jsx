@@ -78,14 +78,14 @@ const styles = StyleSheet.create({
         padding: 20,
         width,
         height: 175,
-        color: colors.light,
+        color: colors.general.light,
         borderRadius: 15,
-        backgroundColor: colors.transparentDark,
+        backgroundColor: colors.general.darkTransparent,
     },
     quoteText: {
         textAlign: "center",
         lineHeight: 30,
-        color: colors.light,
+        color: colors.general.light,
         fontSize: 18,
         fontStyle: "italic",
     },
@@ -96,6 +96,12 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         position: "absolute",
-        bottom: "25%"
+        bottom: "25%",
+        borderRadius: 15,
+        backgroundColor: colors.button.lightBlue,
+    },
+    button: {
+        color: colors.button.textLight,
+        fontSize: 24,
     },
 })
