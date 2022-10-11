@@ -6,7 +6,7 @@ import { StyleSheet, Text, useColorScheme, View } from 'react-native'
 /*========================================
         Import Components
 ========================================*/
-import { AdditionalSettingsBtn, StandardAntBtn } from "../buttons"
+import { AdditionalSettingsBtn, RoundIconBtn, StandardAntBtn } from "../buttons"
 
 /*========================================
         Import Styles
@@ -27,9 +27,19 @@ const ControlBar: FC<ControlBarProps> = ({ enableAdditionalSettings }) => {
         <View style={styles.container}>
             {/* Search bar to come */}
             {/* Add item */}
-            <StandardAntBtn onPress={()=> console.log("Ive been pressed")}/>
+            <RoundIconBtn
+                size={26}
+                style={styles.addNoteBtn}
+                antIconName="plus"
+                onPress={() => console.log("Ive been pressed")}
+                />
             {/* Additional Settings */}
-            <AdditionalSettingsBtn onPress={handleAdditionalSettingsClick} style={[styles.settingsBtn]} color={colors.button.dark}/>
+            <AdditionalSettingsBtn
+                size={26}
+                onPress={handleAdditionalSettingsClick}
+                style={[styles.settingsBtn]}
+                color={colors.button.dark}
+            />
         </View>
     )
 }
@@ -38,10 +48,12 @@ export default ControlBar
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'center',
+        flexDirection: "row",
+        justifyContent: 'flex-end',
+        alignItems: "center",
         marginVertical: 30,
-        padding: 10,
-        height: 50,
+        paddingHorizontal: 10,
+        height: 60,
         width: "100%",
         elevation: 15,
         shadowColor: colors.general.dark,
@@ -51,7 +63,10 @@ const styles = StyleSheet.create({
 
     },
     settingsBtn: {
-        position: "absolute",
-        right: 10,
+    },
+    addNoteBtn: {
+        marginRight: 10,
+        elevation: 0,
+        backgroundColor: "transparent",
     }
 })

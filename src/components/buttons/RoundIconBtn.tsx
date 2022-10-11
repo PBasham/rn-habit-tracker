@@ -10,9 +10,9 @@ import { AntDesign } from "@expo/vector-icons"
 import colors from "../../misc/colors"
 
 interface RoundIconBtnProps {
-    antIconName?: any
-    size?: any
-    iconColor?: any
+    antIconName?: string
+    size?: number
+    iconColor?: string
     style?: any
     onPress: () => void
 }
