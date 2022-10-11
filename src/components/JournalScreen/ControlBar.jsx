@@ -1,8 +1,17 @@
+/*========================================
+        Import Dependencies
+========================================*/
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+/*========================================
+        Import Components
+========================================*/
+import { AdditionalSettingsBtn } from "../buttons"
+/*========================================
+        Import Styles
+========================================*/
 import colors from "../../misc/colors"
-import { RoundIconBtn } from "../buttons/RoundIconBtn"
-import { StandardAntBtn } from "../buttons/StandardAntBtn"
+
+
 
 const ControlBar = () => {
     return (
@@ -10,7 +19,7 @@ const ControlBar = () => {
             {/* Search bar to come */}
             {/* Add item */}
             {/* Additional Settings */}
-            <StandardAntBtn antIconName={"dots-three-vertical"}  />
+            <AdditionalSettingsBtn style={[styles.buttons, styles.settingsBtn]}color={"blue"}/>
         </View>
     )
 }
@@ -19,6 +28,7 @@ export default ControlBar
 
 const styles = StyleSheet.create({
     container: {
+        justifyContent: 'center',
         marginVertical: 30,
         height: 50,
         width: "100%",
@@ -26,7 +36,11 @@ const styles = StyleSheet.create({
         shadowColor: colors.general.dark,
         backgroundColor: colors.general.accentBlue,
     },
-    // buttons: {
-    //     backgroundColor: "blue",
-    // }
+    buttons: {
+        backgroundColor: "blue",
+    },
+    settingsBtn: {
+        position: "absolute",
+        left: 0,
+    }
 })
