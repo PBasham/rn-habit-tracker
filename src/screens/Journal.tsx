@@ -4,8 +4,8 @@
 import { useEffect, useState } from "react"
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import ControlBar from "../components/JournalScreen/ControlBar"
-import NotesContainer from "../components/JournalScreen/NotesContainer"
-import HeaderOne from "../components/Text/HeaderOne"
+import { NotesContainer } from "../components/JournalScreen/NotesContainer"
+import { HeaderOne } from "../components/Text/"
 /*========================================
         Import Styles
 ========================================*/
@@ -13,22 +13,31 @@ import colors from "../misc/colors"
 
 const Journal = () => {
 
-    const [JournalEntries, setJournalEntries] = useState({})
+    const [JournalEntries, setJournalEntries] = useState<Object>({})
 
-    const [enableAdditionalSettings, setEnableAdditionalSettings] = useState(false)
+    const [enableAdditionalSettings, setEnableAdditionalSettings] = useState<Boolean>(false)
 
     useEffect(() => {
         // Go into AsyncStorage and get users Journal Entries in date order.
         console.log("JournalScreen:\nGetting user Journal Entries")
     }, [JournalEntries])
 
+    const handleEnableAdditionalSettigns = () => {
+        setEnableAdditionalSettings(!enableAdditionalSettings)
+    }
+    const handleDisableAdditionalSettigns = () => {
+        setEnableAdditionalSettings(false)
+    }
 
     return (
         <View style={styles.container}>
-            <HeaderOne content={"Your thoughts on today?"} style={{width: width - 50}} color={colors.text.darkTransparent}/>
+            <HeaderOne content={"Your thoughts on today?"} style={{ width: width - 50 }} color={colors.text.darkTransparent} />
             {/* Search/filter bar will go here in the future. */}
-            <ControlBar />
-            <NotesContainer JournalEntries={JournalEntries}/>
+            <ControlBar enableAdditionalSettings={enableAdditionalSettings} enableSettigns={handleEnableAdditionalSettigns} />
+            <NotesContainer
+                JournalEntries={JournalEntries}
+                additionalSettings={enableAdditionalSettings}
+            />
         </View>
     )
 }

@@ -1,10 +1,20 @@
-// Dependencies --------------------------------------------------
+/*========================================
+        Import Dependencies
+========================================*/
+import { FC } from "react";
 import { StyleSheet, Text } from 'react-native'
 // Styling --------------------------------------------------
 import colors from "../../misc/colors";
 
+interface HeaderOneProps {
+style?: any
+content: string
+color?: string
+textAlign?: string
+}
+
 /* Custome Text Header Component */
-const HeaderOne = ({ style, content, color, textAlign }) => {
+export const HeaderOne: FC<HeaderOneProps> = ({ style, content, color, textAlign }) => {
     return (
         <Text
             style={[{...style}, styles.headerOne, {
@@ -17,8 +27,6 @@ const HeaderOne = ({ style, content, color, textAlign }) => {
     )
 
 }
-
-export default HeaderOne
 
 const styles = StyleSheet.create({
     headerOne: {

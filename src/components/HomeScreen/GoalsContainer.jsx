@@ -5,7 +5,7 @@ import { useState } from "react"
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import colors from "../../misc/colors"
 import { RoundIconBtn } from "../buttons/"
-import HeaderOne from "../Text/HeaderOne"
+import { HeaderOne } from "../Text/HeaderOne"
 
 const GoalsContainer = ({ openManageScreen }) => {
 

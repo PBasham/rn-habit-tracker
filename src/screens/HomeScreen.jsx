@@ -10,10 +10,10 @@ import { UserContext } from "../context/UserContext.jsx"
         Import Components
 ========================================*/
 import { backgroundOne } from "../../assets/imgs/images.js"
-import { RoundIconBtn } from "../components/buttons/RoundIconBtn"
+import { RoundIconBtn } from "../components/buttons/"
 import EmotionColorModal from "../components/HomeScreen/EmotionColorModal.jsx"
 import GoalsContainer from "../components/HomeScreen/GoalsContainer.jsx"
-import HeaderOne from "../components/Text/HeaderOne.jsx"
+import { HeaderOne } from "../components/Text/"
 /*========================================
         Import Styles
 ========================================*/

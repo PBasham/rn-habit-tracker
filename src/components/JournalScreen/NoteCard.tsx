@@ -1,10 +1,20 @@
+/*========================================
+        Import Dependencies
+========================================*/
+import { FC } from "react"
 import { Pressable, StyleSheet, Text, View } from 'react-native'
+// Styling --------------------------------------------------
 import colors from "../../misc/colors"
 
-const NoteCard = ({ onPress }) => {
+interface NoteCardProps {
+    onPress: () => void
+    additionalSettings: Boolean
+}
+
+const NoteCard = ({ onPress, additionalSettings }) => {
     return (
-        <Pressable onPress={onPress} style={styles.container}>
-            <View style={styles.note}>
+        <Pressable onPress={onPress} style={[styles.container]}>
+            <View style={[styles.note, additionalSettings ? styles.additionalSettings : null]}>
                 <Text style={styles.noteTitle}>Title</Text>
                 <Text style={styles.noteDate}>10/10/2022</Text>
             </View>
@@ -24,7 +34,6 @@ const styles = StyleSheet.create({
     },
     note: {
         minHeight: 60,
-        width: 150,
         // borderRadius: 15,
         padding: "3%",
         width: "100%",
@@ -45,5 +54,14 @@ const styles = StyleSheet.create({
         paddingTop: "1%",
         color: colors.text.dark,
         fontSize: 16,
+    },
+    additionalSettings: {
+        width: "95%",
+        // elevation: 5,
+        // shadowRadius: 10,
+        // shadowColor: colors.general.dark,
+        borderWidth: 1,
+        borderRadius: 15,
+        borderColor: colors.general.darkTransparent,
     },
 })

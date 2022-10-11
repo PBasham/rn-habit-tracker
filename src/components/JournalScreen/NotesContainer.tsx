@@ -1,16 +1,22 @@
 /*========================================
         Import Dependencies
 ========================================*/
+import { FC } from "react"
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
 /*========================================
         Import Components
 ========================================*/
 import NoteCard from "./NoteCard"
-import { RoundIconBtn } from "../buttons/"
+import { RoundIconBtn } from "../buttons"
 import colors from "../../misc/colors"
 
 
-const NotesContainer = ({ JournalEntries }) => {
+interface NotesContainerProps {
+    additionalSettings: Boolean
+    JournalEntries: Object
+}
+
+export const NotesContainer: FC<NotesContainerProps> = ({ additionalSettings, JournalEntries }) => {
 
     const onPress = () => {
         console.log("I've been pressed")
@@ -24,16 +30,14 @@ const NotesContainer = ({ JournalEntries }) => {
         <View style={styles.notesContainer}>
             {/* Flatlist */}
             {/* This will be a map of the users journal entries once I've set that up. */}
-            <NoteCard onPress={openNoteDetail}/>
-            <NoteCard onPress={openNoteDetail}/>
-            <NoteCard onPress={openNoteDetail}/>
-            <NoteCard onPress={openNoteDetail}/>
-            <NoteCard onPress={openNoteDetail}/>
+            <NoteCard additionalSettings={additionalSettings} onPress={openNoteDetail}/>
+            <NoteCard additionalSettings={additionalSettings} onPress={openNoteDetail}/>
+            <NoteCard additionalSettings={additionalSettings} onPress={openNoteDetail}/>
+            <NoteCard additionalSettings={additionalSettings} onPress={openNoteDetail}/>
+            <NoteCard additionalSettings={additionalSettings} onPress={openNoteDetail}/>
         </View>
     )
 }
-
-export default NotesContainer
 
 const width = Dimensions.get("screen").width
 

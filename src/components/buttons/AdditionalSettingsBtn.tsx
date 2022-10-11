@@ -16,14 +16,15 @@ interface AdditionalSettingsBtnProps {
     style?: any
     size?: number
     onPress: () => void
+    cancel: Boolean
 }
 
-export const AdditionalSettingsBtn: FC<AdditionalSettingsBtnProps> = ({ onPress, color, style, size }) => {
+export const AdditionalSettingsBtn: FC<AdditionalSettingsBtnProps> = ({ onPress, color, style, size, cancel }) => {
     console.log(style);
     
     return (
         <Pressable onPress={onPress} style={[styles.container, ...style]} >
-            <Entypo name="dots-three-vertical" size={size || 24} color={color || colors.button.textDark} />
+            <Entypo name={cancel ? "cross" : "dots-three-vertical"} size={size || 24} color={cancel ? colors.button.textCancel : color || colors.button.textDark} />
         </Pressable>
     )
 }

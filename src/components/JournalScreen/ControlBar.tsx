@@ -14,13 +14,15 @@ import { AdditionalSettingsBtn, RoundIconBtn, StandardAntBtn } from "../buttons"
 import colors from "../../misc/colors"
 
 interface ControlBarProps {
-    enableAdditionalSettings: boolean
+    enableSettigns: () => void
+    enableAdditionalSettings: Boolean
 }
 
-const ControlBar: FC<ControlBarProps> = ({ enableAdditionalSettings }) => {
+const ControlBar: FC<ControlBarProps> = ({ enableSettigns, enableAdditionalSettings }) => {
 
     const handleAdditionalSettingsClick = () => {
         console.log("handle additional settings!")
+        enableSettigns()
     }
 
     return (
@@ -35,6 +37,7 @@ const ControlBar: FC<ControlBarProps> = ({ enableAdditionalSettings }) => {
                 />
             {/* Additional Settings */}
             <AdditionalSettingsBtn
+                cancel={enableAdditionalSettings}
                 size={26}
                 onPress={handleAdditionalSettingsClick}
                 style={[styles.settingsBtn]}
