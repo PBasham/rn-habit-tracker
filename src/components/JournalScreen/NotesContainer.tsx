@@ -1,8 +1,8 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import { FC } from "react"
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { FC, useState } from "react"
+import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
 /*========================================
         Import Components
 ========================================*/
@@ -18,6 +18,8 @@ interface NotesContainerProps {
 
 export const NotesContainer: FC<NotesContainerProps> = ({ additionalSettings, JournalEntries }) => {
 
+    const [journalEntries, SetjournalEntries] = useState<any>({})
+
     const onPress = () => {
         console.log("I've been pressed")
     }
@@ -30,11 +32,12 @@ export const NotesContainer: FC<NotesContainerProps> = ({ additionalSettings, Jo
         <View style={styles.notesContainer}>
             {/* Flatlist */}
             {/* This will be a map of the users journal entries once I've set that up. */}
-            <NoteCard additionalSettings={additionalSettings} onPress={openNoteDetail}/>
-            <NoteCard additionalSettings={additionalSettings} onPress={openNoteDetail}/>
-            <NoteCard additionalSettings={additionalSettings} onPress={openNoteDetail}/>
-            <NoteCard additionalSettings={additionalSettings} onPress={openNoteDetail}/>
-            <NoteCard additionalSettings={additionalSettings} onPress={openNoteDetail}/>
+            {/* <FlatList
+                data={journalEntries}
+                keyExtractor={item => item.id.toString() }
+                renderItem={({ item }) => <NoteCard additionalSettings={additionalSettings} onPress={openNoteDetail} />}
+            /> */}
+
         </View>
     )
 }
