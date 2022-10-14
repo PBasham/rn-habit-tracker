@@ -25,9 +25,6 @@ const Journal = () => {
     const handleEnableAdditionalSettigns = () => {
         setEnableAdditionalSettings(!enableAdditionalSettings)
     }
-    const handleDisableAdditionalSettigns = () => {
-        setEnableAdditionalSettings(false)
-    }
 
     return (
         <View style={styles.container}>

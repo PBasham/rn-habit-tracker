@@ -2,8 +2,10 @@
         Import Dependencies
 ========================================*/
 import { FC } from "react"
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View, Image, Dimensions } from 'react-native'
+import { Entypo } from '@expo/vector-icons';
 // Styling --------------------------------------------------
+import { trashCanIcon } from "../../../assets/icons/icons"
 import colors from "../../misc/colors"
 
 interface NoteCardProps {
@@ -12,9 +14,19 @@ interface NoteCardProps {
 }
 
 const NoteCard = ({ onPress, additionalSettings }) => {
+
+    const handleDeleteNote = () => {
+        console.log("Confirmation box will pop up.")
+    }
+
     return (
         <Pressable onPress={onPress} style={[styles.container]}>
             <View style={[styles.note, additionalSettings ? styles.additionalSettings : null]}>
+                {additionalSettings ?
+                    <Pressable style={styles.trashCanIcon} onPress={handleDeleteNote}>
+                        <Entypo name="trash" size={24} color={colors.button.textCancel} />
+                    </Pressable>
+                    : null}
                 <Text style={styles.noteTitle}>Title</Text>
                 <Text style={styles.noteDate}>10/10/2022</Text>
             </View>
@@ -23,6 +35,8 @@ const NoteCard = ({ onPress, additionalSettings }) => {
 }
 
 export default NoteCard
+
+const viewWidth = Dimensions.get("screen").width * .0
 
 const styles = StyleSheet.create({
     container: {
@@ -34,7 +48,6 @@ const styles = StyleSheet.create({
     },
     note: {
         minHeight: 60,
-        // borderRadius: 15,
         padding: "3%",
         width: "100%",
         backgroundColor: colors.general.light
@@ -57,11 +70,15 @@ const styles = StyleSheet.create({
     },
     additionalSettings: {
         width: "95%",
-        // elevation: 5,
-        // shadowRadius: 10,
-        // shadowColor: colors.general.dark,
         borderWidth: 1,
         borderRadius: 15,
         borderColor: colors.general.darkTransparent,
+    },
+    trashCanIcon: {
+        position: "absolute",
+        top: 0,
+        right: 0,
+        margin: 8,
+        zIndex: 100,
     },
 })
