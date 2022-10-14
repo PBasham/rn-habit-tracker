@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         shadowOpacity: .4,
         // ----------
-        background: colors.button.light,
+        backgroundColor: colors.button.light,
     },
     icon: {
     }
