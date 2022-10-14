@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react"
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import ControlBar from "../components/JournalScreen/ControlBar"
+import { CreateNoteModal } from "../components/JournalScreen/CreateNoteModal"
 import { NotesContainer } from "../components/JournalScreen/NotesContainer"
 import { HeaderOne } from "../components/Text/"
 /*========================================
@@ -15,7 +16,9 @@ const Journal = () => {
 
     const [JournalEntries, setJournalEntries] = useState<Object>({})
 
-    const [enableAdditionalSettings, setEnableAdditionalSettings] = useState<Boolean>(false)
+    const [modalVisable, setModalVisable] = useState<boolean>(false)
+
+    const [enableAdditionalSettings, setEnableAdditionalSettings] = useState<boolean>(false)
 
     useEffect(() => {
         // Go into AsyncStorage and get users Journal Entries in date order.
@@ -26,15 +29,23 @@ const Journal = () => {
         setEnableAdditionalSettings(!enableAdditionalSettings)
     }
 
+    const openNoteDetail = () => {
+        setModalVisable(true)
+    }
+    const closeNoteDetail = () => {
+        setModalVisable(false)
+    }
+
     return (
         <View style={styles.container}>
             <HeaderOne content={"Your thoughts on today?"} style={{ width: width - 50 }} color={colors.text.darkTransparent} />
             {/* Search/filter bar will go here in the future. */}
-            <ControlBar enableAdditionalSettings={enableAdditionalSettings} enableSettigns={handleEnableAdditionalSettigns} />
+            <ControlBar openNoteDetail={openNoteDetail} enableAdditionalSettings={enableAdditionalSettings} enableSettigns={handleEnableAdditionalSettigns} />
             <NotesContainer
                 JournalEntries={JournalEntries}
                 additionalSettings={enableAdditionalSettings}
             />
+            <CreateNoteModal visible={modalVisable} closeNoteDetail={closeNoteDetail} />
         </View>
     )
 }

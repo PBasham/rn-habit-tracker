@@ -18,14 +18,8 @@ interface NotesContainerProps {
 
 export const NotesContainer: FC<NotesContainerProps> = ({ additionalSettings, JournalEntries }) => {
 
-    const [journalEntries, SetjournalEntries] = useState<any>({})
-
     const onPress = () => {
         console.log("I've been pressed")
-    }
-
-    const openNoteDetail = () => {
-        console.log("Opening note detail!")
     }
 
     return (

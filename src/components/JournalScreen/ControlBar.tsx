@@ -15,10 +15,11 @@ import colors from "../../misc/colors"
 
 interface ControlBarProps {
     enableSettigns: () => void
-    enableAdditionalSettings: Boolean
+    enableAdditionalSettings: boolean
+    openNoteDetail: () => void
 }
 
-const ControlBar: FC<ControlBarProps> = ({ enableSettigns, enableAdditionalSettings }) => {
+const ControlBar: FC<ControlBarProps> = ({ enableSettigns, enableAdditionalSettings, openNoteDetail }) => {
 
     const handleAdditionalSettingsClick = () => {
         console.log("handle additional settings!")
@@ -33,7 +34,7 @@ const ControlBar: FC<ControlBarProps> = ({ enableSettigns, enableAdditionalSetti
                 size={26}
                 style={styles.addNoteBtn}
                 antIconName="plus"
-                onPress={() => console.log("Ive been pressed")}
+                onPress={openNoteDetail}
                 />
             {/* Additional Settings */}
             <AdditionalSettingsBtn
