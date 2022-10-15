@@ -37,6 +37,8 @@ export default function App() {
     /*==== useState ====*/
     const [user, setUser] = useState({})
 
+    const [todaysDate, setTodaysDate] = useState("")
+
     /*==== Functions START ====*/
     const findUser = async () => {
         const result = await AsyncStorage.getItem("habitTrackerUser")
@@ -44,11 +46,24 @@ export default function App() {
         if (!result) return
         setUser(JSON.parse(result))
     }
+
+    const getDate = () => {
+        const mm = String(new Date().getMonth() + 1).padStart(2, "0")
+        const dd = String(new Date().getDate()).padStart(2, "0")
+        const yyyy = new Date().getFullYear()
+
+        const today = `${mm}/${dd}/${yyyy}`
+
+        setTodaysDate(today)
+        return today
+    }
+
     /*==== Functions END ====*/
 
     /*==== useEffect ====*/
     useEffect(() => {
         findUser()
+        getDate()
         // AsyncStorage.clear()
     }, [])
 
@@ -60,7 +75,7 @@ export default function App() {
                     < TellMeAboutYourself onFinish={findUser} />
                 </>
                 :
-                <UserContext.Provider value={user} style={styles.container}>
+                <UserContext.Provider value={{user: user, date: todaysDate}} style={styles.container}>
                     <NavigationContainer>
                         {/* Because createBottomTabNavigation is used, I can pass the NavBar through this function, to tabBar as props with destructured props that contain "navigation". Yay */}
                         <Tab.Navigator
@@ -73,50 +88,50 @@ export default function App() {
                                 name="Home"
                                 component={HomeScreen}
                                 options={{
-                                    tabBarIcon: ({ref}) => <Image
+                                    tabBarIcon: ({ ref }) => <Image
                                         ref={ref}
                                         style={styles.icon}
                                         source={homeIcon}
                                     />
                                 }}
-                                />
+                            />
                             <Tab.Screen
                                 name="Manage"
                                 options={{
-                                    tabBarIcon: ({ref}) => <Image
+                                    tabBarIcon: ({ ref }) => <Image
                                         ref={ref}
                                         style={styles.icon}
                                         source={manageIcon}
                                     />
                                 }}
                                 component={Manage}
-                                />
+                            />
                             <Tab.Screen
                                 name="Progress"
                                 options={{
-                                    tabBarIcon: ({ref}) => <Image
+                                    tabBarIcon: ({ ref }) => <Image
                                         ref={ref}
                                         style={styles.icon}
                                         source={progressIcon}
                                     />
                                 }}
                                 component={Progress}
-                                />
+                            />
                             <Tab.Screen
                                 name="Journal"
                                 options={{
-                                    tabBarIcon: ({ref}) => <Image
+                                    tabBarIcon: ({ ref }) => <Image
                                         ref={ref}
                                         style={styles.icon}
                                         source={journalIcon}
                                     />
                                 }}
                                 component={Journal}
-                                />
+                            />
                             <Tab.Screen
                                 name="Settings"
                                 options={{
-                                    tabBarIcon: ({ref}) => <Image
+                                    tabBarIcon: ({ ref }) => <Image
                                         ref={ref}
                                         style={styles.icon}
                                         source={settingsIcon}

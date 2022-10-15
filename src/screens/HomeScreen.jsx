@@ -30,7 +30,7 @@ import colors from "../misc/colors"
 const HomeScreen = ({ navigation }) => {
 
     /** useContext **/
-    const user = useContext(UserContext)
+    const context = useContext(UserContext)
 
     /* State */
     const [selectedEmotion, setSelectedEmotion] = useState({})
@@ -59,18 +59,15 @@ const HomeScreen = ({ navigation }) => {
         const currentFeelingsLog = JSON.parse(result)
         setFeelingsLog(currentFeelingsLog)
         // check if there is already an entry or today. if so, update Bar to respective feeling / color
-        const mm = String(new Date().getMonth() + 1).padStart(2, "0")
-        const dd = String(new Date().getDate()).padStart(2, "0")
-        const yyyy = new Date().getFullYear()
+        
 
-        const todaysDate = `${mm}/${dd}/${yyyy}`
-        if (todaysDate in currentFeelingsLog) {
+        if (context.date in currentFeelingsLog) {
             console.log("Entry for today exist!")
             // set bar to respective feeling and color
             console.log("currentFeelingsLog: ", currentFeelingsLog)
             setSelectedEmotion({
-                feeling: currentFeelingsLog[todaysDate].feeling,
-                color: currentFeelingsLog[todaysDate].color
+                feeling: currentFeelingsLog[context.date].feeling,
+                color: currentFeelingsLog[context.date].color
             })
         }
     }
@@ -93,22 +90,14 @@ const HomeScreen = ({ navigation }) => {
 
         console.log(`\n\nCurrent Feelings log: `, feelingsLog, `\n\n`)
 
-        const mm = String(new Date().getMonth() + 1).padStart(2, "0")
-        const dd = String(new Date().getDate()).padStart(2, "0")
-        const yyyy = new Date().getFullYear()
-
-        const todaysDate = `${mm}/${dd}/${yyyy}`
-
-        console.log("date: ", todaysDate)
-
         const todaysEmotion = {
             id: Date.now(),
             feeling: feeling,
             color: color,
         }
         // check if there is already a color logged for today
-        const updatedFeelingsLog = { ...feelingsLog, [todaysDate]: todaysEmotion }
-        if (todaysDate in feelingsLog) {
+        const updatedFeelingsLog = { ...feelingsLog, [context.date]: todaysEmotion }
+        if (context.date in feelingsLog) {
             // if so, replace it
             console.log("Already an entry for today. Just update the bar.")
         } else {
@@ -138,7 +127,7 @@ const HomeScreen = ({ navigation }) => {
             {/* <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}> */}
                 <View style={styles.container}>
                     {/* Greeting */}
-                    <HeaderOne style={{ marginBottom: 20, }} content={`Good ${greet}, ${user.name}`} />
+                    <HeaderOne style={{ marginBottom: 20, }} content={`Good ${greet}, ${context.user.name}`} />
                     {/* Goals Section */}
                     <HeaderOne style={{ marginBottom: 20, }} content={"Today's Goals"} />
                     <GoalsContainer openManageScreen={openManageScreen} />
