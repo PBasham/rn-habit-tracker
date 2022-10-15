@@ -29,10 +29,10 @@ const Journal = () => {
         setEnableAdditionalSettings(!enableAdditionalSettings)
     }
 
-    const openNoteDetail = () => {
+    const openCreateNote = () => {
         setModalVisable(true)
     }
-    const closeNoteDetail = () => {
+    const closeCreateNote = () => {
         setModalVisable(false)
     }
 
@@ -40,12 +40,12 @@ const Journal = () => {
         <View style={styles.container}>
             <HeaderOne content={"Your thoughts on today?"} style={{ width: width - 50 }} color={colors.text.darkTransparent} />
             {/* Search/filter bar will go here in the future. */}
-            <ControlBar openNoteDetail={openNoteDetail} enableAdditionalSettings={enableAdditionalSettings} enableSettigns={handleEnableAdditionalSettigns} />
+            <ControlBar openNoteDetail={openCreateNote} enableAdditionalSettings={enableAdditionalSettings} enableSettigns={handleEnableAdditionalSettigns} />
             <NotesContainer
                 JournalEntries={JournalEntries}
                 additionalSettings={enableAdditionalSettings}
             />
-            <CreateNoteModal visible={modalVisable} closeNoteDetail={closeNoteDetail} />
+            <CreateNoteModal visible={modalVisable} closeCreateNote={closeCreateNote} />
         </View>
     )
 }

@@ -33,7 +33,6 @@ const NavBar = ({ state: { index: activeIndex, routes }, navigation, descriptors
     }
 
     const [layout, dispatch] = useReducer(reducer, [])
-    console.log("\nActive Index: ", activeIndex, "\nlayout: \n", layout)
 
     const handleLayout = (event: LayoutChangeEvent, index: number) => {
         dispatch({ x: event.nativeEvent.layout.x, index })
