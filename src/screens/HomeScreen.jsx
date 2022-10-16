@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useContext, useEffect, useState } from "react"
 import { StatusBar, StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView, Pressable } from 'react-native'
 // Context
-import { UserContext } from "../context/UserContext.jsx"
+import { DateContext, UserContext } from "../context/"
 /*========================================
         Import Components
 ========================================*/
@@ -30,8 +30,11 @@ import colors from "../misc/colors"
 const HomeScreen = ({ navigation }) => {
 
     /** useContext **/
-    const context = useContext(UserContext)
+    const user = useContext(UserContext)
+    const todaysDate = useContext(DateContext)
 
+    console.log("todaysDate ", todaysDate)
+    
     /* State */
     const [selectedEmotion, setSelectedEmotion] = useState({})
 
@@ -61,13 +64,13 @@ const HomeScreen = ({ navigation }) => {
         // check if there is already an entry or today. if so, update Bar to respective feeling / color
         
 
-        if (context.date in currentFeelingsLog) {
+        if (todaysDate in currentFeelingsLog) {
             console.log("Entry for today exist!")
             // set bar to respective feeling and color
             console.log("currentFeelingsLog: ", currentFeelingsLog)
             setSelectedEmotion({
-                feeling: currentFeelingsLog[context.date].feeling,
-                color: currentFeelingsLog[context.date].color
+                feeling: currentFeelingsLog[todaysDate].feeling,
+                color: currentFeelingsLog[todaysDate].color
             })
         }
     }
@@ -96,8 +99,8 @@ const HomeScreen = ({ navigation }) => {
             color: color,
         }
         // check if there is already a color logged for today
-        const updatedFeelingsLog = { ...feelingsLog, [context.date]: todaysEmotion }
-        if (context.date in feelingsLog) {
+        const updatedFeelingsLog = { ...feelingsLog, [todaysDate]: todaysEmotion }
+        if (todaysDate in feelingsLog) {
             // if so, replace it
             console.log("Already an entry for today. Just update the bar.")
         } else {
@@ -127,7 +130,7 @@ const HomeScreen = ({ navigation }) => {
             {/* <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}> */}
                 <View style={styles.container}>
                     {/* Greeting */}
-                    <HeaderOne style={{ marginBottom: 20, }} content={`Good ${greet}, ${context.user.name}`} />
+                    <HeaderOne style={{ marginBottom: 20, }} content={`Good ${greet}, ${user.name}`} />
                     {/* Goals Section */}
                     <HeaderOne style={{ marginBottom: 20, }} content={"Today's Goals"} />
                     <GoalsContainer openManageScreen={openManageScreen} />

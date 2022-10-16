@@ -10,9 +10,10 @@ import { RoundIconBtn, StandardAntBtn } from "../buttons"
 interface CreateNoteModalProps {
     visible: boolean
     closeCreateNote: () => void
+    createNewJournalEntry: (title, desc) => void
 }
 
-export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreateNote }) => {
+export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreateNote, createNewJournalEntry }) => {
 
 
 
@@ -26,7 +27,7 @@ export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreate
         if (valueFor === "desc") setNoteDesc(text)
     }
 
-    const handleCancel = () => {
+    const handleClose = () => {
         /* Clear values and close modal */
         setNoteTitle("")
         setNoteDesc("")
@@ -35,9 +36,9 @@ export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreate
 
     const handleAddNote = () => {
         // Add the note
-
+        createNewJournalEntry(noteTitle, noteDesc)
         /* Clear the values and close modal */
-        handleCancel()
+        handleClose()
     }
 
     console.log(noteTitle, noteDesc);
@@ -46,7 +47,7 @@ export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreate
     return (
         <Modal visible={visible} animationType="slide" >
             <View style={styles.container}>
-                <StandardAntBtn style={styles.closeModalBtn} antIconName="down" onPress={handleCancel} size={24} />
+                <StandardAntBtn style={styles.closeModalBtn} antIconName="down" onPress={handleClose} size={24} />
                 <TextInput
                 value={noteTitle}
                     placeholder="Title"

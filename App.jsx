@@ -22,7 +22,7 @@ import NavBar from "./src/components/NavBar/NavBar";
 import OpeningQuote from "./src/screens/OpeningQuote";
 import TellMeAboutYourself from "./src/screens/TellMeAboutYourself";
 // context
-import { UserContext } from "./src/context/UserContext";
+import { UserContext, DateContext } from "./src/context";
 // Styling/misc --------------------------------------------------
 import { homeIcon, manageIcon, progressIcon, journalIcon, settingsIcon } from "./assets/icons/icons";
 import colors from "./src/misc/colors";
@@ -47,15 +47,12 @@ export default function App() {
         setUser(JSON.parse(result))
     }
 
-    const getDate = () => {
+    const getDate = async () => {
         const mm = String(new Date().getMonth() + 1).padStart(2, "0")
         const dd = String(new Date().getDate()).padStart(2, "0")
         const yyyy = new Date().getFullYear()
-
-        const today = `${mm}/${dd}/${yyyy}`
-
-        setTodaysDate(today)
-        return today
+    
+        setTodaysDate(`${mm}/${dd}/${yyyy}`)
     }
 
     /*==== Functions END ====*/
@@ -75,72 +72,74 @@ export default function App() {
                     < TellMeAboutYourself onFinish={findUser} />
                 </>
                 :
-                <UserContext.Provider value={{user: user, date: todaysDate}} style={styles.container}>
-                    <NavigationContainer>
-                        {/* Because createBottomTabNavigation is used, I can pass the NavBar through this function, to tabBar as props with destructured props that contain "navigation". Yay */}
-                        <Tab.Navigator
-                            tabBar={(props) => <NavBar {...props} />}
-                            screenOptions={{
-                                headerShown: false,
-                            }}
-                        >
-                            <Tab.Screen
-                                name="Home"
-                                component={HomeScreen}
-                                options={{
-                                    tabBarIcon: ({ ref }) => <Image
-                                        ref={ref}
-                                        style={styles.icon}
-                                        source={homeIcon}
-                                    />
+                <UserContext.Provider value={user} style={styles.container}>
+                    <DateContext.Provider value={todaysDate}>
+                        <NavigationContainer>
+                            {/* Because createBottomTabNavigation is used, I can pass the NavBar through this function, to tabBar as props with destructured props that contain "navigation". Yay */}
+                            <Tab.Navigator
+                                tabBar={(props) => <NavBar {...props} />}
+                                screenOptions={{
+                                    headerShown: false,
                                 }}
-                            />
-                            <Tab.Screen
-                                name="Manage"
-                                options={{
-                                    tabBarIcon: ({ ref }) => <Image
-                                        ref={ref}
-                                        style={styles.icon}
-                                        source={manageIcon}
-                                    />
-                                }}
-                                component={Manage}
-                            />
-                            <Tab.Screen
-                                name="Progress"
-                                options={{
-                                    tabBarIcon: ({ ref }) => <Image
-                                        ref={ref}
-                                        style={styles.icon}
-                                        source={progressIcon}
-                                    />
-                                }}
-                                component={Progress}
-                            />
-                            <Tab.Screen
-                                name="Journal"
-                                options={{
-                                    tabBarIcon: ({ ref }) => <Image
-                                        ref={ref}
-                                        style={styles.icon}
-                                        source={journalIcon}
-                                    />
-                                }}
-                                component={Journal}
-                            />
-                            <Tab.Screen
-                                name="Settings"
-                                options={{
-                                    tabBarIcon: ({ ref }) => <Image
-                                        ref={ref}
-                                        style={styles.icon}
-                                        source={settingsIcon}
-                                    />
-                                }}
-                                component={Settings}
-                            />
-                        </Tab.Navigator>
-                    </NavigationContainer>
+                            >
+                                <Tab.Screen
+                                    name="Home"
+                                    component={HomeScreen}
+                                    options={{
+                                        tabBarIcon: ({ ref }) => <Image
+                                            ref={ref}
+                                            style={styles.icon}
+                                            source={homeIcon}
+                                        />
+                                    }}
+                                />
+                                <Tab.Screen
+                                    name="Manage"
+                                    options={{
+                                        tabBarIcon: ({ ref }) => <Image
+                                            ref={ref}
+                                            style={styles.icon}
+                                            source={manageIcon}
+                                        />
+                                    }}
+                                    component={Manage}
+                                />
+                                <Tab.Screen
+                                    name="Progress"
+                                    options={{
+                                        tabBarIcon: ({ ref }) => <Image
+                                            ref={ref}
+                                            style={styles.icon}
+                                            source={progressIcon}
+                                        />
+                                    }}
+                                    component={Progress}
+                                />
+                                <Tab.Screen
+                                    name="Journal"
+                                    options={{
+                                        tabBarIcon: ({ ref }) => <Image
+                                            ref={ref}
+                                            style={styles.icon}
+                                            source={journalIcon}
+                                        />
+                                    }}
+                                    component={Journal}
+                                />
+                                <Tab.Screen
+                                    name="Settings"
+                                    options={{
+                                        tabBarIcon: ({ ref }) => <Image
+                                            ref={ref}
+                                            style={styles.icon}
+                                            source={settingsIcon}
+                                        />
+                                    }}
+                                    component={Settings}
+                                />
+                            </Tab.Navigator>
+                        </NavigationContainer>
+                    </DateContext.Provider>
                 </UserContext.Provider>
             }
         </>
