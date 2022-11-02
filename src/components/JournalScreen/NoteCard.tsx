@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: colors.text.dark,
         opacity: .8,
+        maxHeight: 30,
         paddingBottom: "1%",
         borderBottomWidth: 1,
         borderBottomColor: colors.general.dark,
