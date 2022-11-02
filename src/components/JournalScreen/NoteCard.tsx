@@ -28,7 +28,7 @@ const NoteCard = ({ onPress, additionalSettings, note }) => {
                         <Entypo name="trash" size={24} color={colors.button.textCancel} />
                     </Pressable>
                     : null}
-                <Text style={styles.noteTitle}>{note.title}</Text>
+                <Text numberOfLines={2} style={styles.noteTitle}>{note.title}</Text>
                 <Text style={styles.noteDate}>{note.createdOn}</Text>
             </View>
         </Pressable>
@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: colors.text.dark,
         opacity: .8,
-        maxHeight: 30,
         paddingBottom: "1%",
         borderBottomWidth: 1,
         borderBottomColor: colors.general.dark,
