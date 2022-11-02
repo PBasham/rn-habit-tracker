@@ -16,7 +16,7 @@ interface CreateNoteModalProps {
 export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreateNote, createNewJournalEntry }) => {
 
 
-
+    // You don't need to enter this into state, I will change it after I complete the modal.
     const [noteTitle, setNoteTitle] = useState<string>("")
     const [noteDesc, setNoteDesc] = useState<string>("")
 
@@ -27,6 +27,8 @@ export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreate
         if (valueFor === "desc") setNoteDesc(text)
     }
 
+
+    // Handle Modal --------------------------------------------------
     const handleClose = () => {
         /* Clear values and close modal */
         setNoteTitle("")
@@ -41,27 +43,29 @@ export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreate
         handleClose()
     }
 
-    console.log(noteTitle, noteDesc);
-    
 
     return (
-        <Modal visible={visible} animationType="slide" >
+        <Modal visible={visible} animationType="fade" >
             <View style={styles.container}>
-                <StandardAntBtn style={styles.closeModalBtn} antIconName="down" onPress={handleClose} size={24} />
                 <TextInput
-                value={noteTitle}
+                    value={noteTitle}
+                    multiline
                     placeholder="Title"
                     style={[styles.input, styles.title]}
                     onChangeText={(text) => handleOnChange(text, "title")}
                 />
                 <TextInput
-                value={noteDesc}
+                    value={noteDesc}
                     multiline
                     placeholder="Note"
                     style={[styles.input, styles.description]}
                     onChangeText={(text) => handleOnChange(text, "desc")}
                 />
-                <RoundIconBtn antIconName="check" style={styles.addButton} onPress={handleAddNote}/>
+                {/* Container for Submit / Cancel buttons */}
+                <View style={styles.buttonsContainer}>
+                    <RoundIconBtn style={styles.closeModalBtn} antIconName="close" onPress={handleClose} size={24} />
+                    <RoundIconBtn antIconName="check" style={styles.addButton} onPress={handleAddNote} />
+                </View>
             </View>
             <Pressable onPress={() => Keyboard.dismiss()} style={[styles.modalBG, StyleSheet.absoluteFillObject]} />
         </Modal>
@@ -76,45 +80,44 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingTop: "25%",
         paddingHorizontal: 50,
+        backgroundColor: colors.general.accentBlue,
     },
     input: {
         paddingHorizontal: 10,
         paddingVertical: 5,
-        width: width - 50,
-        fontSize: 16,
+        width: width - 25,
+        fontSize: 18,
         color: colors.general.dark,
-        borderBottomWidth: 2,
-        borderBottomColor: colors.general.darkTransparent,
-        backgroundColor: colors.general.accentBlue,
     },
     title: {
-        height: 40,
+        minHeight: 40,
         marginBottom: 15,
-        fontWeight: "bold",
+        fontSize: 24,
+        borderBottomWidth: 2,
+        borderBottomColor: colors.general.darkTransparent,
+        
     },
     description: {
         textAlign: "left",
+        textAlignVertical: "top",
         justifyContent: "flex-start",
         alignItems: "flex-start",
-        minHeight: 100,
-    },
-    closeModalBtn: {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        marginTop: 20,
-        marginLeft: 25,
+        flex: 1,
     },
     modalBG: {
         flex: 1,
         zIndex: -1,
     },
-    addButton: {
+    buttonsContainer: {
         position: "absolute",
-        top: 0,
+        bottom: 0,
         right: 0,
-        marginTop: 20,
+        flexDirection: "row",
         marginRight: 25,
-        backgroundColor: colors.button.lightBlue,
+        marginBottom: "10%",
     },
+    addButton: {
+        marginLeft: 20,
+    },
+    closeModalBtn: {},
 })

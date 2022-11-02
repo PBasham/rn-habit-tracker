@@ -11,9 +11,10 @@ import colors from "../../misc/colors"
 interface NoteCardProps {
     onPress: () => void
     additionalSettings: Boolean
+    note: any
 }
 
-const NoteCard = ({ onPress, additionalSettings }) => {
+const NoteCard = ({ onPress, additionalSettings, note }) => {
 
     const handleDeleteNote = () => {
         console.log("Confirmation box will pop up.")
@@ -27,8 +28,8 @@ const NoteCard = ({ onPress, additionalSettings }) => {
                         <Entypo name="trash" size={24} color={colors.button.textCancel} />
                     </Pressable>
                     : null}
-                <Text style={styles.noteTitle}>Title</Text>
-                <Text style={styles.noteDate}>10/10/2022</Text>
+                <Text style={styles.noteTitle}>{note.title}</Text>
+                <Text style={styles.noteDate}>{note.createdOn}</Text>
             </View>
         </Pressable>
     )
@@ -40,6 +41,7 @@ const viewWidth = Dimensions.get("screen").width * .0
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         justifyContent: "center",
         alignItems: "center",
         paddingTop: 8,

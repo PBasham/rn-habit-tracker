@@ -25,7 +25,7 @@ const Journal = () => {
     const todaysDate = useContext(DateContext)
 
     // States --------------------------------------------------
-    const [JournalEntries, setJournalEntries] = useState<Object>({})
+    const [journalEntries, setJournalEntries] = useState<Array<Object>>([])
 
     const [modalVisable, setModalVisable] = useState<boolean>(false)
 
@@ -39,28 +39,32 @@ const Journal = () => {
         if (result === null) return
 
         const currentJournal = JSON.parse(result)
-        setJournalEntries(currentJournal)
+        setJournalEntries([...currentJournal])
     }
 
     // sdfsfsdfs --------------------------------------------------
 
-    const createNewJournalEntry = (title, desc) => {
+    const createNewJournalEntry = (title: string, desc: string) => {
         // User context.date to get todays date
-        console.log("title: ", title)
-        console.log("desc: ", desc)
+
         const newEntry = {
             id: Date.now(),
             createdOn: todaysDate,
             title,
             desc,
         }
+        console.log("Journal: ", journalEntries);
+        const updatedJournalEntries = [...journalEntries, newEntry]
+        console.log("Updated Journal: ", updatedJournalEntries);
+        AsyncStorage.setItem("journal", JSON.stringify(updatedJournalEntries))
+        setJournalEntries(updatedJournalEntries)
     }
 
     // useEffect --------------------------------------------------
     useEffect(() => {
         // Go into AsyncStorage and get users Journal Entries in date order.
         getUserJournalEntries()
-    }, [JournalEntries])
+    }, [])
 
 
     const handleEnableAdditionalSettigns = () => {
@@ -83,10 +87,10 @@ const Journal = () => {
             {/* Search/filter bar will go here in the future. */}
             <ControlBar openNoteDetail={openCreateNote} enableAdditionalSettings={enableAdditionalSettings} enableSettigns={handleEnableAdditionalSettigns} />
             <NotesContainer
-                JournalEntries={JournalEntries}
+                journalEntries={journalEntries}
                 additionalSettings={enableAdditionalSettings}
             />
-            <CreateNoteModal visible={modalVisable} closeCreateNote={closeCreateNote} createNewJournalEntry={createNewJournalEntry}/>
+            <CreateNoteModal visible={modalVisable} closeCreateNote={closeCreateNote} createNewJournalEntry={createNewJournalEntry} />
         </View>
     )
 }

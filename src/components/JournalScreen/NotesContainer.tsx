@@ -12,27 +12,25 @@ import colors from "../../misc/colors"
 
 
 interface NotesContainerProps {
-    additionalSettings: Boolean
-    JournalEntries: Object
+    additionalSettings: boolean
+    journalEntries: object
 }
 
-export const NotesContainer: FC<NotesContainerProps> = ({ additionalSettings, JournalEntries }) => {
+export const NotesContainer: FC<NotesContainerProps> = ({ additionalSettings, journalEntries }) => {
 
     const onPress = () => {
         console.log("I've been pressed")
     }
 
     return (
-        <View style={styles.notesContainer}>
-            {/* Flatlist */}
-            {/* This will be a map of the users journal entries once I've set that up. */}
-            {/* <FlatList
+            /* This will be a map of the users journal entries once I've set that up. */
+            <FlatList
+                style={styles.notesContainer}
+                // @ts-ignore
                 data={journalEntries}
-                keyExtractor={item => item.id.toString() }
-                renderItem={({ item }) => <NoteCard additionalSettings={additionalSettings} onPress={openNoteDetail} />}
-            /> */}
-
-        </View>
+                keyExtractor={item => item.id.toString()}
+                renderItem={({ item }) => <NoteCard additionalSettings={additionalSettings} note={item} onPress={() => console.log("Open note detail")} />}
+            />
     )
 }
 
@@ -42,8 +40,6 @@ const styles = StyleSheet.create({
     notesContainer: {
         flex: 1,
         flexDirection: "column",
-        // flexWrap: "wrap",
-        alignItems: "flex-start",
         width: width,
     },
 
