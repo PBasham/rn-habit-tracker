@@ -27,14 +27,13 @@ const Journal = () => {
     // States --------------------------------------------------
     const [journalEntries, setJournalEntries] = useState<Array<Object>>([])
 
+    const [selectedEntry, setSelectedEntry] = useState<object>({})
+
     const [modalVisable, setModalVisable] = useState<boolean>(false)
 
     const [enableAdditionalSettings, setEnableAdditionalSettings] = useState<boolean>(false)
 
-    const [entryDetailVisible, setEntryDetailVisible] = useState<boolean>(false)
-
-    const [selectedEntry, setSelectedEntry] = useState({})
-
+    // get the users journal entries from asyncStorage --------------------------------------------------
     const getUserJournalEntries = async () => {
         const result = await AsyncStorage.getItem("journal")
         console.log("Journal Entries: ", result)
@@ -45,16 +44,14 @@ const Journal = () => {
         setJournalEntries([...currentJournal])
     }
 
-    // sdfsfsdfs --------------------------------------------------
-
-    const createNewJournalEntry = (title: string, desc: string) => {
+    const createNewJournalEntry = (title: string, entry: string) => {
         // User context.date to get todays date
 
         const newEntry = {
             id: Date.now(),
             createdOn: todaysDate,
             title,
-            desc,
+            entry,
         }
         console.log("Journal: ", journalEntries);
         const updatedJournalEntries = [...journalEntries, newEntry]
@@ -74,6 +71,11 @@ const Journal = () => {
         setEnableAdditionalSettings(!enableAdditionalSettings)
     }
 
+    // select entry for detail --------------------------------------------------
+    const selectEntry = (entry: any) => {
+        console.log(`Selected entry: `, entry)
+        setSelectedEntry(entry)
+    }
 
     // Open/Close Modal --------------------------------------------------
     const openCreateNote = () => {
@@ -92,12 +94,9 @@ const Journal = () => {
             <NotesContainer
                 journalEntries={journalEntries}
                 additionalSettings={enableAdditionalSettings}
+                selectEntry={selectEntry}
             />
             <CreateNoteModal visible={modalVisable} closeCreateNote={closeCreateNote} createNewJournalEntry={createNewJournalEntry} />
-            <EntryDetailModal 
-                visible={entryDetailVisible}
-                entry={selectedEntry}
-            />
         </View>
     )
 }

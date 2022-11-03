@@ -5,7 +5,8 @@ import React, { FC, useState } from 'react'
 import { View, StyleSheet, Modal, TextInput, Dimensions, Pressable, Keyboard } from 'react-native'
 import { backgroundOne } from "../../../assets/imgs/images"
 import colors from "../../misc/colors"
-import { RoundIconBtn, StandardAntBtn } from "../buttons"
+import { AdditionalSettingsBtn, RoundIconBtn, StandardAntBtn } from "../buttons"
+import { SettingsBtn } from "../buttons/SettingsBtn"
 
 interface CreateNoteModalProps {
     visible: boolean
@@ -17,8 +18,8 @@ export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreate
 
 
     // You don't need to enter this into state, I will change it after I complete the modal.
-    const [noteTitle, setNoteTitle] = useState<string>("")
-    const [noteDesc, setNoteDesc] = useState<string>("")
+    const [entryTitle, setNoteTitle] = useState<string>("")
+    const [entryDetail, setNoteDesc] = useState<string>("")
 
 
 
@@ -38,7 +39,7 @@ export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreate
 
     const handleAddNote = () => {
         // Add the note
-        createNewJournalEntry(noteTitle, noteDesc)
+        createNewJournalEntry(entryTitle, entryDetail)
         /* Clear the values and close modal */
         handleClose()
     }
@@ -47,25 +48,31 @@ export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreate
     return (
         <Modal visible={visible} animationType="fade" >
             <View style={styles.container}>
+                {/* View that will hold the back/save/cancel button | title textInput | AdditionalSettings button */}
+                <View style={styles.headerBar}>
+                    <StandardAntBtn antIconName="left" onPress={() => console.log("Back && save || cancel")} />
+                    <TextInput
+                        value={entryTitle}
+                        multiline
+                        placeholder="Title"
+                        style={[styles.input, styles.title]}
+                        onChangeText={(text) => handleOnChange(text, "title")}
+                    />
+                    {/* Settigngs Button */}
+                    <SettingsBtn onPress={() => console.log("Show settings for entry!")} style={styles.settingsButton} />
+                </View>
                 <TextInput
-                    value={noteTitle}
+                    value={entryDetail}
                     multiline
-                    placeholder="Title"
-                    style={[styles.input, styles.title]}
-                    onChangeText={(text) => handleOnChange(text, "title")}
-                />
-                <TextInput
-                    value={noteDesc}
-                    multiline
-                    placeholder="Note"
-                    style={[styles.input, styles.description]}
+                    placeholder="journal entry..."
+                    style={[styles.input, styles.entry]}
                     onChangeText={(text) => handleOnChange(text, "desc")}
                 />
                 {/* Container for Submit / Cancel buttons */}
-                <View style={styles.buttonsContainer}>
+                {/* <View style={styles.buttonsContainer}>
                     <RoundIconBtn style={styles.closeModalBtn} antIconName="close" onPress={handleClose} size={24} />
                     <RoundIconBtn antIconName="check" style={styles.addButton} onPress={handleAddNote} />
-                </View>
+                </View> */}
             </View>
             <Pressable onPress={() => Keyboard.dismiss()} style={[styles.modalBG, StyleSheet.absoluteFillObject]} />
         </Modal>
@@ -78,46 +85,71 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        paddingTop: "25%",
-        paddingHorizontal: 50,
         backgroundColor: colors.general.accentBlue,
     },
-    input: {
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        width: width - 25,
-        fontSize: 18,
-        color: colors.general.dark,
-    },
-    title: {
-        minHeight: 40,
-        marginBottom: 15,
-        fontSize: 24,
+    headerBar: {
+        /* display stuff */
+        flexDirection: "row",
+        
+        /* position stuff */
+        alignItems: "center",
+        
+        /* box-model stuff */
+        minHeight: "10%",
+        width: width,
         borderBottomWidth: 2,
         borderBottomColor: colors.general.darkTransparent,
-        
     },
-    description: {
-        textAlign: "left",
-        textAlignVertical: "top",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
+    input: {},
+    title: {
         flex: 1,
+        fontSize: 24,
+        minHeight: 40,
     },
+    settingsButton: {
+        marginLeft: "auto",
+        paddingRight: 24,
+        paddingLeft: 12,
+    },
+    entry: {
+            textAlign: "left",
+            textAlignVertical: "top",
+            flex: 1,
+            width: width,
+            padding: 24,
+            fontSize: 18,
+    },
+    // input: {
+    //     width: width,
+    //     fontSize: 18,
+    //     color: colors.general.dark,
+    // },
+    // title: {
+    //     minHeight: 40,
+    //     marginBottom: 15,
+    //     fontSize: 24,
+    //     borderBottomWidth: 2,
+    //     borderBottomColor: colors.general.darkTransparent,
+
+    // },
+    // description: {
+    //     justifyContent: "flex-start",
+    //     alignItems: "flex-start",
+    //     flex: 1,
+    // },
     modalBG: {
         flex: 1,
         zIndex: -1,
     },
-    buttonsContainer: {
-        position: "absolute",
-        bottom: 0,
-        right: 0,
-        flexDirection: "row",
-        marginRight: 25,
-        marginBottom: "10%",
-    },
-    addButton: {
-        marginLeft: 20,
-    },
-    closeModalBtn: {},
+    // buttonsContainer: {
+    //     position: "absolute",
+    //     bottom: 0,
+    //     right: 0,
+    //     flexDirection: "row",
+    //     marginRight: 25,
+    //     marginBottom: "10%",
+    // },
+    // addButton: {
+    //     marginLeft: 20,
+    // },
 })

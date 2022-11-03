@@ -3,24 +3,17 @@
 ========================================*/
 import { FC, useState } from "react"
 import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
-/*========================================
-        Import Components
-========================================*/
+// Components --------------------------------------------------
 import NoteCard from "./NoteCard"
-import { RoundIconBtn } from "../buttons"
-import colors from "../../misc/colors"
 
 
 interface NotesContainerProps {
     additionalSettings: boolean
     journalEntries: object
+    selectEntry: (entry: any) => void
 }
 
-export const NotesContainer: FC<NotesContainerProps> = ({ additionalSettings, journalEntries }) => {
-
-    const onPress = (note: any) => {
-        console.log("Note: ", note)
-    }
+export const NotesContainer: FC<NotesContainerProps> = ({ additionalSettings, journalEntries, selectEntry }) => {
 
     return (
         /* This will be a map of the users journal entries once I've set that up. */
@@ -33,7 +26,7 @@ export const NotesContainer: FC<NotesContainerProps> = ({ additionalSettings, jo
                 <NoteCard
                     additionalSettings={additionalSettings}
                     note={item}
-                    onPress={onPress}
+                    onPress={selectEntry}
                 />}
         />
     )

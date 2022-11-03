@@ -16,7 +16,7 @@ interface AdditionalSettingsBtnProps {
     style?: any
     size?: number
     onPress: () => void
-    cancel: Boolean
+    cancel?: Boolean
 }
 
 export const AdditionalSettingsBtn: FC<AdditionalSettingsBtnProps> = ({ onPress, color, style, size, cancel }) => {
