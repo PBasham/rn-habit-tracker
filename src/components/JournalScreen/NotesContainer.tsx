@@ -18,19 +18,24 @@ interface NotesContainerProps {
 
 export const NotesContainer: FC<NotesContainerProps> = ({ additionalSettings, journalEntries }) => {
 
-    const onPress = () => {
-        console.log("I've been pressed")
+    const onPress = (note: any) => {
+        console.log("Note: ", note)
     }
 
     return (
-            /* This will be a map of the users journal entries once I've set that up. */
-            <FlatList
-                style={styles.notesContainer}
-                // @ts-ignore
-                data={journalEntries}
-                keyExtractor={item => item.id.toString()}
-                renderItem={({ item }) => <NoteCard additionalSettings={additionalSettings} note={item} onPress={() => console.log("Open note detail")} />}
-            />
+        /* This will be a map of the users journal entries once I've set that up. */
+        <FlatList
+            style={styles.notesContainer}
+            // @ts-ignore
+            data={journalEntries}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) =>
+                <NoteCard
+                    additionalSettings={additionalSettings}
+                    note={item}
+                    onPress={onPress}
+                />}
+        />
     )
 }
 
@@ -40,7 +45,7 @@ const styles = StyleSheet.create({
     notesContainer: {
         flex: 1,
         flexDirection: "column",
-        width: width,
+        width: width - 50,
     },
 
 })

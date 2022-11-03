@@ -21,7 +21,7 @@ const NoteCard = ({ onPress, additionalSettings, note }) => {
     }
 
     return (
-        <Pressable onPress={onPress} style={[styles.container]}>
+        <Pressable onPress={() => onPress(note)} style={[styles.container]}>
             <View style={[styles.note, additionalSettings ? styles.additionalSettings : null]}>
                 {additionalSettings ?
                     <Pressable style={styles.trashCanIcon} onPress={handleDeleteNote}>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.general.light
     },
     noteTitle: {
-        textAlign: "center",
+        textAlign: "left",
         fontSize: 20,
         color: colors.text.dark,
         opacity: .8,
