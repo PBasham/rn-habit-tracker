@@ -14,15 +14,24 @@ import colors from "../../misc/colors";
 interface SettingsBtnProps {
     color?: string | string
     style?: any
+    padding?: number
+    height?: number
+    width?: number
     size?: number
     onPress: () => void
 }
 
-export const SettingsBtn: FC<SettingsBtnProps> = ({ onPress, color, style, size }) => {
+export const SettingsBtn: FC<SettingsBtnProps> = ({ onPress, color, style, padding, height, width, size }) => {
     console.log(style);
-    
+
     return (
-        <Pressable onPress={onPress} style={{...style}} >
+        <Pressable onPress={onPress} style={[{ ...style }, {
+            justifyContent: 'center',
+            alignItems: "center",
+            height: height || 50,
+            width: width || "auto",
+        }
+        ]} >
             <Entypo name={"dots-three-vertical"} size={size || 24} color={color || colors.button.textDark} />
         </Pressable>
     )

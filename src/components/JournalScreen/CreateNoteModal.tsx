@@ -50,7 +50,7 @@ export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreate
             <View style={styles.container}>
                 {/* View that will hold the back/save/cancel button | title textInput | AdditionalSettings button */}
                 <View style={styles.headerBar}>
-                    <StandardAntBtn antIconName="left" onPress={() => console.log("Back && save || cancel")} />
+                    <StandardAntBtn antIconName="left" backColor="red" onPress={() => console.log("Back && save || cancel")} />
                     <TextInput
                         value={entryTitle}
                         multiline
@@ -92,10 +92,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         
         /* position stuff */
-        alignItems: "center",
+        // alignItems: "flex-start",
         
         /* box-model stuff */
-        minHeight: "10%",
+        backgroundColor: "orange",
         width: width,
         borderBottomWidth: 2,
         borderBottomColor: colors.general.darkTransparent,
@@ -104,12 +104,15 @@ const styles = StyleSheet.create({
     title: {
         flex: 1,
         fontSize: 24,
-        minHeight: 40,
+        backgroundColor: "white",
+        // minHeight: 40,
+        // marginVertical: 5,
     },
     settingsButton: {
         marginLeft: "auto",
         paddingRight: 24,
         paddingLeft: 12,
+        backgroundColor: "blue",
     },
     entry: {
             textAlign: "left",

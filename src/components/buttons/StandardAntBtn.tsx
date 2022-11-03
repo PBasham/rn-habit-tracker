@@ -44,6 +44,8 @@ export const StandardAntBtn: FC<StandardAntBtnProps> = ({
 
     return (
         <Pressable style={[{ ...style }, styles.btnContainer, {
+            // justifyContent: 'center',
+            // alignItems: "center",
             padding: padding || 15,
             height: height || 50,
             width: width || "auto",
