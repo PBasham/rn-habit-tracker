@@ -4,9 +4,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useEffect, useState, useContext } from "react"
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
-import { combineTransition } from "react-native-reanimated"
 import ControlBar from "../components/JournalScreen/ControlBar"
 import { CreateNoteModal } from "../components/JournalScreen/CreateNoteModal"
+import { EntryDetailModal } from "../components/JournalScreen/EntryDetailModal"
 import { NotesContainer } from "../components/JournalScreen/NotesContainer"
 import { HeaderOne } from "../components/Text/"
 // Context --------------------------------------------------
@@ -31,6 +31,9 @@ const Journal = () => {
 
     const [enableAdditionalSettings, setEnableAdditionalSettings] = useState<boolean>(false)
 
+    const [entryDetailVisible, setEntryDetailVisible] = useState<boolean>(false)
+
+    const [selectedEntry, setSelectedEntry] = useState({})
 
     const getUserJournalEntries = async () => {
         const result = await AsyncStorage.getItem("journal")
@@ -91,6 +94,10 @@ const Journal = () => {
                 additionalSettings={enableAdditionalSettings}
             />
             <CreateNoteModal visible={modalVisable} closeCreateNote={closeCreateNote} createNewJournalEntry={createNewJournalEntry} />
+            <EntryDetailModal 
+                visible={entryDetailVisible}
+                entry={selectedEntry}
+            />
         </View>
     )
 }

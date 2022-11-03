@@ -49,10 +49,14 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     note: {
-        minHeight: 60,
         padding: "3%",
+        borderRadius: 15,
+
+        minHeight: 60,
         width: "100%",
-        backgroundColor: colors.general.light
+        
+        backgroundColor: colors.general.light,
+        
     },
     noteTitle: {
         textAlign: "left",
