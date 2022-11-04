@@ -50,7 +50,7 @@ export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreate
             <View style={styles.container}>
                 {/* View that will hold the back/save/cancel button | title textInput | AdditionalSettings button */}
                 <View style={styles.headerBar}>
-                    <StandardAntBtn antIconName="left" backColor="red" onPress={() => console.log("Back && save || cancel")} />
+                    <StandardAntBtn antIconName="left" size={30} onPress={() => console.log("Back && save || cancel")} />
                     <TextInput
                         value={entryTitle}
                         multiline
@@ -59,7 +59,11 @@ export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreate
                         onChangeText={(text) => handleOnChange(text, "title")}
                     />
                     {/* Settigngs Button */}
-                    <SettingsBtn onPress={() => console.log("Show settings for entry!")} style={styles.settingsButton} />
+                    <SettingsBtn
+                        size={27}
+                        onPress={() => console.log("Show settings for entry!")}
+                        style={styles.settingsButton}
+                    />
                 </View>
                 <TextInput
                     value={entryDetail}
@@ -90,13 +94,13 @@ const styles = StyleSheet.create({
     headerBar: {
         /* display stuff */
         flexDirection: "row",
-        
         /* position stuff */
         // alignItems: "flex-start",
-        
+
         /* box-model stuff */
-        backgroundColor: "orange",
+        paddingTop: 10,
         width: width,
+        minHeight: 60,
         borderBottomWidth: 2,
         borderBottomColor: colors.general.darkTransparent,
     },
@@ -104,23 +108,21 @@ const styles = StyleSheet.create({
     title: {
         flex: 1,
         fontSize: 24,
-        backgroundColor: "white",
         // minHeight: 40,
         // marginVertical: 5,
     },
     settingsButton: {
         marginLeft: "auto",
-        paddingRight: 24,
-        paddingLeft: 12,
-        backgroundColor: "blue",
+        // paddingRight: 24,
+        // paddingLeft: 12,
     },
     entry: {
-            textAlign: "left",
-            textAlignVertical: "top",
-            flex: 1,
-            width: width,
-            padding: 24,
-            fontSize: 18,
+        textAlign: "left",
+        textAlignVertical: "top",
+        flex: 1,
+        width: width,
+        padding: 24,
+        fontSize: 18,
     },
     // input: {
     //     width: width,

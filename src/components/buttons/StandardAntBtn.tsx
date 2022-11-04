@@ -16,7 +16,7 @@ interface StandardAntBtnProps {
     color?: string
     backColor?: string
     bdrRad?: number
-    padding?: number
+    margin?: number
     fontSize?: number
     antIconName?: string
     size?: number
@@ -32,7 +32,7 @@ export const StandardAntBtn: FC<StandardAntBtnProps> = ({
     color,
     backColor,
     bdrRad,
-    padding,
+    margin,
     fontSize,
     antIconName,
     size,
@@ -44,9 +44,9 @@ export const StandardAntBtn: FC<StandardAntBtnProps> = ({
 
     return (
         <Pressable style={[{ ...style }, styles.btnContainer, {
-            // justifyContent: 'center',
-            // alignItems: "center",
-            padding: padding || 15,
+            justifyContent: 'center',
+            alignItems: "center",
+            margin: margin || 15,
             height: height || 50,
             width: width || "auto",
             borderRadius: bdrRad || 20,
