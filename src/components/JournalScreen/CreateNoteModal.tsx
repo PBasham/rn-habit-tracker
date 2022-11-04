@@ -11,11 +11,13 @@ import { SettingsBtn } from "../buttons/SettingsBtn"
 interface CreateNoteModalProps {
     visible: boolean
     closeCreateNote: () => void
-    createNewJournalEntry: (title, desc) => void
+    createNewJournalEntry: (title: string, desc: string) => void
 }
 
 export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreateNote, createNewJournalEntry }) => {
 
+
+    const [settingsMenuOpen, setSettingsMenuOpen] = useState(false)
 
     // You don't need to enter this into state, I will change it after I complete the modal.
     const [entryTitle, setNoteTitle] = useState<string>("")
@@ -23,19 +25,40 @@ export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreate
 
 
 
-    const handleOnChange = (text, valueFor) => {
+    const handleOnChange = (text: string, valueFor: string) => {
         if (valueFor === "title") setNoteTitle(text)
         if (valueFor === "desc") setNoteDesc(text)
     }
 
 
     // Handle Modal --------------------------------------------------
+    /*= handle back button click =*/
     const handleClose = () => {
         /* Clear values and close modal */
         setNoteTitle("")
         setNoteDesc("")
         closeCreateNote()
     }
+
+    const handleBackPress = () => {
+        handleClose()
+        // first check if there is either a title or detail
+
+        // if yes then save the entry into the user Journal AsyncStorage
+        // else do nothing
+    }
+
+    // settings menu --------------------------------------------------
+    const handleSettingsOpen = () => {
+        // Open menu
+        setSettingsMenuOpen(true)
+    }
+    const handleSettingsClose = () => {
+        // close menu
+        setSettingsMenuOpen(false)
+    }
+
+
 
     const handleAddNote = () => {
         // Add the note
@@ -50,7 +73,11 @@ export const CreateNoteModal: FC<CreateNoteModalProps> = ({ visible, closeCreate
             <View style={styles.container}>
                 {/* View that will hold the back/save/cancel button | title textInput | AdditionalSettings button */}
                 <View style={styles.headerBar}>
-                    <StandardAntBtn antIconName="left" size={30} onPress={() => console.log("Back && save || cancel")} />
+                    <StandardAntBtn
+                        antIconName="left"
+                        size={30}
+                        onPress={handleBackPress}
+                    />
                     <TextInput
                         value={entryTitle}
                         multiline
@@ -112,7 +139,7 @@ const styles = StyleSheet.create({
         // marginVertical: 5,
     },
     settingsButton: {
-        marginLeft: "auto",
+        // marginLeft: "auto",
         // paddingRight: 24,
         // paddingLeft: 12,
     },
