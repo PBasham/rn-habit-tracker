@@ -4,26 +4,26 @@
 import { FC, useState } from "react"
 import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
 // Components --------------------------------------------------
-import NoteCard from "./NoteCard"
+import EntryCard from "./EntryCard"
 
 
-interface NotesContainerProps {
+interface JournalEntriesContainerProps {
     additionalSettings: boolean
     journalEntries: object
     selectEntry: (entry: any) => void
 }
 
-export const NotesContainer: FC<NotesContainerProps> = ({ additionalSettings, journalEntries, selectEntry }) => {
+export const JournalEntriesContainer: FC<JournalEntriesContainerProps> = ({ additionalSettings, journalEntries, selectEntry }) => {
 
     return (
         /* This will be a map of the users journal entries once I've set that up. */
         <FlatList
-            style={styles.notesContainer}
+            style={styles.JournalEntriesContainer}
             // @ts-ignore
             data={journalEntries}
             keyExtractor={item => item.id.toString()}
             renderItem={({ item }) =>
-                <NoteCard
+                <EntryCard
                     additionalSettings={additionalSettings}
                     note={item}
                     onPress={selectEntry}
@@ -35,7 +35,7 @@ export const NotesContainer: FC<NotesContainerProps> = ({ additionalSettings, jo
 const width = Dimensions.get("screen").width
 
 const styles = StyleSheet.create({
-    notesContainer: {
+    JournalEntriesContainer: {
         flex: 1,
         flexDirection: "column",
         width: width - 50,

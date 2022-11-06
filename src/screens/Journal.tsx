@@ -7,7 +7,7 @@ import { useEffect, useState, useContext } from "react"
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import ControlBar from "../components/JournalScreen/ControlBar"
 import { EntryDetailModal } from "../components/JournalScreen/EntryDetailModal"
-import { NotesContainer } from "../components/JournalScreen/NotesContainer"
+import { JournalEntriesContainer } from "../components/JournalScreen/JournalEntriesContainer"
 import { HeaderOne } from "../components/Text/"
 // Context --------------------------------------------------
 import { DateContext } from "../context"
@@ -116,7 +116,7 @@ const Journal = () => {
             <HeaderOne content={"Your thoughts on today?"} style={{ width: width - 50 }} color={colors.text.darkTransparent} />
             {/* Search/filter bar will go here in the future. */}
             <ControlBar openNoteDetail={openEntryDetail} enableAdditionalSettings={enableAdditionalSettings} enableSettigns={handleEnableAdditionalSettigns} />
-            <NotesContainer
+            <JournalEntriesContainer
                 journalEntries={journalEntries}
                 additionalSettings={enableAdditionalSettings}
                 selectEntry={selectEntry}

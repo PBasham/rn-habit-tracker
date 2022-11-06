@@ -8,15 +8,15 @@ import { Entypo } from '@expo/vector-icons';
 import { trashCanIcon } from "../../../assets/icons/icons"
 import colors from "../../misc/colors"
 
-interface NoteCardProps {
+interface EntryCardProps {
     onPress: () => void
     additionalSettings: Boolean
     note: any
 }
 
-const NoteCard = ({ onPress, additionalSettings, note }) => {
+const EntryCard = ({ onPress, additionalSettings, note }) => {
 
-    const handleDeleteNote = () => {
+    const handleDeleteEntry = () => {
         console.log("Confirmation box will pop up.")
     }
 
@@ -24,7 +24,7 @@ const NoteCard = ({ onPress, additionalSettings, note }) => {
         <Pressable onPress={() => onPress(note)} style={[styles.container]}>
             <View style={[styles.note, additionalSettings ? styles.additionalSettings : null]}>
                 {additionalSettings ?
-                    <Pressable style={styles.trashCanIcon} onPress={handleDeleteNote}>
+                    <Pressable style={styles.trashCanIcon} onPress={handleDeleteEntry}>
                         <Entypo name="trash" size={24} color={colors.button.textCancel} />
                     </Pressable>
                     : null}
@@ -35,7 +35,7 @@ const NoteCard = ({ onPress, additionalSettings, note }) => {
     )
 }
 
-export default NoteCard
+export default EntryCard
 
 const viewWidth = Dimensions.get("screen").width * .0
 

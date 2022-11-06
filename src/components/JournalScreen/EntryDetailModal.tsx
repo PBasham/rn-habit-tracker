@@ -8,6 +8,7 @@ import { backgroundOne } from "../../../assets/imgs/images"
 import colors from "../../misc/colors"
 import { AdditionalSettingsBtn, RoundIconBtn, StandardAntBtn } from "../buttons"
 import { SettingsBtn } from "../buttons/SettingsBtn"
+import { EntrySettingsMenu } from "./EntrySettingsMenu"
 
 interface EntryDetailModalProps {
     visible: boolean
@@ -33,7 +34,9 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
     // }, [])
 
 
-    const [settingsMenuOpen, setSettingsMenuOpen] = useState(false)
+    const [settingsMenuOpen, setSettingsMenuOpen] = useState<boolean>(false)
+
+
 
     const handleOnChange = (text: string, valueFor: string) => {
         setSelectedEntry((current) => {
@@ -64,6 +67,7 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
             createNewJournalEntry(selectedEntry.title || "Untitled", selectedEntry.entry)
         }
         // else do nothing
+        handleSettingsClose()
         handleClose()
     }
 
@@ -98,10 +102,13 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
                     {/* Settigngs Button */}
                     <SettingsBtn
                         size={27}
-                        onPress={() => console.log("Show settings for entry!")}
+                        onPress={handleSettingsOpen}
                         style={styles.settingsButton}
                     />
+                    <EntrySettingsMenu open={settingsMenuOpen} handleSettingsClose={handleSettingsClose} />
                 </View>
+
+
                 <TextInput
                     value={selectedEntry.entry}
                     multiline
@@ -109,14 +116,10 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
                     style={[styles.input, styles.entry]}
                     onChangeText={(text) => handleOnChange(text, "entry")}
                 />
-                {/* Container for Submit / Cancel buttons */}
-                {/* <View style={styles.buttonsContainer}>
-                    <RoundIconBtn style={styles.closeModalBtn} antIconName="close" onPress={handleClose} size={24} />
-                    <RoundIconBtn antIconName="check" style={styles.addButton} onPress={handleAddNote} />
-                </View> */}
             </View>
-            <Pressable onPress={() => Keyboard.dismiss()} style={[styles.modalBG, StyleSheet.absoluteFillObject]} />
+
         </Modal>
+
     )
 }
 
@@ -125,8 +128,10 @@ const width = Dimensions.get("screen").width
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        position: "relative",
         alignItems: "center",
         backgroundColor: colors.general.accentBlue,
+        zIndex: -1,
     },
     headerBar: {
         /* display stuff */
@@ -145,13 +150,9 @@ const styles = StyleSheet.create({
     title: {
         flex: 1,
         fontSize: 24,
-        // minHeight: 40,
-        // marginVertical: 5,
     },
     settingsButton: {
-        // marginLeft: "auto",
-        // paddingRight: 24,
-        // paddingLeft: 12,
+        backgroundColor: "red",
     },
     entry: {
         textAlign: "left",
@@ -161,37 +162,12 @@ const styles = StyleSheet.create({
         padding: 24,
         fontSize: 18,
     },
-    // input: {
-    //     width: width,
-    //     fontSize: 18,
-    //     color: colors.general.dark,
-    // },
-    // title: {
-    //     minHeight: 40,
-    //     marginBottom: 15,
-    //     fontSize: 24,
-    //     borderBottomWidth: 2,
-    //     borderBottomColor: colors.general.darkTransparent,
-
-    // },
-    // description: {
-    //     justifyContent: "flex-start",
-    //     alignItems: "flex-start",
-    //     flex: 1,
-    // },
     modalBG: {
-        flex: 1,
-        zIndex: -1,
+        position: "absolute",
+        height: "100%",
+        width: "100%",
+        zIndex: 1,
+        // backgroundColor: "red",
+        opacity: .2,
     },
-    // buttonsContainer: {
-    //     position: "absolute",
-    //     bottom: 0,
-    //     right: 0,
-    //     flexDirection: "row",
-    //     marginRight: 25,
-    //     marginBottom: "10%",
-    // },
-    // addButton: {
-    //     marginLeft: 20,
-    // },
 })
