@@ -99,7 +99,8 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
                         style={[styles.input, styles.title]}
                         onChangeText={(text) => handleOnChange(text, "title")}
                     />
-                    {/* Settigngs Button */}
+
+                    {/* Settings Button */}
                     <SettingsBtn
                         size={27}
                         onPress={handleSettingsOpen}
@@ -152,7 +153,6 @@ const styles = StyleSheet.create({
         fontSize: 24,
     },
     settingsButton: {
-        backgroundColor: "red",
     },
     entry: {
         textAlign: "left",

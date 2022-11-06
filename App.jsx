@@ -26,6 +26,7 @@ import { UserContext, DateContext } from "./src/context";
 // Styling/misc --------------------------------------------------
 import { homeIcon, manageIcon, progressIcon, journalIcon, settingsIcon } from "./assets/icons/icons";
 import colors from "./src/misc/colors";
+import { MenuProvider } from "react-native-popup-menu";
 
 const Tab = createBottomTabNavigator()
 
@@ -65,7 +66,7 @@ export default function App() {
     }, [])
 
     return (
-        <>
+        <MenuProvider>
             {!user.name ?
                 <>
                     <OpeningQuote />
@@ -142,7 +143,7 @@ export default function App() {
                     </DateContext.Provider>
                 </UserContext.Provider>
             }
-        </>
+        </MenuProvider>
     )
 }
 
