@@ -16,6 +16,7 @@ interface EntryDetailModalProps {
     selectedEntry: any
     setSelectedEntry: any
     createNewJournalEntry: (title: string, desc: string) => void
+    removeJournalEntry: (id: any) => void
 }
 
 export const EntryDetailModal: FC<EntryDetailModalProps> = ({
@@ -24,14 +25,23 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
     selectedEntry,
     setSelectedEntry,
     createNewJournalEntry,
+    removeJournalEntry
 }) => {
 
-
-    // useEffect(() => {
-    //     if (!selectedEntry) {
-    //         setSelectedEntry()
-    //     }
-    // }, [])
+    const settingOptions = [
+        {
+            name: "Option 1",
+            action: () => console.log("An Option")
+        },
+        {
+            name: "Delete",
+            action: () => {
+                handleSettingsClose()
+                removeJournalEntry(selectedEntry.id)
+                handleClose()
+            }
+        },
+    ]
 
 
     const [settingsMenuOpen, setSettingsMenuOpen] = useState<boolean>(false)
@@ -106,7 +116,11 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
                         onPress={handleSettingsOpen}
                         style={styles.settingsButton}
                     />
-                    <EntrySettingsMenu open={settingsMenuOpen} handleSettingsClose={handleSettingsClose} />
+                    <EntrySettingsMenu 
+                    open={settingsMenuOpen} 
+                    handleSettingsClose={handleSettingsClose}
+                    settingOptions={settingOptions}
+                    />
                 </View>
 
 

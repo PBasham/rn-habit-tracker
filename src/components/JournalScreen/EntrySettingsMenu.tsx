@@ -11,23 +11,15 @@ import colors from "../../misc/colors";
 interface EntrySettingsMenuProps {
     open: boolean
     handleSettingsClose: () => void
+    settingOptions: object[]
 }
 
-export const EntrySettingsMenu: FC<EntrySettingsMenuProps> = ({ open, handleSettingsClose }) => {
+export const EntrySettingsMenu: FC<EntrySettingsMenuProps> = ({ open, handleSettingsClose, settingOptions }) => {
 
 
     LayoutAnimation.easeInEaseOut()
 
-    const settingOptions = [
-        {
-            name: "Option 1",
-            action: () => console.log("An Option")
-        },
-        {
-            name: "Delete",
-            action: () => console.log("Delete Entry!")
-        },
-    ]
+
 
 
     return (
@@ -35,17 +27,19 @@ export const EntrySettingsMenu: FC<EntrySettingsMenuProps> = ({ open, handleSett
             {/* Background used to close when clicking out of pop up menu */}
             <Pressable style={[styles.modalBG, StyleSheet.absoluteFillObject]} onPress={handleSettingsClose} />
             <View style={open ? styles.popupMenu : styles.closed}>
-                {settingOptions.map((option) => (
-                    <Pressable onPress={option.action}>
-                        {({ pressed }) => (
-                            <Text style={[styles.option, pressed ? styles.pressed : null]} >
-                                {option.name}
-                            </Text>
+                {settingOptions.map((option, index) => (
+                    // @ts-ignore
+                    <Pressable key={index} onPress={option.action} >
+                    {({ pressed }) => (
+                <Text style={[styles.option, pressed ? styles.pressed : null]} >
+                    {/* @ts-ignore */}
+                    {option.name}
+                </Text>
                         )}
-                    </Pressable>
+            </Pressable>
                 ))}
-            </View>
-        </Modal>
+        </View>
+        </Modal >
     )
 }
 

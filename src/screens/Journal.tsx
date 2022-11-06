@@ -47,6 +47,22 @@ const Journal = () => {
         setJournalEntries([...currentJournal])
     }
 
+    const removeJournalEntry = (id: any) => {
+
+        console.log("WooHoo!")
+        // @ts-ignore
+        const updatedJournalEntries = journalEntries.filter((entry) => entry.id !== id
+        )
+
+        console.log("journalEntries: ", journalEntries, "\n")
+        console.log("updatedJournalEntries: ", updatedJournalEntries, "\n")
+
+
+        AsyncStorage.setItem("journal", JSON.stringify(updatedJournalEntries))
+        setJournalEntries(updatedJournalEntries)
+
+    }
+
     const createNewJournalEntry = (title: string, entry: string) => {
         // User context.date to get todays date
         console.log(selectedEntry)
@@ -127,6 +143,7 @@ const Journal = () => {
                 selectedEntry={selectedEntry}
                 setSelectedEntry={setSelectedEntry}
                 createNewJournalEntry={createNewJournalEntry}
+                removeJournalEntry={removeJournalEntry}
             />
         </View>
     )
