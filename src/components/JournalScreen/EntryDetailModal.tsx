@@ -42,10 +42,11 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({ visible, closeCrea
 
     const handleBackPress = () => {
         // first check if there is either a title or detail
-        if (entryTitle.trim() !== "" || entryDetail.trim() !== "") {
+        if (entryTitle.trim() || entryDetail.trim()) {
             // if yes then save the entry into the user Journal AsyncStorage
             // save note / update note
-            createNewJournalEntry(entryTitle, entryDetail)
+            if (entryTitle) console.log("There is no title, but i recognize it")
+            createNewJournalEntry(entryTitle || "Untitled", entryDetail)
         }
         // else do nothing
         handleClose()
@@ -59,15 +60,6 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({ visible, closeCrea
     const handleSettingsClose = () => {
         // close menu
         setSettingsMenuOpen(false)
-    }
-
-
-
-    const handleAddNote = () => {
-        // Add the note
-        createNewJournalEntry(entryTitle, entryDetail)
-        /* Clear the values and close modal */
-        handleClose()
     }
 
 
