@@ -1,7 +1,8 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import React, { FC, useState } from 'react'
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import React, { FC, useEffect, useState } from 'react'
 import { View, StyleSheet, Modal, TextInput, Dimensions, Pressable, Keyboard } from 'react-native'
 import { backgroundOne } from "../../../assets/imgs/images"
 import colors from "../../misc/colors"
@@ -11,23 +12,36 @@ import { SettingsBtn } from "../buttons/SettingsBtn"
 interface EntryDetailModalProps {
     visible: boolean
     closeCreateNote: () => void
+    selectedEntry: any
+    setSelectedEntry: any
     createNewJournalEntry: (title: string, desc: string) => void
 }
 
-export const EntryDetailModal: FC<EntryDetailModalProps> = ({ visible, closeCreateNote, createNewJournalEntry }) => {
+export const EntryDetailModal: FC<EntryDetailModalProps> = ({
+    visible,
+    closeCreateNote,
+    selectedEntry,
+    setSelectedEntry,
+    createNewJournalEntry,
+}) => {
+
+
+    // useEffect(() => {
+    //     if (!selectedEntry) {
+    //         setSelectedEntry()
+    //     }
+    // }, [])
 
 
     const [settingsMenuOpen, setSettingsMenuOpen] = useState(false)
 
-    // You don't need to enter this into state, I will change it after I complete the modal.
-    const [entryTitle, setNoteTitle] = useState<string>("")
-    const [entryDetail, setNoteDesc] = useState<string>("")
-
-
-
     const handleOnChange = (text: string, valueFor: string) => {
-        if (valueFor === "title") setNoteTitle(text)
-        if (valueFor === "desc") setNoteDesc(text)
+        setSelectedEntry((current) => {
+            return {
+                ...current,
+                [valueFor]: text,
+            }
+        })
     }
 
 
@@ -35,18 +49,19 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({ visible, closeCrea
     /*= handle back button click =*/
     const handleClose = () => {
         /* Clear values and close modal */
-        setNoteTitle("")
-        setNoteDesc("")
+        setSelectedEntry({
+            title: "",
+            entry: "",
+        })
         closeCreateNote()
     }
 
     const handleBackPress = () => {
         // first check if there is either a title or detail
-        if (entryTitle.trim() || entryDetail.trim()) {
+        if (selectedEntry.title.trim() || selectedEntry.entry.trim()) {
             // if yes then save the entry into the user Journal AsyncStorage
             // save note / update note
-            if (entryTitle) console.log("There is no title, but i recognize it")
-            createNewJournalEntry(entryTitle || "Untitled", entryDetail)
+            createNewJournalEntry(selectedEntry.title || "Untitled", selectedEntry.entry)
         }
         // else do nothing
         handleClose()
@@ -74,7 +89,7 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({ visible, closeCrea
                         onPress={handleBackPress}
                     />
                     <TextInput
-                        value={entryTitle}
+                        value={selectedEntry.title}
                         multiline
                         placeholder="Title"
                         style={[styles.input, styles.title]}
@@ -88,11 +103,11 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({ visible, closeCrea
                     />
                 </View>
                 <TextInput
-                    value={entryDetail}
+                    value={selectedEntry.entry}
                     multiline
                     placeholder="journal entry..."
                     style={[styles.input, styles.entry]}
-                    onChangeText={(text) => handleOnChange(text, "desc")}
+                    onChangeText={(text) => handleOnChange(text, "entry")}
                 />
                 {/* Container for Submit / Cancel buttons */}
                 {/* <View style={styles.buttonsContainer}>

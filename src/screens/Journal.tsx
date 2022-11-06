@@ -2,6 +2,7 @@
         Import Dependencies
 ========================================*/
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { execArgv } from "process"
 import { useEffect, useState, useContext } from "react"
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import ControlBar from "../components/JournalScreen/ControlBar"
@@ -24,9 +25,12 @@ const Journal = () => {
     const todaysDate = useContext(DateContext)
 
     // States --------------------------------------------------
-    const [journalEntries, setJournalEntries] = useState<Array<Object>>([])
+    const [journalEntries, setJournalEntries] = useState<Array<object>>([])
 
-    const [selectedEntry, setSelectedEntry] = useState<object>({})
+    const [selectedEntry, setSelectedEntry] = useState<object>({
+        title: "",
+        entry: "",
+    })
 
     const [modalVisable, setModalVisable] = useState<boolean>(false)
 
@@ -45,18 +49,44 @@ const Journal = () => {
 
     const createNewJournalEntry = (title: string, entry: string) => {
         // User context.date to get todays date
+        console.log(selectedEntry)
+        let updatedJournalEntries = []
+        // @ts-ignore
+        if (selectedEntry.id) {
+            console.log("Existing entry")
 
-        const newEntry = {
-            id: Date.now(),
-            createdOn: todaysDate,
-            title,
-            entry,
+            updatedJournalEntries = journalEntries.map((current => {
+                // @ts-ignore
+                if (current.id === selectedEntry.id) {
+                    console.log("Found it")
+                    return {
+                        ...current,
+                        title: title,
+                        entry: entry,
+                    }
+                }
+                return current
+            }))
+
+        } else {
+            console.log("New entry")
+            const newEntry = {
+                id: Date.now(),
+                createdOn: todaysDate,
+                title,
+                entry,
+            }
+            console.log(newEntry)
+            updatedJournalEntries = [...journalEntries, newEntry]
         }
-        console.log("Journal: ", journalEntries);
-        const updatedJournalEntries = [...journalEntries, newEntry]
-        console.log("Updated Journal: ", updatedJournalEntries);
+
+
+        console.log("updatedJournalEntries: ", updatedJournalEntries)
+
         AsyncStorage.setItem("journal", JSON.stringify(updatedJournalEntries))
         setJournalEntries(updatedJournalEntries)
+
+
     }
 
     // useEffect --------------------------------------------------
@@ -66,36 +96,38 @@ const Journal = () => {
     }, [])
 
 
-    const handleEnableAdditionalSettigns = () => {
-        setEnableAdditionalSettings(!enableAdditionalSettings)
-    }
+    const handleEnableAdditionalSettigns = () => { setEnableAdditionalSettings(!enableAdditionalSettings) }
 
     // select entry for detail --------------------------------------------------
     const selectEntry = (entry: any) => {
         console.log(`Selected entry: `, entry)
         setSelectedEntry(entry)
+        openEntryDetail()
     }
 
+
     // Open/Close Modal --------------------------------------------------
-    const openCreateNote = () => {
-        setModalVisable(true)
-    }
-    const closeCreateNote = () => {
-        setModalVisable(false)
-    }
+    const openEntryDetail = () => { setModalVisable(true) }
+    const closeEntryDetail = () => { setModalVisable(false) }
     //  --------------------------------------------------
 
     return (
         <View style={styles.container}>
             <HeaderOne content={"Your thoughts on today?"} style={{ width: width - 50 }} color={colors.text.darkTransparent} />
             {/* Search/filter bar will go here in the future. */}
-            <ControlBar openNoteDetail={openCreateNote} enableAdditionalSettings={enableAdditionalSettings} enableSettigns={handleEnableAdditionalSettigns} />
+            <ControlBar openNoteDetail={openEntryDetail} enableAdditionalSettings={enableAdditionalSettings} enableSettigns={handleEnableAdditionalSettigns} />
             <NotesContainer
                 journalEntries={journalEntries}
                 additionalSettings={enableAdditionalSettings}
                 selectEntry={selectEntry}
             />
-            <EntryDetailModal visible={modalVisable} closeCreateNote={closeCreateNote} createNewJournalEntry={createNewJournalEntry} />
+            <EntryDetailModal
+                visible={modalVisable}
+                closeCreateNote={closeEntryDetail}
+                selectedEntry={selectedEntry}
+                setSelectedEntry={setSelectedEntry}
+                createNewJournalEntry={createNewJournalEntry}
+            />
         </View>
     )
 }
