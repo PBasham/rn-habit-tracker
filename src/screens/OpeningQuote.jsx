@@ -96,9 +96,13 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         position: "absolute",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         bottom: "25%",
         borderRadius: 15,
         backgroundColor: colors.button.lightBlue,
+        height: 60,
     },
     button: {
         color: colors.button.textLight,
