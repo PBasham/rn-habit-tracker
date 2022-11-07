@@ -108,7 +108,7 @@ const Journal = () => {
             }
 
         } else {
-
+            // If the user pressed create new entry, then pressed back without adding anything.
             if (!title && !entry) return
             
             console.log("New entry")
