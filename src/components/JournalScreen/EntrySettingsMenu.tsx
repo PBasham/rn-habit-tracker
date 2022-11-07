@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
 
         /* box-model stuff */
-        marginTop: 20,
+        marginTop: 45,
         marginRight: 10,
         paddingVertical: 10,
         width: 200,

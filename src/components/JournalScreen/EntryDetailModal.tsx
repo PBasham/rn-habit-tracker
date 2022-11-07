@@ -2,9 +2,10 @@
         Import Dependencies
 ========================================*/
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import React, { FC, useEffect, useState } from 'react'
-import { View, StyleSheet, Modal, TextInput, Dimensions, Pressable, Keyboard } from 'react-native'
+import React, { FC, useContext, useEffect, useState } from 'react'
+import { View, Text, StyleSheet, Modal, TextInput, Dimensions, Pressable, Keyboard } from 'react-native'
 import { backgroundOne } from "../../../assets/imgs/images"
+import { DateContext } from "../../context"
 import colors from "../../misc/colors"
 import { AdditionalSettingsBtn, RoundIconBtn, StandardAntBtn } from "../buttons"
 import { SettingsBtn } from "../buttons/SettingsBtn"
@@ -13,9 +14,10 @@ import { EntrySettingsMenu } from "./EntrySettingsMenu"
 interface EntryDetailModalProps {
     visible: boolean
     closeCreateNote: () => void
+    getDate: () => void
     selectedEntry: any
     setSelectedEntry: any
-    createNewJournalEntry: (title: string, desc: string) => void
+    createNewJournalEntry: (title: string, desc: string, entryUpdated: boolean) => void
     removeJournalEntry: (id: any) => void
 }
 
@@ -30,10 +32,6 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
 
     const settingOptions = [
         {
-            name: "Option 1",
-            action: () => console.log("An Option")
-        },
-        {
             name: "Delete",
             action: () => {
                 handleSettingsClose()
@@ -43,12 +41,28 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
         },
     ]
 
+    const [entryUpdated, setEntryUpdated] = useState(false)
 
     const [settingsMenuOpen, setSettingsMenuOpen] = useState<boolean>(false)
 
+    const [todaysDate, setTodaysDate] = useState("")
 
+    const getDate = async () => {
+        const mm = String(new Date().getMonth() + 1).padStart(2, "0")
+        const dd = String(new Date().getDate()).padStart(2, "0")
+        const yyyy = new Date().getFullYear()
+
+        setTodaysDate(`${mm}/${dd}/${yyyy}`)
+    }
+
+    useEffect(() => {
+        getDate()
+    }, [])
 
     const handleOnChange = (text: string, valueFor: string) => {
+
+        setEntryUpdated(true)
+
         setSelectedEntry((current) => {
             return {
                 ...current,
@@ -71,13 +85,43 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
 
     const handleBackPress = () => {
         // first check if there is either a title or detail
-        if (selectedEntry.title.trim() || selectedEntry.entry.trim()) {
-            // if yes then save the entry into the user Journal AsyncStorage
-            // save note / update note
-            createNewJournalEntry(selectedEntry.title || "Untitled", selectedEntry.entry)
+        let title = selectedEntry.title.trim()
+        let entry = selectedEntry.entry.trim()
+
+
+        /*
+        *
+        * If there is a title or an entry -- Create the note
+            *  if there has not been an update, just close and don't do anything
+            * 
+            * if there is no title, but there is an entry, set the title to untitled.
+        * 
+        *  
+        * else if there has been an update delete the note
+        * 
+         */
+
+        if (title || entry) {
+
+            if (!entryUpdated) {
+                handleClose()
+                return
+            }
+
+            if (!title && entry) { title = "Untitled" }
+
+            createNewJournalEntry(title, entry, entryUpdated)
+
+        } else { // -- !title && !entry
+            // if there has been an update, createNote (delete)
+            // if (entryUpdated) {
+                createNewJournalEntry(title, entry, entryUpdated)
+            // }
+
         }
         // else do nothing
-        handleSettingsClose()
+        setEntryUpdated(false)
+        // handleSettingsClose()
         handleClose()
     }
 
@@ -95,6 +139,10 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
     return (
         <Modal visible={visible} animationType="fade" >
             <View style={styles.container}>
+                <View style={styles.entryInfo}>
+                    <Text>Created On: {selectedEntry.createdOn ? selectedEntry.createdOn : todaysDate}</Text>
+                    {selectedEntry.updatedOn ? <Text>Updated On: {selectedEntry.createdOn}</Text> : null}
+                </View>
                 {/* View that will hold the back/save/cancel button | title textInput | AdditionalSettings button */}
                 <View style={styles.headerBar}>
                     <StandardAntBtn
@@ -116,10 +164,10 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
                         onPress={handleSettingsOpen}
                         style={styles.settingsButton}
                     />
-                    <EntrySettingsMenu 
-                    open={settingsMenuOpen} 
-                    handleSettingsClose={handleSettingsClose}
-                    settingOptions={settingOptions}
+                    <EntrySettingsMenu
+                        open={settingsMenuOpen}
+                        handleSettingsClose={handleSettingsClose}
+                        settingOptions={settingOptions}
                     />
                 </View>
 
@@ -148,6 +196,15 @@ const styles = StyleSheet.create({
         backgroundColor: colors.general.accentBlue,
         zIndex: -1,
     },
+    entryInfo: {
+        justifyContent: "space-between",
+        flexDirection: "row",
+
+        alignSelf: "flex-end",
+
+        padding: 10,
+        width: "100%",
+    },
     headerBar: {
         /* display stuff */
         flexDirection: "row",
@@ -155,7 +212,6 @@ const styles = StyleSheet.create({
         // alignItems: "flex-start",
 
         /* box-model stuff */
-        paddingTop: 10,
         width: width,
         minHeight: 60,
         borderBottomWidth: 2,

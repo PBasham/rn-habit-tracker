@@ -26,7 +26,6 @@ import { UserContext, DateContext } from "./src/context";
 // Styling/misc --------------------------------------------------
 import { homeIcon, manageIcon, progressIcon, journalIcon, settingsIcon } from "./assets/icons/icons";
 import colors from "./src/misc/colors";
-import { MenuProvider } from "react-native-popup-menu";
 
 const Tab = createBottomTabNavigator()
 
@@ -66,7 +65,7 @@ export default function App() {
     }, [])
 
     return (
-        <MenuProvider>
+        <>
             {!user.name ?
                 <>
                     <OpeningQuote />
@@ -96,6 +95,7 @@ export default function App() {
                                 />
                                 <Tab.Screen
                                     name="Manage"
+                                    component={Manage}
                                     options={{
                                         tabBarIcon: ({ ref }) => <Image
                                             ref={ref}
@@ -103,7 +103,6 @@ export default function App() {
                                             source={manageIcon}
                                         />
                                     }}
-                                    component={Manage}
                                 />
                                 <Tab.Screen
                                     name="Progress"
@@ -118,6 +117,7 @@ export default function App() {
                                 />
                                 <Tab.Screen
                                     name="Journal"
+                                    component={Journal}
                                     options={{
                                         tabBarIcon: ({ ref }) => <Image
                                             ref={ref}
@@ -125,10 +125,10 @@ export default function App() {
                                             source={journalIcon}
                                         />
                                     }}
-                                    component={Journal}
                                 />
                                 <Tab.Screen
                                     name="Settings"
+                                    component={Settings}
                                     options={{
                                         tabBarIcon: ({ ref }) => <Image
                                             ref={ref}
@@ -136,14 +136,13 @@ export default function App() {
                                             source={settingsIcon}
                                         />
                                     }}
-                                    component={Settings}
                                 />
                             </Tab.Navigator>
                         </NavigationContainer>
                     </DateContext.Provider>
                 </UserContext.Provider>
             }
-        </MenuProvider>
+        </>
     )
 }
 

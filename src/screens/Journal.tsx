@@ -22,8 +22,20 @@ import colors from "../misc/colors"
 
 const Journal = () => {
 
-    const todaysDate = useContext(DateContext)
+    const [todaysDate, setTodaysDate] = useState("")
 
+    const getDate = async () => {
+        const mm = String(new Date().getMonth() + 1).padStart(2, "0")
+        const dd = String(new Date().getDate()).padStart(2, "0")
+        const yyyy = new Date().getFullYear()
+    
+        setTodaysDate(`${mm}/${dd}/${yyyy}`)
+    }
+
+    useEffect(() => {
+        getDate()
+    }, [])
+    
     // States --------------------------------------------------
     const [journalEntries, setJournalEntries] = useState<Array<object>>([])
 
@@ -51,8 +63,7 @@ const Journal = () => {
 
         console.log("WooHoo!")
         // @ts-ignore
-        const updatedJournalEntries = journalEntries.filter((entry) => entry.id !== id
-        )
+        const updatedJournalEntries = journalEntries.filter((entry) => entry.id !== id)
 
         console.log("journalEntries: ", journalEntries, "\n")
         console.log("updatedJournalEntries: ", updatedJournalEntries, "\n")
@@ -63,7 +74,7 @@ const Journal = () => {
 
     }
 
-    const createNewJournalEntry = (title: string, entry: string) => {
+    const createNewJournalEntry = (title: string, entry: string, entryUpdated: boolean) => {
         // User context.date to get todays date
         console.log(selectedEntry)
         let updatedJournalEntries = []
@@ -71,20 +82,35 @@ const Journal = () => {
         if (selectedEntry.id) {
             console.log("Existing entry")
 
-            updatedJournalEntries = journalEntries.map((current => {
+            // @ts-ignore
+            if (!title && !entry) {
                 // @ts-ignore
-                if (current.id === selectedEntry.id) {
-                    console.log("Found it")
-                    return {
-                        ...current,
-                        title: title,
-                        entry: entry,
+                console.log(selectEntry.id)
+                // @ts-ignore
+                removeJournalEntry(selectedEntry.id)
+                return
+            } else {
+
+                updatedJournalEntries = journalEntries.map((current => {
+                    // @ts-ignore
+                    if (current.id === selectedEntry.id) {
+                        console.log("Found it")
+                        
+                        return {
+                            ...current,
+                            title: title,
+                            entry: entry,
+                            updatedOn: todaysDate
+                        }
                     }
-                }
-                return current
-            }))
+                    return current
+                }))
+            }
 
         } else {
+
+            if (!title && !entry) return
+            
             console.log("New entry")
             const newEntry = {
                 id: Date.now(),
@@ -140,6 +166,7 @@ const Journal = () => {
             <EntryDetailModal
                 visible={modalVisable}
                 closeCreateNote={closeEntryDetail}
+                getDate={getDate}
                 selectedEntry={selectedEntry}
                 setSelectedEntry={setSelectedEntry}
                 createNewJournalEntry={createNewJournalEntry}
