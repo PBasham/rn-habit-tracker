@@ -160,6 +160,7 @@ const Journal = () => {
             <ControlBar openNoteDetail={openEntryDetail} enableAdditionalSettings={enableAdditionalSettings} enableSettigns={handleEnableAdditionalSettigns} />
             <JournalEntriesContainer
                 journalEntries={journalEntries}
+                removeJournalEntry={removeJournalEntry}
                 additionalSettings={enableAdditionalSettings}
                 selectEntry={selectEntry}
             />

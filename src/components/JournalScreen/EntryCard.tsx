@@ -10,21 +10,22 @@ import colors from "../../misc/colors"
 
 interface EntryCardProps {
     onPress: () => void
+    removeJournalEntry: (id: any) => void
     additionalSettings: Boolean
     note: any
 }
 
-const EntryCard = ({ onPress, additionalSettings, note }) => {
+const EntryCard = ({ onPress, removeJournalEntry, additionalSettings, note }) => {
 
-    const handleDeleteEntry = () => {
-        console.log("Confirmation box will pop up.")
+    const handleDeleteEntry = (id: any) => {
+        removeJournalEntry(id)
     }
 
     return (
         <Pressable onPress={() => onPress(note)} style={[styles.container]}>
             <View style={[styles.note, additionalSettings ? styles.additionalSettings : null]}>
                 {additionalSettings ?
-                    <Pressable style={styles.trashCanIcon} onPress={handleDeleteEntry}>
+                    <Pressable style={styles.trashCanIcon} onPress={() => handleDeleteEntry(note.id)}>
                         <Entypo name="trash" size={24} color={colors.button.textCancel} />
                     </Pressable>
                     : null}

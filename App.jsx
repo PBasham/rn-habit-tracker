@@ -59,9 +59,9 @@ export default function App() {
 
     /*==== useEffect ====*/
     useEffect(() => {
-        findUser()
-        getDate()
-        // AsyncStorage.clear()
+        // findUser()
+        // getDate()
+        AsyncStorage.clear()
     }, [])
 
     return (

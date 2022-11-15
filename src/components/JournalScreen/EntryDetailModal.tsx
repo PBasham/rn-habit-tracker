@@ -88,19 +88,6 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
         let title = selectedEntry.title.trim()
         let entry = selectedEntry.entry.trim()
 
-
-        /*
-        *
-        * If there is a title or an entry -- Create the note
-            *  if there has not been an update, just close and don't do anything
-            * 
-            * if there is no title, but there is an entry, set the title to untitled.
-        * 
-        *  
-        * else if there has been an update delete the note
-        * 
-         */
-
         if (title || entry) {
 
             if (!entryUpdated) {

@@ -8,12 +8,13 @@ import EntryCard from "./EntryCard"
 
 
 interface JournalEntriesContainerProps {
-    additionalSettings: boolean
     journalEntries: object
+    removeJournalEntry: (id: any) => void
+    additionalSettings: boolean
     selectEntry: (entry: any) => void
 }
 
-export const JournalEntriesContainer: FC<JournalEntriesContainerProps> = ({ additionalSettings, journalEntries, selectEntry }) => {
+export const JournalEntriesContainer: FC<JournalEntriesContainerProps> = ({ journalEntries, removeJournalEntry, additionalSettings, selectEntry }) => {
 
     return (
         /* This will be a map of the users journal entries once I've set that up. */
@@ -27,6 +28,7 @@ export const JournalEntriesContainer: FC<JournalEntriesContainerProps> = ({ addi
                     additionalSettings={additionalSettings}
                     note={item}
                     onPress={selectEntry}
+                    removeJournalEntry={removeJournalEntry}
                 />}
         />
     )
