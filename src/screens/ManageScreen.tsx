@@ -17,6 +17,16 @@ interface ManageScreenProps {
 }
 
 const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals }) => {
+
+    const handleUpdateuserGoal = (updatedGoal: any) => {
+        console.log("I'll handle the update")
+    }
+
+    const handleMarkComplete = (goalId: number) => {
+        console.log("This will mark ", goalId, " as complete")
+    }
+
+
     return (
         <>
             {/* <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}> */}
@@ -32,7 +42,8 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals }) => {
                         renderItem={({ item }) =>
                             <GoalCard
                                 goal={item}
-                                onPress={() => console.log("temp")}
+                                onPress={handleUpdateuserGoal}
+                                handleMarkComplete={handleMarkComplete}
                             />}
                     />
                     :
