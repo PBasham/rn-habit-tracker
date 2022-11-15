@@ -12,7 +12,7 @@ import { DateContext, UserContext } from "../context/"
 import { backgroundOne } from "../../assets/imgs/images.js"
 import { RoundIconBtn } from "../components/buttons/"
 import EmotionColorModal from "../components/HomeScreen/EmotionColorModal.jsx"
-import GoalsContainer from "../components/HomeScreen/GoalsContainer.jsx"
+import GoalsContainer from "../components/HomeScreen/GoalsContainer.tsx"
 import { HeaderOne } from "../components/Text/"
 /*========================================
         Import Styles
@@ -27,8 +27,9 @@ import colors from "../misc/colors"
 // SECTION END
 
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation, userGoals }) => {
 
+    console.log("user goals: ", userGoals)
     /** useContext **/
     const user = useContext(UserContext)
     const todaysDate = useContext(DateContext)
@@ -116,12 +117,11 @@ const HomeScreen = ({ navigation }) => {
         console.log(`todaysEmotion:`, todaysEmotion)
     }
 
-
     /*========================================
             Navigation function
     ========================================*/
     const openManageScreen = () => {
-        navigation.navigate("Manage")
+        navigation.navigate("Manage", {userGoals: userGoals})
     }
 
     return (
@@ -133,7 +133,7 @@ const HomeScreen = ({ navigation }) => {
                     <HeaderOne style={{ marginBottom: 20, }} content={`Good ${greet}, ${user.name}`} />
                     {/* Goals Section */}
                     <HeaderOne style={{ marginBottom: 20, }} content={"Today's Goals"} />
-                    <GoalsContainer openManageScreen={openManageScreen} />
+                    <GoalsContainer openManageScreen={openManageScreen} userGoals={userGoals} />
                     {/* Emotion Picker */}
                     <HeaderOne style={{ marginTop: 20, marginBottom: 20, }} content={"How do you feel today?"} />
                     <Pressable

@@ -13,7 +13,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 ========================================*/
 // Screens --------------------------------------------------
 import HomeScreen from "./src/screens/HomeScreen";
-import Manage from "./src/screens/Manage";
+import Manage from "./src/screens/ManageScreen";
 import Progress from "./src/screens/Progress";
 import Journal from "./src/screens/Journal";
 import Settings from "./src/screens/Settings";
@@ -39,6 +39,18 @@ export default function App() {
 
     const [todaysDate, setTodaysDate] = useState("")
 
+    const [userGoals, setUserGoals] = useState([
+        {
+            id: 123,
+            createdOn: "1/2/3",
+            what: "Workout",
+            quantity: 1,
+            timeType: "FewTimesAWeek",
+            time: "6:30pm",
+            days: ["Mon", "Wed", "Thu"],
+        }
+    ])
+
     /*==== Functions START ====*/
     const findUser = async () => {
         const result = await AsyncStorage.getItem("habitTrackerUser")
@@ -55,13 +67,21 @@ export default function App() {
         setTodaysDate(`${mm}/${dd}/${yyyy}`)
     }
 
+    const getUserGoals = async () => {
+        const result = await AsyncStorage.getItem("habitTrackerGoals")
+        console.log("User Goals Result: ", result)
+        if (!result) return
+        setUserGoals(JSON.parse(result))
+    }
+
     /*==== Functions END ====*/
 
     /*==== useEffect ====*/
     useEffect(() => {
-        // findUser()
-        // getDate()
-        AsyncStorage.clear()
+        findUser()
+        getDate()
+        getUserGoals()
+        // AsyncStorage.clear()
     }, [])
 
     return (
@@ -84,7 +104,7 @@ export default function App() {
                             >
                                 <Tab.Screen
                                     name="Home"
-                                    component={HomeScreen}
+                                    // component={HomeScreen}
                                     options={{
                                         tabBarIcon: ({ ref }) => <Image
                                             ref={ref}
@@ -92,10 +112,12 @@ export default function App() {
                                             source={homeIcon}
                                         />
                                     }}
-                                />
+                                >
+                                    {(props) => <HomeScreen {...props} userGoals={userGoals} />}
+                                </Tab.Screen>
                                 <Tab.Screen
                                     name="Manage"
-                                    component={Manage}
+                                    // component={Manage}
                                     options={{
                                         tabBarIcon: ({ ref }) => <Image
                                             ref={ref}
@@ -103,7 +125,9 @@ export default function App() {
                                             source={manageIcon}
                                         />
                                     }}
-                                />
+                                >
+                                    {(props) => <Manage {...props} userGoals={userGoals} setUserGoals={setUserGoals} />}
+                                </Tab.Screen>
                                 <Tab.Screen
                                     name="Progress"
                                     options={{

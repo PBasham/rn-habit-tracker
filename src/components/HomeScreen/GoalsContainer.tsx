@@ -1,21 +1,30 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import { useState } from "react"
+import {FC, useEffect, useState } from "react"
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import colors from "../../misc/colors"
-import { RoundIconBtn } from "../buttons/"
+import { RoundIconBtn } from "../buttons"
 import { HeaderOne } from "../Text/HeaderOne"
 
-const GoalsContainer = ({ openManageScreen }) => {
+interface GoalsContainerProps {
+    openManageScreen: () => void
+    userGoals: any
+    setUserGoals: any
+}
 
-    // const [todaysGoals, SetTodaysGoals] = useState([{id: "namecreatedDate", name: "Hello", yes:"no", created: ""}])
+const GoalsContainer: FC<GoalsContainerProps> = ({ openManageScreen, userGoals, setUserGoals }) => {
+
     const [todaysGoals, SetTodaysGoals] = useState([])
 
+    const getTodaysGoals = () => {
 
-    // const handleOpenManageScreen = () => {
-    //     console.log("This will open the Manage Screen!!")
-    // }
+    }
+
+    useEffect(() => {
+        getTodaysGoals()
+    },[])
+
 
     return (
         <View style={styles.goalsContainer}>
@@ -34,8 +43,10 @@ const GoalsContainer = ({ openManageScreen }) => {
             />
             <View style={styles.backgroundView}></View>
             {todaysGoals.length > 0 ?
-                <FlatList style={styles.todaysGoalsList} data={todaysGoals} >
-                </FlatList>
+                // <FlatList style={styles.todaysGoalsList} data={todaysGoals} >
+                // </FlatList>
+                <>
+                </>
                 :
                 <HeaderOne
                     style={{
