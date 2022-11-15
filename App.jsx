@@ -44,10 +44,12 @@ export default function App() {
             id: 123,
             createdOn: "1/2/3",
             what: "Workout",
-            quantity: 1,
+            qty: 0,
+            goalQty: 1,
             timeType: "FewTimesAWeek",
             time: "6:30pm",
             days: ["Mon", "Wed", "Thu"],
+            complete: false,
         }
     ])
 

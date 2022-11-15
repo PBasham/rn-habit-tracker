@@ -31,8 +31,8 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals }) => {
                         keyExtractor={item => item.id.toString()}
                         renderItem={({ item }) =>
                             <GoalCard
-
-                                // onPress={() => console.log("temp")}
+                                goal={item}
+                                onPress={() => console.log("temp")}
                             />}
                     />
                     :
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         borderColor: colors.general.darkTransparent,
         borderTopWidth: 2,
         borderBottomWidth: 2,
-        backgroundColor: "rgba(173, 202, 208, .5)",
+        backgroundColor: colors.general.lightBlueTransparent,
     },
     createNewBtn: {
 
