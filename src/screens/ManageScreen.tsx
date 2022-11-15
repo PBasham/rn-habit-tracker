@@ -5,7 +5,7 @@ import { FC } from "react"
 import { View, Text, StyleSheet, Pressable, FlatList, Dimensions } from 'react-native'
 // Components --------------------------------------------------
 import { StandardAntBtn } from "../components/buttons"
-import EntryCard from "../components/JournalScreen/EntryCard"
+import { GoalCard } from "../components/ManageScreen/GoalCard"
 import { HeaderOne } from "../components/Text"
 // Styles --------------------------------------------------
 // import { backgroundOne } from "../../assets/imgs/images.js"
@@ -30,11 +30,9 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals }) => {
                         data={userGoals}
                         keyExtractor={item => item.id.toString()}
                         renderItem={({ item }) =>
-                            <EntryCard
-                                additionalSettings={true}
-                                note={item}
-                                onPress={() => console.Console.toString("temp")}
-                                removeJournalEntry={()=> console.log("Temp")}
+                            <GoalCard
+
+                                // onPress={() => console.log("temp")}
                             />}
                     />
                     :
@@ -67,8 +65,14 @@ const styles = StyleSheet.create({
     userGoalsContainer: {
         flex: 1,
         flexDirection: "column",
-        backgroundColor: "red",
+
+        marginTop: 20,
+        marginBottom: 20,
         width: width,
+        borderColor: colors.general.darkTransparent,
+        borderTopWidth: 2,
+        borderBottomWidth: 2,
+        backgroundColor: "rgba(173, 202, 208, .5)",
     },
     createNewBtn: {
 
@@ -84,7 +88,6 @@ const styles = StyleSheet.create({
         shadowColor: colors.button.shadow,
     },
     btnText: {
-
         textAlign: "center",
         fontSize: 32,
         opacity: .5,
