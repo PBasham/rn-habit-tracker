@@ -43,7 +43,7 @@ export default function App() {
         {
             id: 123,
             createdOn: "1/2/3",
-            what: "Workout",
+            what: "Workout Workout Workout Workout Workout Workout Workout Workout Workout",
             qty: 0,
             goalQty: 1,
             timeType: "FewTimesAWeek",
