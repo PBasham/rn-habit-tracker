@@ -24,6 +24,21 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals }) => {
 
     const handleMarkComplete = (goalId: number) => {
         console.log("This will mark ", goalId, " as complete")
+
+        let updatedGoals = userGoals.map((current => {
+            // @ts-ignore
+            if (current.id === goalId) {
+                console.log("Found it")
+                return {
+                    ...current,
+                    qty: current.goalQty,
+                    complete: true,
+                }
+            }
+            return current
+        }))
+
+        setUserGoals(updatedGoals)
     }
 
 

@@ -48,10 +48,13 @@ export default function App() {
             goalQty: 1,
             timeType: "FewTimesAWeek",
             time: "6:30pm",
-            days: ["Mon", "Wed", "Thu"],
+            days: ["Mon", "Wed", "Fri"],
             complete: false,
+            category: "Fitness",
         }
     ])
+
+    const [userHabitHistory, setUserHabitHistory] = useState({})
 
     /*==== Functions START ====*/
     const findUser = async () => {
@@ -71,9 +74,17 @@ export default function App() {
 
     const getUserGoals = async () => {
         const result = await AsyncStorage.getItem("habitTrackerGoals")
-        console.log("User Goals Result: ", result)
+        // !REMOVE ME -- console.log("User Goals Result: ", result)
         if (!result) return
         setUserGoals(JSON.parse(result))
+    }
+
+    const getUserHistory = async () => {
+        const result = await AsyncStorage.getItem("userHabitHistory")
+        // !REMOVE ME -- 
+        console.log("User Habit History Result: ", result)
+        if (!result) return
+        setUserHabitHistory(JSON.parse(result))
     }
 
     /*==== Functions END ====*/
@@ -83,6 +94,7 @@ export default function App() {
         findUser()
         getDate()
         getUserGoals()
+        getUserHistory()
         // AsyncStorage.clear()
     }, [])
 

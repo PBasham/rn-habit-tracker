@@ -39,5 +39,8 @@ export default {
         textDarkTransparent: "rgba(0,0,0,.5)",
         shadow: "#1e1e1e",
         grey: "#D9D9D9",
+        green: "rgb(51, 185, 92)",
+        greenAccent: "rgb(28, 126, 58)",
+        greenTransparent: "rgba(51, 185, 92, .5)",
     },
 }

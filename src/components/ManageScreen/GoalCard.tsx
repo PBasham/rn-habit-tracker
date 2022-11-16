@@ -38,9 +38,9 @@ export const GoalCard: FC<GoalCardProps> = ({ goal, onPress, handleMarkComplete 
 
     return (
         // change style if completed.
-        <View style={styles.goalCard}>
-            <Text style={styles.what} >{goal.what}</Text>
-            <Text style={styles.qty} >{goal.qty}/{goal.goalQty}</Text>
+        <View style={[styles.goalCard, goal.complete ? styles.goalCard_complete : null]}>
+            <Text style={[styles.what, goal.complete ? styles.goalCard_completeText : null]} >{goal.what}</Text>
+            <Text style={[styles.qty, goal.complete ? styles.goalCard_completeText : null]} >{goal.qty}/{goal.goalQty}</Text>
             <CheckBox onPress={() => handleMarkComplete(goal.id)} checked={goal.complete}  />
             {/* checkbox for if it's complete or not */}
         </View>
@@ -66,9 +66,14 @@ const styles = StyleSheet.create({
         elevation: 5,
         shadowColor: colors.general.shadow,
     },
+    goalCard_complete: {
+        backgroundColor: colors.general.darkTransparent,
+    },
+    goalCard_completeText: {
+        color: colors.text.light,
+        textDecorationLine: "line-through",
+    },
     what: {
-        borderWidth: 1,
-        borderColor: "pink",
         fontSize: 18,
         width: "70%",
     },
@@ -78,13 +83,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: "center",
         textAlignVertical: "center",
-        borderWidth: 1,
-        borderColor: "green",
         width: "20%",
     },
     status: {
-        
-        borderWidth: 1,
-        borderColor: "blue",
     },
 })

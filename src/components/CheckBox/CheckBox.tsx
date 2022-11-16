@@ -3,6 +3,9 @@
 ========================================*/
 import React, { FC } from 'react'
 import { View, Pressable, StyleSheet } from 'react-native'
+// Icons --------------------------------------------------
+import { Entypo } from '@expo/vector-icons';
+// styles --------------------------------------------------
 import colors from "../../misc/colors"
 
 interface CheckBoxProps {
@@ -17,8 +20,8 @@ export const CheckBox: FC<CheckBoxProps> = ({ onPress, checked, color, brdColor,
 
     return (
         <View style={styles.container}>
-            <Pressable onPress={onPress} style={[style, checked ? styles.checkbox_checked : null,styles.checkbox]}>
-
+            <Pressable onPress={onPress} style={[style, styles.checkbox, checked ? styles.checkbox_checked : null]}>
+                {checked ? <Entypo name={"check"} size={20} color={colors.general.light} /> : null}
             </Pressable>
         </View>
     )
@@ -36,15 +39,18 @@ const styles = StyleSheet.create({
 
     },
     checkbox: {
+        justifyContent: "center",
+        alignItems: "center",
 
         width: 25,
         aspectRatio: 1,
         borderWidth: 2,
-        borderColor: colors.button.textDarkTransparent,
+        borderColor: colors.button.grey,
         backgroundColor: colors.button.grey,
-
+        
     },
     checkbox_checked: {
-        backgroundColor: "green",
+        borderColor: colors.button.greenTransparent,
+        backgroundColor: colors.button.green,
     }
 })
