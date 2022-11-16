@@ -39,6 +39,8 @@ export default function App() {
 
     const [todaysDate, setTodaysDate] = useState("")
 
+    const [habitCategories, setHabitCategories] = useState(["Fitness"])
+
     const [userGoals, setUserGoals] = useState([
         {
             id: 123,

@@ -3,6 +3,7 @@
 ========================================*/
 import React, { FC } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { rootCertificates } from "tls"
 import colors from "../../misc/colors"
 import { CheckBox } from "../CheckBox/CheckBox"
 
@@ -16,6 +17,7 @@ interface GoalCardProps {
         time: string
         days: string[]
         complete: boolean
+        category: string
     }
     onPress: (updatedGoal: any) => void
     handleMarkComplete: (goalId: number) => void
@@ -39,9 +41,12 @@ export const GoalCard: FC<GoalCardProps> = ({ goal, onPress, handleMarkComplete 
     return (
         // change style if completed.
         <View style={[styles.goalCard, goal.complete ? styles.goalCard_complete : null]}>
-            <Text style={[styles.what, goal.complete ? styles.goalCard_completeText : null]} >{goal.what}</Text>
-            <Text style={[styles.qty, goal.complete ? styles.goalCard_completeText : null]} >{goal.qty}/{goal.goalQty}</Text>
-            <CheckBox onPress={() => handleMarkComplete(goal.id)} checked={goal.complete}  />
+            <View style={styles.firstSection}>
+                <Text numberOfLines={1} style={[styles.category, {color: goal.complete ? colors.text.light : null}]} >{goal.category}</Text>
+                <Text numberOfLines={2} style={[styles.what, goal.complete ? styles.goalCard_completeText : null]} >{goal.what}</Text>
+            </View>
+            <Text style={[styles.qty, {color: goal.complete ? colors.text.light : null}]} >{goal.qty}/{goal.goalQty}</Text>
+            <CheckBox onPress={() => handleMarkComplete(goal.id)} checked={goal.complete} />
             {/* checkbox for if it's complete or not */}
         </View>
     )
@@ -73,9 +78,19 @@ const styles = StyleSheet.create({
         color: colors.text.light,
         textDecorationLine: "line-through",
     },
-    what: {
-        fontSize: 18,
+    firstSection: {
+        flexDirection: "column",
+
         width: "70%",
+    },
+    category: {
+        fontSize: 16,
+        color: colors.text.darkTransparent,
+        top: -10,
+    },
+    what: {
+        fontSize: 20,
+        color: colors.text.dark,
     },
     qty: {
         // marginLeft: "auto",
@@ -84,6 +99,8 @@ const styles = StyleSheet.create({
         textAlign: "center",
         textAlignVertical: "center",
         width: "20%",
+
+        color: colors.text.darkTransparent,
     },
     status: {
     },
