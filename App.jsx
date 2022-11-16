@@ -39,21 +39,82 @@ export default function App() {
 
     const [todaysDate, setTodaysDate] = useState("")
 
-    const [habitCategories, setHabitCategories] = useState(["Fitness"])
+    const [habitCategories, setHabitCategories] = useState(["Willpower", "Fitness", "Health"])
 
     const [userGoals, setUserGoals] = useState([
         {
             id: 123,
             createdOn: "1/2/3",
-            what: "Workout Workout Workout Workout Workout Workout Workout Workout Workout",
+            what: "Wake up at 6am",
             qty: 0,
-            goalQty: 1,
-            timeType: "FewTimesAWeek",
-            time: "6:30pm",
-            days: ["Mon", "Wed", "Fri"],
+            goalQty: 3,
+            timeType: "Weekdays",
+            time: "6:00am",
+            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+            complete: false,
+            category: "Willpower",
+        },
+        {
+            id: 1234,
+            createdOn: "1/2/3",
+            what: "Wake up at 6am",
+            qty: 0,
+            goalQty: 3,
+            timeType: "Weekdays",
+            time: "6:00am",
+            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
             complete: false,
             category: "Fitness",
-        }
+        },
+        {
+            id: 123,
+            createdOn: "1/2/3",
+            what: "Wake up at 6am",
+            qty: 0,
+            goalQty: 3,
+            timeType: "Weekdays",
+            time: "6:00am",
+            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+            complete: false,
+            category: "Willpower",
+        },
+        {
+            id: 1234,
+            createdOn: "1/2/3",
+            what: "Wake up at 6am",
+            qty: 0,
+            goalQty: 3,
+            timeType: "Weekdays",
+            time: "6:00am",
+            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+            complete: false,
+            category: "Fitness",
+        },
+        {
+            id: 123,
+            createdOn: "1/2/3",
+            what: "Wake up at 6am",
+            qty: 0,
+            goalQty: 3,
+            timeType: "Weekdays",
+            time: "6:00am",
+            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+            complete: false,
+            category: "Willpower",
+        },
+        {
+            id: 1234,
+            createdOn: "1/2/3",
+            what: "Wake up at 6am",
+            qty: 0,
+            goalQty: 3,
+            timeType: "Weekdays",
+            time: "6:00am",
+            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+            complete: false,
+            category: "Fitness",
+        },
+        
     ])
 
     const [userHabitHistory, setUserHabitHistory] = useState({})
@@ -70,7 +131,7 @@ export default function App() {
         const mm = String(new Date().getMonth() + 1).padStart(2, "0")
         const dd = String(new Date().getDate()).padStart(2, "0")
         const yyyy = new Date().getFullYear()
-    
+
         setTodaysDate(`${mm}/${dd}/${yyyy}`)
     }
 
@@ -142,7 +203,12 @@ export default function App() {
                                         />
                                     }}
                                 >
-                                    {(props) => <Manage {...props} userGoals={userGoals} setUserGoals={setUserGoals} />}
+                                    {(props) => <Manage {...props}
+                                        userGoals={userGoals}
+                                        setUserGoals={setUserGoals}
+                                        goalsCategories={habitCategories}
+                                        setGoalsCategories={setHabitCategories}
+                                    />}
                                 </Tab.Screen>
                                 <Tab.Screen
                                     name="Progress"

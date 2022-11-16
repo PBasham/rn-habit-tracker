@@ -1,11 +1,12 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import { FC } from "react"
-import { View, Text, StyleSheet, Pressable, FlatList, Dimensions } from 'react-native'
+import { FC, useEffect, useState } from "react"
+import { View, Text, StyleSheet, Pressable, FlatList, Dimensions, SectionList } from 'react-native'
 // Components --------------------------------------------------
 import { StandardAntBtn } from "../components/buttons"
 import { GoalCard } from "../components/ManageScreen/GoalCard"
+import { CategoryCard } from "../components/ManageScreen/CategoryCard"
 import { HeaderOne } from "../components/Text"
 // Styles --------------------------------------------------
 // import { backgroundOne } from "../../assets/imgs/images.js"
@@ -14,9 +15,29 @@ import colors from "../misc/colors.js"
 interface ManageScreenProps {
     userGoals: any
     setUserGoals: any
+    goalsCategories: any
+    setGoalsCategories: any
 }
 
-const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals }) => {
+const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, goalsCategories, setGoalsCategories }) => {
+
+    const [currentSort, setCurrentSort] = useState([])
+
+    const categorySort = async () => {
+        const sortedGoals = userGoals.sort((a, b) => a.category > b.category ? 1 : -1)
+        setCurrentSort(sortedGoals)
+    }
+    const categorySortRev = () => {
+        const sortedGoals = userGoals.sort((a, b) => b.category > a.category ? 1 : -1)
+        setCurrentSort(sortedGoals)
+
+    }
+    
+    useEffect(() => {
+        categorySort()
+        // categorySortRev()
+    }, [])
+
 
     const handleUpdateuserGoal = (updatedGoal: any) => {
         console.log("I'll handle the update")
@@ -41,19 +62,16 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals }) => {
         setUserGoals(updatedGoals)
     }
 
-
     return (
         <>
-            {/* <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}> */}
-            {/* <StatusBar /> */}
             <View style={styles.container}>
                 <HeaderOne style={styles.header} content="My Goals" />
-                {true ?
+                {userGoals.length ?
                     <FlatList
+                        data={currentSort}
+                        contentContainerStyle={{ paddingVertical: 20 }}
                         style={styles.userGoalsContainer}
-                        // @ts-ignore
-                        data={userGoals}
-                        keyExtractor={item => item.id.toString()}
+                        keyExtractor={(item, index) => item.id + index}
                         renderItem={({ item }) =>
                             <GoalCard
                                 goal={item}
@@ -68,7 +86,6 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals }) => {
                     <Text style={styles.btnText} >Create New Goal</Text>
                 </Pressable>
             </View>
-            {/* </ImageBackground> */}
         </>
     )
 }
@@ -82,6 +99,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
+
         backgroundColor: colors.general.background,
     },
     header: {
@@ -94,6 +112,7 @@ const styles = StyleSheet.create({
 
         marginTop: 20,
         marginBottom: 20,
+        // paddingVertical: 20,
         width: width,
         borderColor: colors.general.darkTransparent,
         borderTopWidth: 2,

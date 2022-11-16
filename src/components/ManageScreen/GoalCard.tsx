@@ -62,11 +62,13 @@ const styles = StyleSheet.create({
 
         flexDirection: "row",
 
+        marginHorizontal: 20,
         marginVertical: 10,
-        padding: 20,
-        backgroundColor: colors.general.light,
 
-        fontSize: 18,
+        height: 100,
+        padding: 20,
+        borderRadius: 15,
+        backgroundColor: colors.general.light,
 
         elevation: 5,
         shadowColor: colors.general.shadow,
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
     category: {
         fontSize: 16,
         color: colors.text.darkTransparent,
-        top: -10,
+        // top: -10,
     },
     what: {
         fontSize: 20,
