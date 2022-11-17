@@ -25,17 +25,21 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, goalsCat
 
     const categorySort = async () => {
         const sortedGoals = userGoals.sort((a, b) => a.category > b.category ? 1 : -1)
-        setCurrentSort(sortedGoals)
+        setUserGoals(sortedGoals)
     }
     const categorySortRev = () => {
         const sortedGoals = userGoals.sort((a, b) => b.category > a.category ? 1 : -1)
-        setCurrentSort(sortedGoals)
-
+        setUserGoals(sortedGoals)
     }
+
+    /**Sort Types
+     * Category Asc / Des
+     * ? % Complete Asc / Des
+     * ??
+     */
     
     useEffect(() => {
         categorySort()
-        // categorySortRev()
     }, [])
 
 
@@ -44,8 +48,6 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, goalsCat
     }
 
     const handleMarkComplete = (goalId: number) => {
-        console.log("This will mark ", goalId, " as complete")
-
         let updatedGoals = userGoals.map((current => {
             // @ts-ignore
             if (current.id === goalId) {
@@ -68,7 +70,7 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, goalsCat
                 <HeaderOne style={styles.header} content="My Goals" />
                 {userGoals.length ?
                     <FlatList
-                        data={currentSort}
+                        data={userGoals}
                         contentContainerStyle={{ paddingVertical: 20 }}
                         style={styles.userGoalsContainer}
                         keyExtractor={(item, index) => item.id + index}
