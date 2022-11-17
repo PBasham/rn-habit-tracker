@@ -15,11 +15,14 @@ import colors from "../misc/colors.js"
 interface ManageScreenProps {
     userGoals: any
     setUserGoals: any
+    addGoal: (id: number) => void
+    updateGoal: (updatedGoal: any) => void
+    removeGoal: (id: number) => void
     goalsCategories: any
     setGoalsCategories: any
 }
 
-const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, goalsCategories, setGoalsCategories }) => {
+const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, addGoal, updateGoal, removeGoal, goalsCategories, setGoalsCategories }) => {
     // ? maybe use state to keep track of  how the user wants tha manage screen to be sorted.
     // const [manageSort, setManageSort] = useState([])
 
@@ -89,6 +92,7 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, goalsCat
                 <Pressable onPress={() => console.log("Create new Goal!")} style={styles.createNewBtn}>
                     <Text style={styles.btnText} >Create New Goal</Text>
                 </Pressable>
+                {/* Modal for  */}
             </View>
         </>
     )

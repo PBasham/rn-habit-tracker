@@ -33,99 +33,18 @@ const Tab = createBottomTabNavigator()
 
 export default function App() {
 
-
-    /*==== useState ====*/
+    // user --------------------------------------------------
     const [user, setUser] = useState({})
 
-    const [todaysDate, setTodaysDate] = useState("")
-
-    const [habitCategories, setHabitCategories] = useState(["Willpower", "Fitness", "Health"])
-
-    const [userGoals, setUserGoals] = useState([
-        {
-            id: 123,
-            createdOn: "1/2/3",
-            what: "Wake up at 6am",
-            qty: 0,
-            goalQty: 3,
-            timeType: "Weekdays",
-            time: "6:00am",
-            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
-            complete: false,
-            category: "Willpower",
-        },
-        {
-            id: 1234,
-            createdOn: "1/2/3",
-            what: "Do 50 Pushups",
-            qty: 20,
-            goalQty: 50,
-            timeType: "Weekdays",
-            time: "4:00pm",
-            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
-            complete: false,
-            category: "Fitness",
-        },
-        {
-            id: 1233,
-            createdOn: "1/2/3",
-            what: "Wake up at 6am",
-            qty: 0,
-            goalQty: 3,
-            timeType: "Weekdays",
-            time: "6:00am",
-            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
-            complete: false,
-            category: "Willpower",
-        },
-        {
-            id: 123422,
-            createdOn: "1/2/3",
-            what: "Do 50 Pushups",
-            qty: 20,
-            goalQty: 50,
-            timeType: "Weekdays",
-            time: "4:00pm",
-            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
-            complete: false,
-            category: "Fitness",
-        },
-        {
-            id: 123333,
-            createdOn: "1/2/3",
-            what: "Wake up at 6am",
-            qty: 0,
-            goalQty: 3,
-            timeType: "Weekdays",
-            time: "6:00am",
-            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
-            complete: false,
-            category: "Willpower",
-        },
-        {
-            id: 12433422,
-            createdOn: "1/2/3",
-            what: "Do 50 Pushups",
-            qty: 20,
-            goalQty: 50,
-            timeType: "Weekdays",
-            time: "4:00pm",
-            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
-            complete: false,
-            category: "Fitness",
-        },
-        
-    ])
-
-    const [userHabitHistory, setUserHabitHistory] = useState({})
-
-    /*==== Functions START ====*/
     const findUser = async () => {
         const result = await AsyncStorage.getItem("habitTrackerUser")
         console.log("\nfindUser(): App.js result ", result, "\n")
         if (!result) return
         setUser(JSON.parse(result))
     }
+
+    // date --------------------------------------------------
+    const [todaysDate, setTodaysDate] = useState("")
 
     const getDate = async () => {
         const mm = String(new Date().getMonth() + 1).padStart(2, "0")
@@ -135,12 +54,39 @@ export default function App() {
         setTodaysDate(`${mm}/${dd}/${yyyy}`)
     }
 
+    // goals / categories --------------------------------------------------
+    const [habitCategories, setHabitCategories] = useState(["Willpower", "Fitness", "Health"])
+
+    const [userGoals, setUserGoals] = useState([])
+
     const getUserGoals = async () => {
         const result = await AsyncStorage.getItem("habitTrackerGoals")
         // !REMOVE ME -- console.log("User Goals Result: ", result)
         if (!result) return
         setUserGoals(JSON.parse(result))
     }
+
+    // ---- Add Goal ----------------------------------------
+    const addGoal = (newGoal) => {
+        setUserGoals((current) => {return [...userGoals, newGoal]})
+    }
+    // ---- Update goal ----------------------------------------
+    const updateGoal = (updatedGoal) => {
+        const updatedGoals = userGoals.map((currentGoal) => {
+            if (currentGoal.id === updatedGoal.id) {
+                return {...updatedGoal}
+            }
+            return currentGoal
+        })
+    }
+    // ---- Remove Goal ----------------------------------------
+    const removeGoal = (id) => {
+        const updatedGoals = userGoals.filter((currentGoal) => currentGoal.id !== id)
+        setUserGoals(updatedGoals)
+    }
+
+    // user history --------------------------------------------------
+    const [userHabitHistory, setUserHabitHistory] = useState({})
 
     const getUserHistory = async () => {
         const result = await AsyncStorage.getItem("userHabitHistory")
@@ -206,6 +152,9 @@ export default function App() {
                                     {(props) => <Manage {...props}
                                         userGoals={userGoals}
                                         setUserGoals={setUserGoals}
+                                        addGoal={addGoal}
+                                        updateGoal={updateGoal}
+                                        removeGoal={removeGoal}
                                         goalsCategories={habitCategories}
                                         setGoalsCategories={setHabitCategories}
                                     />}
