@@ -27,14 +27,16 @@ export const GoalCard: FC<GoalCardProps> = ({ goal, onPress, handleMarkComplete 
 
     /** goal keys:
      * 
-     * id 123
-     * what ""
-     * goalQty 1
-     * qty 0
-     * timeType ""
-     * time ""
-     * days []
-     * complete false
+     * id: 123,
+     * createdOn: "1/2/3",
+     * what: "Wake up at 6am",
+     * qty: 0,
+     * goalQty: 3,
+     * timeType: "Weekdays",
+     * time: "6:00am",
+     * days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+     * complete: false,
+     * category: "Willpower",
      */
 
 

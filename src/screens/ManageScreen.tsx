@@ -20,12 +20,12 @@ interface ManageScreenProps {
 }
 
 const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, goalsCategories, setGoalsCategories }) => {
-
-    const [currentSort, setCurrentSort] = useState([])
+    // ? maybe use state to keep track of  how the user wants tha manage screen to be sorted.
+    // const [manageSort, setManageSort] = useState([])
 
     const categorySort = async () => {
-        const sortedGoals = userGoals.sort((a, b) => a.category > b.category ? 1 : -1)
-        setUserGoals(sortedGoals)
+        const sortedGoals =  userGoals.sort((a, b) => a.category > b.category ? 1 : -1)
+        setUserGoals(() => {return [...sortedGoals]})
     }
     const categorySortRev = () => {
         const sortedGoals = userGoals.sort((a, b) => b.category > a.category ? 1 : -1)
@@ -51,7 +51,7 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, goalsCat
         let updatedGoals = userGoals.map((current => {
             // @ts-ignore
             if (current.id === goalId) {
-                console.log("Found it")
+                // console.log("Found it")
                 return {
                     ...current,
                     qty: current.goalQty,
@@ -68,22 +68,24 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, goalsCat
         <>
             <View style={styles.container}>
                 <HeaderOne style={styles.header} content="My Goals" />
+                <View style={styles.userGoalsContainer}>
+
                 {userGoals.length ?
                     <FlatList
-                        data={userGoals}
-                        contentContainerStyle={{ paddingVertical: 20 }}
-                        style={styles.userGoalsContainer}
-                        keyExtractor={(item, index) => item.id + index}
-                        renderItem={({ item }) =>
-                            <GoalCard
-                                goal={item}
-                                onPress={handleUpdateuserGoal}
-                                handleMarkComplete={handleMarkComplete}
-                            />}
+                    data={userGoals}
+                    contentContainerStyle={{ paddingVertical: 20 }}
+                    keyExtractor={(item, index) => item.id}
+                    renderItem={({ item }) =>
+                    <GoalCard
+                    goal={item}
+                    onPress={handleUpdateuserGoal}
+                    handleMarkComplete={handleMarkComplete}
+                    />}
                     />
                     :
-                    <></>
+                    <Text>Add some goals!</Text>
                 }
+                </View>
                 <Pressable onPress={() => console.log("Create new Goal!")} style={styles.createNewBtn}>
                     <Text style={styles.btnText} >Create New Goal</Text>
                 </Pressable>

@@ -57,11 +57,59 @@ export default function App() {
         {
             id: 1234,
             createdOn: "1/2/3",
+            what: "Do 50 Pushups",
+            qty: 20,
+            goalQty: 50,
+            timeType: "Weekdays",
+            time: "4:00pm",
+            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+            complete: false,
+            category: "Fitness",
+        },
+        {
+            id: 1233,
+            createdOn: "1/2/3",
             what: "Wake up at 6am",
             qty: 0,
             goalQty: 3,
             timeType: "Weekdays",
             time: "6:00am",
+            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+            complete: false,
+            category: "Willpower",
+        },
+        {
+            id: 123422,
+            createdOn: "1/2/3",
+            what: "Do 50 Pushups",
+            qty: 20,
+            goalQty: 50,
+            timeType: "Weekdays",
+            time: "4:00pm",
+            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+            complete: false,
+            category: "Fitness",
+        },
+        {
+            id: 123333,
+            createdOn: "1/2/3",
+            what: "Wake up at 6am",
+            qty: 0,
+            goalQty: 3,
+            timeType: "Weekdays",
+            time: "6:00am",
+            days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+            complete: false,
+            category: "Willpower",
+        },
+        {
+            id: 12433422,
+            createdOn: "1/2/3",
+            what: "Do 50 Pushups",
+            qty: 20,
+            goalQty: 50,
+            timeType: "Weekdays",
+            time: "4:00pm",
             days: ["Mon", "Tue", "Wed", "Thu", "Fri"],
             complete: false,
             category: "Fitness",
@@ -74,7 +122,7 @@ export default function App() {
     /*==== Functions START ====*/
     const findUser = async () => {
         const result = await AsyncStorage.getItem("habitTrackerUser")
-        console.log("result ", result)
+        console.log("\nfindUser(): App.js result ", result, "\n")
         if (!result) return
         setUser(JSON.parse(result))
     }
@@ -97,7 +145,7 @@ export default function App() {
     const getUserHistory = async () => {
         const result = await AsyncStorage.getItem("userHabitHistory")
         // !REMOVE ME -- 
-        console.log("User Habit History Result: ", result)
+        console.log("\n getUserHistory(): App.js Result: ", result, "\n")
         if (!result) return
         setUserHabitHistory(JSON.parse(result))
     }
