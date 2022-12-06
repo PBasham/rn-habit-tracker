@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     },
     note: {
         padding: "3%",
-        borderRadius: 15,
+        borderRadius: 5,
 
         minHeight: 60,
         width: "100%",

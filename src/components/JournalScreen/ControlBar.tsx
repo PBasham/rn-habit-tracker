@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
     },
     addBtn: {
         marginLeft: "auto",
-        marginRight: 15,
         backgroundColor: "transparent",
 
         elevation: 0,
