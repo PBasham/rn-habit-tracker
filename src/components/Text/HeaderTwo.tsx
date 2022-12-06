@@ -30,6 +30,6 @@ export const HeaderOne: FC<HeaderOneProps> = ({ style, content, color, textAlign
 
 const styles = StyleSheet.create({
     headerOne: {
-        fontSize: 24,
+        fontSize: 20,
     }
 });

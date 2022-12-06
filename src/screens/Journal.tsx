@@ -155,9 +155,9 @@ const Journal = () => {
 
     return (
         <View style={styles.container}>
-            <HeaderOne content={"Your thoughts on today?"} style={{ width: width - 50 }} color={colors.text.darkTransparent} />
             {/* Search/filter bar will go here in the future. */}
-            <ControlBar openNoteDetail={openEntryDetail} enableAdditionalSettings={enableAdditionalSettings} enableSettigns={handleEnableAdditionalSettigns} />
+            <ControlBar  onPlusPress={openEntryDetail} enableAdditionalSettings={enableAdditionalSettings} onDotsPress={handleEnableAdditionalSettigns} />
+
             <JournalEntriesContainer
                 journalEntries={journalEntries}
                 removeJournalEntry={removeJournalEntry}
@@ -185,7 +185,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        paddingTop: "15%",
         paddingBottom: "5%",
         backgroundColor: colors.general.background,
     },
