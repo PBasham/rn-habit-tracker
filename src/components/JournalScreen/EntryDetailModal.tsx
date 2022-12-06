@@ -128,7 +128,7 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
             <View style={styles.container}>
                 <View style={styles.entryInfo}>
                     <Text>Created On: {selectedEntry.createdOn ? selectedEntry.createdOn : todaysDate}</Text>
-                    {selectedEntry.updatedOn ? <Text>Updated On: {selectedEntry.createdOn}</Text> : null}
+                    {selectedEntry.updatedOn ? <Text>Updated On: {selectedEntry.updatedOn}</Text> : null}
                 </View>
                 {/* View that will hold the back/save/cancel button | title textInput | AdditionalSettings button */}
                 <View style={styles.headerBar}>

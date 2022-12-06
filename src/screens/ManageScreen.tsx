@@ -1,3 +1,10 @@
+/** ToDo's for here:
+    * Add Modals for ceating a goal.
+    * View Goal Modal
+        * Way to delete goal from userGoals.
+        * Update goal
+    * ...
+ */
 /*========================================
         Import Dependencies
 ========================================*/
@@ -11,6 +18,7 @@ import { HeaderOne } from "../components/Text"
 // Styles --------------------------------------------------
 // import { backgroundOne } from "../../assets/imgs/images.js"
 import colors from "../misc/colors.js"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 interface ManageScreenProps {
     userGoals: any
@@ -23,6 +31,12 @@ interface ManageScreenProps {
 }
 
 const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, addGoal, updateGoal, removeGoal, goalsCategories, setGoalsCategories }) => {
+
+
+
+
+
+    // Sorting --------------------------------------------------
     // ? maybe use state to keep track of  how the user wants tha manage screen to be sorted.
     // const [manageSort, setManageSort] = useState([])
 
@@ -65,6 +79,7 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, addGoal,
         }))
 
         setUserGoals(updatedGoals)
+        AsyncStorage.setItem("")
     }
 
     return (
@@ -86,13 +101,22 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, addGoal,
                     />}
                     />
                     :
-                    <Text>Add some goals!</Text>
+                    <HeaderOne
+                    style={{
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        opacity: .5,
+                        marginTop: 20,
+                    }}
+                    content={"You don't currently have any goals for today!"}
+                />
                 }
                 </View>
                 <Pressable onPress={() => console.log("Create new Goal!")} style={styles.createNewBtn}>
                     <Text style={styles.btnText} >Create New Goal</Text>
                 </Pressable>
-                {/* Modal for  */}
+                
             </View>
         </>
     )

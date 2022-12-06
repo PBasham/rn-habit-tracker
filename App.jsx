@@ -1,3 +1,5 @@
+/** BUGS
+ */
 /*========================================
         Import Components
 ========================================*/
@@ -68,7 +70,9 @@ export default function App() {
 
     // ---- Add Goal ----------------------------------------
     const addGoal = (newGoal) => {
-        setUserGoals((current) => {return [...userGoals, newGoal]})
+        const updatedGoals = [...userGoals, newGoal]
+        AsyncStorage.setItem("habitTrackerGoals", JSON.stringify(updatedGoals))
+        setUserGoals((current) => {return updatedGoals})
     }
     // ---- Update goal ----------------------------------------
     const updateGoal = (updatedGoal) => {
