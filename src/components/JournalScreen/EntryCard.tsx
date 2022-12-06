@@ -3,9 +3,9 @@
 ========================================*/
 import { FC } from "react"
 import { Pressable, StyleSheet, Text, View, Image, Dimensions } from 'react-native'
-import { Entypo } from '@expo/vector-icons';
+// components --------------------------------------------------
+import { CheckBoxRnd } from "../CheckBox"
 // Styling --------------------------------------------------
-import { trashCanIcon } from "../../../assets/icons/icons"
 import colors from "../../misc/colors"
 
 interface EntryCardProps {
@@ -21,18 +21,19 @@ const EntryCard = ({ onPress, removeJournalEntry, additionalSettings, note }) =>
         removeJournalEntry(id)
     }
 
+
     return (
-        <Pressable onPress={() => onPress(note)} style={[styles.container]}>
-            <View style={[styles.note, additionalSettings ? styles.additionalSettings : null]}>
-                {additionalSettings ?
-                    <Pressable style={styles.trashCanIcon} onPress={() => handleDeleteEntry(note.id)}>
-                        <Entypo name="trash" size={24} color={colors.button.textCancel} />
-                    </Pressable>
-                    : null}
-                <Text numberOfLines={2} style={styles.noteTitle}>{note.title}</Text>
-                <Text style={styles.noteDate}>{note.createdOn}</Text>
-            </View>
-        </Pressable>
+        <View style={styles.outerContaienr}>
+            {additionalSettings ? 
+            <CheckBoxRnd checked={false}/>
+            : null }
+            <Pressable onPress={() => onPress(note)} style={[styles.container]}>
+                <View style={[styles.note, additionalSettings ? styles.additionalSettings : null]}>
+                    <Text numberOfLines={2} style={styles.noteTitle}>{note.title}</Text>
+                    <Text style={styles.noteDate}>{note.createdOn}</Text>
+                </View>
+            </Pressable>
+        </View>
     )
 }
 
@@ -41,13 +42,20 @@ export default EntryCard
 const viewWidth = Dimensions.get("screen").width * .0
 
 const styles = StyleSheet.create({
+    outerContaienr: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    checkbox: {
+        marginHorizontal: 5,
+        backgroundColor: "red",
+    },
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
         paddingTop: 8,
         paddingBottom: 8,
-        width: "100%",
     },
     note: {
         padding: "3%",
@@ -55,13 +63,13 @@ const styles = StyleSheet.create({
 
         minHeight: 60,
         width: "100%",
-        
+
         backgroundColor: colors.general.light,
-        
+
     },
     noteTitle: {
         textAlign: "left",
-        fontSize: 20,
+        fontSize: 18,
         color: colors.text.dark,
         opacity: .8,
         paddingBottom: "1%",
@@ -76,16 +84,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     additionalSettings: {
-        width: "95%",
         borderWidth: 1,
-        borderRadius: 15,
-        borderColor: colors.general.darkTransparent,
-    },
-    trashCanIcon: {
-        position: "absolute",
-        top: 0,
-        right: 0,
-        margin: 8,
-        zIndex: 100,
+        borderColor: "rgb(200,200,200)",
+        elevation: 10,
     },
 })
