@@ -17,6 +17,7 @@ import { HeaderOne } from "../Text"
 interface ControlBarProps {
     onBackPress?: () => void
     onPlusPress?: () => void
+    onDeletePress?: () => void
     onEditPress?: () => void
     onDotsPress?: () => void
 
@@ -27,12 +28,7 @@ interface ControlBarProps {
 
 const ControlBar: FC<ControlBarProps> = (props: ControlBarProps) => {
 
-    const { onBackPress, onPlusPress, onEditPress, onDotsPress, enableAdditionalSettings } = props
-
-    const handleAdditionalSettingsClick = () => {
-        console.log("handle additional settings!")
-        onDotsPress()
-    }
+    const { onBackPress, onPlusPress, onDeletePress, onEditPress, onDotsPress, enableAdditionalSettings } = props
 
     return (
         <View style={styles.container}>
@@ -53,21 +49,22 @@ const ControlBar: FC<ControlBarProps> = (props: ControlBarProps) => {
                 />
             }
             <HeaderOne content="Journal" />
+            {/* if edit is true, turn this into a delete icon and change the function to delete. */}
             {/* Add Button */}
             {onPlusPress ?
                 <RoundIconBtn
                     size={26}
                     style={styles.addBtn}
-                    antIconName="plus"
-                    onPress={onPlusPress}
+                    antIconName={enableAdditionalSettings ? "delete" : "plus"}
+                    iconColor={enableAdditionalSettings ? colors.button.textCancel : null}
+                    onPress={enableAdditionalSettings ? onDeletePress : onPlusPress}
                 />
                 : null}
-            {/* name={cancel ? "cross" : "dots-three-vertical"} size={size || 24} color={cancel ? colors.button.textCancel : color || colors.button.textDark}  */}
             {/* Edit Button */}
             {onEditPress ?
                 <RoundIconBtn
                     size={26}
-                    style={styles.editBtn}
+                    style={styles.editBtn}  
                     antIconName={enableAdditionalSettings ? "close" : "edit"}
                     iconColor={enableAdditionalSettings ? colors.button.textCancel : null}
                     onPress={onEditPress}

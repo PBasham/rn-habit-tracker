@@ -74,18 +74,20 @@ const Journal = () => {
 
     }
     // remove multiple entries --------------------------------------------------
-    const removeSelectedEntries = (arrSelected: any) => {
+    const removeSelectedEntries = () => {
 
         console.log("I'm in removeSelectedEntries()")
         // @ts-ignore
-        // const updatedJournalEntries = journalEntries.filter((entry) => entry.id !== id)
+        const updatedJournalEntries = journalEntries.filter((entry) => !selectedEntries.includes(entry.id))
 
-        // console.log("journalEntries: ", journalEntries, "\n")
-        // console.log("updatedJournalEntries: ", updatedJournalEntries, "\n")
+        console.log("journalEntries: ", journalEntries, "\n")
+        console.log("updatedJournalEntries: ", updatedJournalEntries, "\n")
 
 
-        // AsyncStorage.setItem("journal", JSON.stringify(updatedJournalEntries))
-        // setJournalEntries(updatedJournalEntries)
+        AsyncStorage.setItem("journal", JSON.stringify(updatedJournalEntries))
+        setJournalEntries(updatedJournalEntries)
+        
+        handleEnableAdditionalSettigns()
 
     }
     // add entry to storage --------------------------------------------------
@@ -184,7 +186,7 @@ const Journal = () => {
     return (
         <View style={styles.container}>
             {/* Search/filter bar will go here in the future. */}
-            <ControlBar  onPlusPress={openEntryDetail} onEditPress={handleEnableAdditionalSettigns} enableAdditionalSettings={enableAdditionalSettings}  />
+            <ControlBar  onPlusPress={openEntryDetail} onDeletePress={removeSelectedEntries} onEditPress={handleEnableAdditionalSettigns} enableAdditionalSettings={enableAdditionalSettings}  />
 
             {/* onDotsPress={handleEnableAdditionalSettigns} */}
 
