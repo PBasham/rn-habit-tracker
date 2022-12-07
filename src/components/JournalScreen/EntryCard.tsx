@@ -10,6 +10,7 @@ import colors from "../../misc/colors"
 
 interface EntryCardProps {
     onPress: (arg0:any) => void
+    onLongPress: () => void
     selected: boolean
     addToSelected: (id: any) => void
     removeFromSelected: (id: number) => void
@@ -20,7 +21,7 @@ interface EntryCardProps {
 
 const EntryCard: FC<EntryCardProps> = (props: EntryCardProps) => {
 
-    const { onPress, selected, addToSelected, removeFromSelected, removeJournalEntry, additionalSettings, note } = props
+    const { onPress, onLongPress, selected, addToSelected, removeFromSelected, removeJournalEntry, additionalSettings, note } = props
 
     const handleDeleteEntry = (id: any) => {
         removeJournalEntry(id)
@@ -43,7 +44,7 @@ const EntryCard: FC<EntryCardProps> = (props: EntryCardProps) => {
             {additionalSettings ? 
             <CheckBoxRnd onPress={checkboxPress} checked={selected} />
             : null }
-            <Pressable onPress={() => onPress(note)} style={[styles.container]}>
+            <Pressable onPress={additionalSettings ? null : () => onPress(note)} style={[styles.container]} onLongPress={onLongPress} >
                 <View style={[styles.note, additionalSettings ? styles.additionalSettings : null]}>
                     <Text numberOfLines={2} style={styles.noteTitle}>{note.title}</Text>
                     <Text style={styles.noteDate}>{note.createdOn}</Text>

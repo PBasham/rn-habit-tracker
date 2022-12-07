@@ -187,6 +187,7 @@ const Journal = () => {
             <ControlBar  onPlusPress={openEntryDetail} enableAdditionalSettings={enableAdditionalSettings} onDotsPress={handleEnableAdditionalSettigns} />
 
             <JournalEntriesContainer
+                onLongPress={handleEnableAdditionalSettigns}
                 journalEntries={journalEntries}
                 removeJournalEntry={removeJournalEntry}
                 additionalSettings={enableAdditionalSettings}

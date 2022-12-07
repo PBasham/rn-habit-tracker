@@ -8,6 +8,7 @@ import EntryCard from "./EntryCard"
 
 
 interface JournalEntriesContainerProps {
+    onLongPress: () => void
     journalEntries: object
     removeJournalEntry: (id: any) => void
     additionalSettings: boolean
@@ -18,7 +19,7 @@ interface JournalEntriesContainerProps {
 
 export const JournalEntriesContainer: FC<JournalEntriesContainerProps> = (props: JournalEntriesContainerProps) => {
 
-    const { journalEntries, removeJournalEntry, additionalSettings, selectEntry, selectedEntries, setSelectedEntries } = props
+    const { onLongPress, journalEntries, removeJournalEntry, additionalSettings, selectEntry, selectedEntries, setSelectedEntries } = props
 
 
     const addToSelected = (id: number) => {
@@ -44,6 +45,7 @@ export const JournalEntriesContainer: FC<JournalEntriesContainerProps> = (props:
                     additionalSettings={additionalSettings}
                     note={item}
                     onPress={selectEntry}
+                    onLongPress={onLongPress}
                     selected={selectedEntries.includes(item.id)}
                     addToSelected={addToSelected}
                     removeFromSelected={removeFromSelected}
