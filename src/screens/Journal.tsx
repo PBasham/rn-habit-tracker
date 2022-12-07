@@ -16,6 +16,7 @@ import { combineTransition } from "react-native-reanimated"
 import ControlBar from "../components/JournalScreen/ControlBar"
 import { EntryDetailModal } from "../components/JournalScreen/EntryDetailModal"
 import { JournalEntriesContainer } from "../components/JournalScreen/JournalEntriesContainer"
+import { Confirmation } from "../components/PopUps/Confirmation"
 import { HeaderOne } from "../components/Text/"
 // Context --------------------------------------------------
 import { DateContext } from "../context"
@@ -184,7 +185,9 @@ const Journal = () => {
     // Open/Close Modal --------------------------------------------------
     const openEntryDetail = () => { setModalVisable(true) }
     const closeEntryDetail = () => { setModalVisable(false) }
-    //  --------------------------------------------------
+    // Open/Close Delete Confirmation Modal --------------------------------------------------
+    const [showConfirmation, setShowConfirmation] = useState(false)
+
 
     return (
         <View style={styles.container}>
@@ -211,6 +214,7 @@ const Journal = () => {
                 createNewJournalEntry={createNewJournalEntry}
                 removeJournalEntry={removeJournalEntry}
             />
+        <Confirmation visible={showConfirmation} onConfirm={() => null} onCancel={() => null} message={"Are you sure you want to delete the selected entries?"} />
         </View>
     )
 }
