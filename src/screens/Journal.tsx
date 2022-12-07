@@ -1,5 +1,5 @@
 /** TODO
- * [] Add confirmation for deletion.
+ * [x] Add confirmation for deletion.
  * [] Add sorting option
  *  [] sort for createdOn
  *  [] sort for updatedOn

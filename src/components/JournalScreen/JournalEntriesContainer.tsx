@@ -45,7 +45,10 @@ export const JournalEntriesContainer: FC<JournalEntriesContainerProps> = (props:
                     additionalSettings={additionalSettings}
                     note={item}
                     onPress={selectEntry}
-                    onLongPress={onLongPress}
+                    onLongPress={() => {
+                        onLongPress()
+                        {additionalSettings ? null : addToSelected(item. id) }
+                    }}
                     selected={selectedEntries.includes(item.id)}
                     addToSelected={addToSelected}
                     removeFromSelected={removeFromSelected}
