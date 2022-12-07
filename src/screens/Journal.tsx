@@ -152,8 +152,21 @@ const Journal = () => {
         getUserJournalEntries()
     }, [])
 
+    // SelectedEntries for additional settings --------------------------------------------------
+    const [selectedEntries, setSelectedEntries] = useState([])
 
-    const handleEnableAdditionalSettigns = () => { setEnableAdditionalSettings(!enableAdditionalSettings) }
+
+
+    const handleEnableAdditionalSettigns = () => { 
+        if (enableAdditionalSettings) {
+            setSelectedEntries([])
+            setEnableAdditionalSettings(false) 
+        } else {
+            
+            setEnableAdditionalSettings(true) 
+        }
+
+    }
 
     // select entry for detail --------------------------------------------------
     const selectEntry = (entry: any) => {
@@ -178,6 +191,8 @@ const Journal = () => {
                 removeJournalEntry={removeJournalEntry}
                 additionalSettings={enableAdditionalSettings}
                 selectEntry={selectEntry}
+                selectedEntries={selectedEntries}
+                setSelectedEntries={setSelectedEntries}
             />
             <EntryDetailModal
                 visible={modalVisable}

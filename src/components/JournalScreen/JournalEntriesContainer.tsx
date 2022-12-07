@@ -12,13 +12,14 @@ interface JournalEntriesContainerProps {
     removeJournalEntry: (id: any) => void
     additionalSettings: boolean
     selectEntry: (entry: any) => void
+    selectedEntries: number[]
+    setSelectedEntries: any
 }
 
 export const JournalEntriesContainer: FC<JournalEntriesContainerProps> = (props: JournalEntriesContainerProps) => {
 
-    const { journalEntries, removeJournalEntry, additionalSettings, selectEntry } = props
+    const { journalEntries, removeJournalEntry, additionalSettings, selectEntry, selectedEntries, setSelectedEntries } = props
 
-    const [selectedEntries, setSelectedEntries] = useState([])
 
     const addToSelected = (id: number) => {
         setSelectedEntries((current) => {
@@ -43,6 +44,7 @@ export const JournalEntriesContainer: FC<JournalEntriesContainerProps> = (props:
                     additionalSettings={additionalSettings}
                     note={item}
                     onPress={selectEntry}
+                    selected={selectedEntries.includes(item.id)}
                     addToSelected={addToSelected}
                     removeFromSelected={removeFromSelected}
                     removeJournalEntry={removeJournalEntry}

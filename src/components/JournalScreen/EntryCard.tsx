@@ -10,6 +10,7 @@ import colors from "../../misc/colors"
 
 interface EntryCardProps {
     onPress: (arg0:any) => void
+    selected: boolean
     addToSelected: (id: any) => void
     removeFromSelected: (id: number) => void
     removeJournalEntry: (id: any) => void
@@ -19,22 +20,17 @@ interface EntryCardProps {
 
 const EntryCard: FC<EntryCardProps> = (props: EntryCardProps) => {
 
-    const { onPress, addToSelected, removeFromSelected, removeJournalEntry, additionalSettings, note } = props
-
-    const [selected, setSelected] = useState<boolean>(false)
+    const { onPress, selected, addToSelected, removeFromSelected, removeJournalEntry, additionalSettings, note } = props
 
     const handleDeleteEntry = (id: any) => {
         removeJournalEntry(id)
     }
 
     const checkboxPress = () => {
-        console.log("pressityPress")
         if (selected) {
             removeFromSelected(note.id)
-            setSelected(false)
         } else {
             addToSelected(note.id)
-            setSelected(true)
         }
     }
     // Add to selected --------------------------------------------------
