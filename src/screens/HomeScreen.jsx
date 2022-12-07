@@ -1,26 +1,24 @@
 /*========================================
-        Import Dependencies
+        Imports Dependencies
 ========================================*/
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useContext, useEffect, useState } from "react"
 import { StatusBar, StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView, Pressable } from 'react-native'
 // Context
 import { DateContext, UserContext } from "../context/"
-/*========================================
-        Import Components
-========================================*/
+// components --------------------------------------------------
 import { backgroundOne } from "../../assets/imgs/images.js"
 import { RoundIconBtn } from "../components/buttons/"
 import EmotionColorModal from "../components/HomeScreen/EmotionColorModal.jsx"
 import GoalsContainer from "../components/HomeScreen/GoalsContainer.tsx"
 import { HeaderOne, HeaderTwo } from "../components/Text/"
-/*========================================
-        Import Styles
-========================================*/
+// styling --------------------------------------------------
 import colors from "../misc/colors"
+// inset shadow --------------------------------------------------
+import InsetShadow from 'react-native-inset-shadow'
 
 // SCREEN GOALS
-// 1. Display the users goals for today.
+// 1. Display the users goals for to=p
 // 2. If no goals, show pluss button and/or text for adding new goals. Opens Manage Screen or Modal.
 // 3. Feelings chart that saves and logs for the day. Changes bar color to selected color.
 //?4. Below this will be next habits by day.
@@ -126,34 +124,44 @@ const HomeScreen = ({ navigation, userGoals }) => {
 
     return (
         <>
-            <View style={styles.container}>
-                {/* actionables -------------------------------------------------- */}
-                {/* Todays Actionables */}
-                <HeaderOne content={"Todays Actionables"} textAlign={"left"} />
-                {/* <GoalsContainer openManageScreen={openManageScreen} userGoals={userGoals} /> */}
-                <View style={{minHeight: 200, justifyContent: 'center', alignItems: "center"}}>
-                    <HeaderTwo content={"Goals that need an action today will show up here."} style={{width: "80%"}} />
+            <ScrollView style={styles.container}>
+                <View style={styles.contentContainer}>
+                    {/* actionables -------------------------------------------------- */}
+                    {/* Todays Actionables */}
+                    <HeaderOne style={styles.headerOne} content={"Todays Actionables"} textAlign={"left"} />
+                    {/* <GoalsContainer openManageScreen={openManageScreen} userGoals={userGoals} /> */}
+                    <View style={{ height: 300, }}>
+                        <InsetShadow>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: "center" }}>
+                                <HeaderTwo content={"Goals that need an action today will show up here."} style={{ width: "80%" }} />
+                            </View>
+                        </InsetShadow>
+                    </View>
+                    {/* daily emotion track -------------------------------------------------- */}
+                    {/* Emotion Picker */}
+                    <HeaderOne style={styles.headerOne} textAlign={"left"} content={"Keep track of how your feeling"} />
+                    <Pressable
+                        onPress={handleEmotionBarOpen}
+                        style={[
+                            { backgroundColor: selectedEmotion.color || "white" },
+                            styles.feelingsContainer
+                        ]}
+                    >
+                        <Text style={{ fontSize: 36, color: selectedEmotion.color ? colors.text.light : colors.text.darkTransparent }}>
+                            {selectedEmotion.feeling || `+`}
+                        </Text>
+                    </Pressable>
+                    {/* Upcoming Actionables */}
+                    <HeaderOne style={styles.headerOne} content={"Upcoming"} textAlign={"left"} />
+                    <View style={{ height: 200, marginBottom: 100 }}>
+                        <InsetShadow>
+                            <View style={{ flex: 1, justifyContent: "center", alignItems: "center", borderBottomWidth: 2, borderColor: colors.general.darkTransparent }}>
+                                <HeaderTwo content={"Upcoming goals will show up here."} style={{ width: "80%" }} />
+                            </View>
+                        </InsetShadow>
+                    </View>
                 </View>
-                {/* Upcoming Actionables */}
-                <HeaderOne content={"Upcoming"} textAlign={"left"} />
-                 <View style={{ minHeight: 200, justifyContent: "center", alignItems: "center", borderBottomWidth: 2, borderColor: colors.general.darkTransparent }}>
-                    <HeaderTwo content={"Upcoming goals will show up here."} style={{width: "80%"}} />
-                </View>
-                {/* daily emotion track -------------------------------------------------- */}
-                {/* Emotion Picker */}
-                <HeaderOne style={{ marginTop: 20, marginBottom: 20, }} textAlign={"left"} content={"Keep track of how your feeling"} />
-                <Pressable
-                    onPress={handleEmotionBarOpen}
-                    style={[
-                        { backgroundColor: selectedEmotion.color || "white" },
-                        styles.feelingsContainer
-                    ]}
-                >
-                    <Text style={{ fontSize: 36, color: selectedEmotion.color ? colors.text.light : colors.text.darkTransparent }}>
-                        {selectedEmotion.feeling || `+`}
-                    </Text>
-                </Pressable>
-            </View>
+            </ScrollView>
             <EmotionColorModal
                 visible={emotionModalVisible}
                 setEmotionModalVisible={setEmotionModalVisible}
@@ -172,7 +180,7 @@ export default HomeScreen
         Styling / Variables for styling
 ========================================*/
 
-const width = Dimensions.get('window').width - 50
+const width = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
     // backgroundImage: {
@@ -182,17 +190,32 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: "15%",
         paddingBottom: "5%",
-        paddingHorizontal: 25,
         backgroundColor: colors.general.background,
+    },
+    contentContainer: {
+        
+    },
+    headerOne: {
+        marginTop: 20,
+        marginBottom: 10,
+        paddingLeft: 25,
+    },
+    headerTwo: {
+
     },
     feelingsContainer: {
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        height: "10%",
-        borderRadius: 15,
-        borderWidth: 3,
-        borderColor: colors.general.light,
+        
+        marginBottom: 20,
+        marginHorizontal: 25,
+        height: 60,
+        borderWidth: 2,
+        borderColor: colors.general.darkTransparent,
+        
+        borderRadius: 5,
+
     },
     emotionColor: {
         flex: 1,
