@@ -1,3 +1,10 @@
+/** TODO
+ * [] Add confirmation for deletion.
+ * [] Add sorting option
+ *  [] sort for createdOn
+ *  [] sort for updatedOn
+ *  [] sort for title
+ */
 /*========================================
         Import Dependencies
 ========================================*/
@@ -5,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { execArgv } from "process"
 import { useEffect, useState, useContext } from "react"
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { combineTransition } from "react-native-reanimated"
 import ControlBar from "../components/JournalScreen/ControlBar"
 import { EntryDetailModal } from "../components/JournalScreen/EntryDetailModal"
 import { JournalEntriesContainer } from "../components/JournalScreen/JournalEntriesContainer"
@@ -28,14 +36,14 @@ const Journal = () => {
         const mm = String(new Date().getMonth() + 1).padStart(2, "0")
         const dd = String(new Date().getDate()).padStart(2, "0")
         const yyyy = new Date().getFullYear()
-    
+
         setTodaysDate(`${mm}/${dd}/${yyyy}`)
     }
 
     useEffect(() => {
         getDate()
     }, [])
-    
+
     // States --------------------------------------------------
     const [journalEntries, setJournalEntries] = useState<Array<object>>([])
 
@@ -47,6 +55,8 @@ const Journal = () => {
     const [modalVisable, setModalVisable] = useState<boolean>(false)
 
     const [enableAdditionalSettings, setEnableAdditionalSettings] = useState<boolean>(false)
+
+    // Need sort methods for entries? --------------------------------------------------    
 
     // get the users journal entries from asyncStorage --------------------------------------------------
     const getUserJournalEntries = async () => {
@@ -86,7 +96,7 @@ const Journal = () => {
 
         AsyncStorage.setItem("journal", JSON.stringify(updatedJournalEntries))
         setJournalEntries(updatedJournalEntries)
-        
+
         handleEnableAdditionalSettigns()
 
     }
@@ -102,8 +112,6 @@ const Journal = () => {
             // @ts-ignore
             if (!title && !entry) {
                 // @ts-ignore
-                console.log(selectEntry.id)
-                // @ts-ignore
                 removeJournalEntry(selectedEntry.id)
                 return
             } else {
@@ -111,8 +119,6 @@ const Journal = () => {
                 updatedJournalEntries = journalEntries.map((current => {
                     // @ts-ignore
                     if (current.id === selectedEntry.id) {
-                        console.log("Found it")
-                        
                         return {
                             ...current,
                             title: title,
@@ -127,27 +133,24 @@ const Journal = () => {
         } else {
             // If the user pressed create new entry, then pressed back without adding anything.
             if (!title && !entry) return
-            
-            console.log("New entry")
+
             const newEntry = {
                 id: Date.now(),
                 createdOn: todaysDate,
                 title,
                 entry,
             }
-            console.log(newEntry)
-            updatedJournalEntries = [...journalEntries, newEntry]
+            updatedJournalEntries = [newEntry, ...journalEntries]
         }
 
-
-        console.log("updatedJournalEntries: ", updatedJournalEntries)
-
+        
+        updatedJournalEntries.sort((a, b) => a.id < b.id ? 1 : -1)
+        
         AsyncStorage.setItem("journal", JSON.stringify(updatedJournalEntries))
-        setJournalEntries(updatedJournalEntries)
+        setJournalEntries(() => {return [...updatedJournalEntries]})
 
 
     }
-
     // useEffect --------------------------------------------------
     useEffect(() => {
         // Go into AsyncStorage and get users Journal Entries in date order.
@@ -159,13 +162,13 @@ const Journal = () => {
 
 
 
-    const handleEnableAdditionalSettigns = () => { 
+    const handleEnableAdditionalSettigns = () => {
         if (enableAdditionalSettings) {
             setSelectedEntries([])
-            setEnableAdditionalSettings(false) 
+            setEnableAdditionalSettings(false)
         } else {
-            
-            setEnableAdditionalSettings(true) 
+
+            setEnableAdditionalSettings(true)
         }
 
     }
@@ -186,7 +189,7 @@ const Journal = () => {
     return (
         <View style={styles.container}>
             {/* Search/filter bar will go here in the future. */}
-            <ControlBar  onPlusPress={openEntryDetail} onDeletePress={removeSelectedEntries} onEditPress={handleEnableAdditionalSettigns} enableAdditionalSettings={enableAdditionalSettings}  />
+            <ControlBar onPlusPress={openEntryDetail} onDeletePress={removeSelectedEntries} onEditPress={handleEnableAdditionalSettigns} enableAdditionalSettings={enableAdditionalSettings} />
 
             {/* onDotsPress={handleEnableAdditionalSettigns} */}
 

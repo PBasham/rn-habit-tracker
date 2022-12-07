@@ -1,11 +1,3 @@
-/** TODO
- * [] Add edit icon to controlBar
- * [] Edit icon will toggle additional settings
- * [] 3-Dots -> edit icon
- */
-
-
-
 /*========================================
         Import Dependencies
 ========================================*/
@@ -42,6 +34,11 @@ const EntryCard: FC<EntryCardProps> = (props: EntryCardProps) => {
             addToSelected(note.id)
         }
     }
+
+
+    // When long press, add the current to selected in addition to making enable additional settings true.
+
+
     // Add to selected --------------------------------------------------
 
     // Remove from selected --------------------------------------------------
