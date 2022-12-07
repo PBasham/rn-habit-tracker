@@ -100,6 +100,8 @@ const Journal = () => {
 
         handleEnableAdditionalSettigns()
 
+        setShowConfirmation(false)
+
     }
     // add entry to storage --------------------------------------------------
     const createNewJournalEntry = (title: string, entry: string, entryUpdated: boolean) => {
@@ -192,7 +194,7 @@ const Journal = () => {
     return (
         <View style={styles.container}>
             {/* Search/filter bar will go here in the future. */}
-            <ControlBar onPlusPress={openEntryDetail} onDeletePress={removeSelectedEntries} onEditPress={handleEnableAdditionalSettigns} enableAdditionalSettings={enableAdditionalSettings} />
+            <ControlBar onPlusPress={openEntryDetail} onDeletePress={() => setShowConfirmation(true)} onEditPress={handleEnableAdditionalSettigns} enableAdditionalSettings={enableAdditionalSettings} />
 
             {/* onDotsPress={handleEnableAdditionalSettigns} */}
 
@@ -214,7 +216,7 @@ const Journal = () => {
                 createNewJournalEntry={createNewJournalEntry}
                 removeJournalEntry={removeJournalEntry}
             />
-        <Confirmation visible={showConfirmation} onConfirm={() => null} onCancel={() => null} message={"Are you sure you want to delete the selected entries?"} />
+        <Confirmation visible={showConfirmation} onConfirm={removeSelectedEntries} onCancel={() => setShowConfirmation(false)} message={"Are you sure you want to delete the selected entries?"} />
         </View>
     )
 }

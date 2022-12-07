@@ -21,7 +21,7 @@ export const Confirmation: FC<ConfirmationProps> = (props: ConfirmationProps) =>
     const { visible, onConfirm, confirmText, onCancel, cancelText, message } = props
 
     return (
-        <Modal visible={true} animationType="none" transparent={true} >
+        <Modal visible={visible} animationType="none" transparent={true} >
             <View style={styles.container}>
                 <View style={styles.popupBox}>
                     <View style={styles.contentContainer}>
