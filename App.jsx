@@ -1,18 +1,12 @@
-/** BUGS
- */
 /*========================================
-        Import Components
+        Imports
 ========================================*/
+// Dependencies --------------------------------------------------
+import { useEffect, useState } from "react";
+import { StyleSheet, Image } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { StatusBar } from 'expo-status-bar';
-import { createContext, useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-/*========================================
-        Import Screens / Components
-========================================*/
 // Screens --------------------------------------------------
 import HomeScreen from "./src/screens/HomeScreen";
 import Manage from "./src/screens/ManageScreen";
@@ -26,12 +20,10 @@ import TellMeAboutYourself from "./src/screens/TellMeAboutYourself";
 // context
 import { UserContext, DateContext } from "./src/context";
 // Styling/misc --------------------------------------------------
-import { homeIcon, manageIcon, progressIcon, journalIcon, settingsIcon } from "./assets/icons/icons";
 import colors from "./src/misc/colors";
+import { homeIcon, manageIcon, progressIcon, journalIcon, settingsIcon } from "./assets/icons/icons";
 
 const Tab = createBottomTabNavigator()
-
-// export const UserContext = createContext()
 
 export default function App() {
 

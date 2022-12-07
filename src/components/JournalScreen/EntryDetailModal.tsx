@@ -124,7 +124,7 @@ export const EntryDetailModal: FC<EntryDetailModalProps> = ({
 
 
     return (
-        <Modal visible={visible} animationType="fade" >
+        <Modal visible={visible} animationType="slide" >
             <View style={styles.container}>
                 <View style={styles.entryInfo}>
                     <Text>Created On: {selectedEntry.createdOn ? selectedEntry.createdOn : todaysDate}</Text>

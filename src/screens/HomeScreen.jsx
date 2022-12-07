@@ -13,7 +13,7 @@ import { backgroundOne } from "../../assets/imgs/images.js"
 import { RoundIconBtn } from "../components/buttons/"
 import EmotionColorModal from "../components/HomeScreen/EmotionColorModal.jsx"
 import GoalsContainer from "../components/HomeScreen/GoalsContainer.tsx"
-import { HeaderOne } from "../components/Text/"
+import { HeaderOne, HeaderTwo } from "../components/Text/"
 /*========================================
         Import Styles
 ========================================*/
@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation, userGoals }) => {
     const todaysDate = useContext(DateContext)
 
     console.log("todaysDate ", todaysDate)
-    
+
     /* State */
     const [selectedEmotion, setSelectedEmotion] = useState({})
 
@@ -63,7 +63,7 @@ const HomeScreen = ({ navigation, userGoals }) => {
         const currentFeelingsLog = JSON.parse(result)
         setFeelingsLog(currentFeelingsLog)
         // check if there is already an entry or today. if so, update Bar to respective feeling / color
-        
+
 
         if (todaysDate in currentFeelingsLog) {
             console.log("Entry for today exist!")
@@ -121,34 +121,39 @@ const HomeScreen = ({ navigation, userGoals }) => {
             Navigation function
     ========================================*/
     const openManageScreen = () => {
-        navigation.navigate("Manage", {userGoals: userGoals})
+        navigation.navigate("Manage", { userGoals: userGoals })
     }
 
     return (
         <>
-            {/* <StatusBar /> */}
-            {/* <ImageBackground source={backgroundOne} resizeMode="cover" style={styles.backgroundImage}> */}
-                <View style={styles.container}>
-                    {/* Greeting */}
-                    <HeaderOne style={{ marginBottom: 20, }} content={`Good ${greet}, ${user.name}`} />
-                    {/* Goals Section */}
-                    <HeaderOne style={{ marginBottom: 20, }} content={"Today's Goals"} />
-                    <GoalsContainer openManageScreen={openManageScreen} userGoals={userGoals} />
-                    {/* Emotion Picker */}
-                    <HeaderOne style={{ marginTop: 20, marginBottom: 20, }} content={"How do you feel today?"} />
-                    <Pressable
-                        onPress={handleEmotionBarOpen}
-                        style={[
-                            { backgroundColor: selectedEmotion.color || "white" },
-                            styles.feelingsContainer
-                        ]}
-                    >
-                        <Text style={{ fontSize: 36, color: selectedEmotion.color ? colors.text.light : colors.text.darkTransparent }}>
-                            {selectedEmotion.feeling || `+`}
-                        </Text>
-                    </Pressable>
+            <View style={styles.container}>
+                {/* actionables -------------------------------------------------- */}
+                {/* Todays Actionables */}
+                <HeaderOne content={"Todays Actionables"} textAlign={"left"} />
+                {/* <GoalsContainer openManageScreen={openManageScreen} userGoals={userGoals} /> */}
+                <View style={{minHeight: 200, justifyContent: 'center', alignItems: "center"}}>
+                    <HeaderTwo content={"Goals that need an action today will show up here."} style={{width: "80%"}} />
                 </View>
-            {/* </ImageBackground> */}
+                {/* Upcoming Actionables */}
+                <HeaderOne content={"Upcoming"} textAlign={"left"} />
+                 <View style={{ minHeight: 200, justifyContent: "center", alignItems: "center", borderBottomWidth: 2, borderColor: colors.general.darkTransparent }}>
+                    <HeaderTwo content={"Upcoming goals will show up here."} style={{width: "80%"}} />
+                </View>
+                {/* daily emotion track -------------------------------------------------- */}
+                {/* Emotion Picker */}
+                <HeaderOne style={{ marginTop: 20, marginBottom: 20, }} textAlign={"left"} content={"Keep track of how your feeling"} />
+                <Pressable
+                    onPress={handleEmotionBarOpen}
+                    style={[
+                        { backgroundColor: selectedEmotion.color || "white" },
+                        styles.feelingsContainer
+                    ]}
+                >
+                    <Text style={{ fontSize: 36, color: selectedEmotion.color ? colors.text.light : colors.text.darkTransparent }}>
+                        {selectedEmotion.feeling || `+`}
+                    </Text>
+                </Pressable>
+            </View>
             <EmotionColorModal
                 visible={emotionModalVisible}
                 setEmotionModalVisible={setEmotionModalVisible}

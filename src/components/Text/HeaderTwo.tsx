@@ -6,7 +6,7 @@ import { StyleSheet, Text } from 'react-native'
 // Styling --------------------------------------------------
 import colors from "../../misc/colors";
 
-interface HeaderOneProps {
+interface HeaderTwoProps {
 style?: any
 content: string
 color?: string
@@ -14,7 +14,7 @@ textAlign?: string
 }
 
 /* Custome Text Header Component */
-export const HeaderOne: FC<HeaderOneProps> = ({ style, content, color, textAlign }) => {
+export const HeaderTwo: FC<HeaderTwoProps> = ({ style, content, color, textAlign }) => {
     return (
         <Text
             style={[{...style}, styles.headerOne, {
