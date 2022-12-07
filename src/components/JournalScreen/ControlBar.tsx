@@ -17,6 +17,7 @@ import { HeaderOne } from "../Text"
 interface ControlBarProps {
     onBackPress?: () => void
     onPlusPress?: () => void
+    onEditPress?: () => void
     onDotsPress?: () => void
 
     // enableSettigns: () => void
@@ -24,9 +25,9 @@ interface ControlBarProps {
     // openNoteDetail: () => void
 }
 
-const ControlBar: FC<ControlBarProps> = ({ onBackPress, onPlusPress, onDotsPress, enableAdditionalSettings }) => {
+const ControlBar: FC<ControlBarProps> = (props: ControlBarProps) => {
 
-    console.log(onBackPress ? true : false)
+    const { onBackPress, onPlusPress, onEditPress, onDotsPress, enableAdditionalSettings } = props
 
     const handleAdditionalSettingsClick = () => {
         console.log("handle additional settings!")
@@ -61,12 +62,22 @@ const ControlBar: FC<ControlBarProps> = ({ onBackPress, onPlusPress, onDotsPress
                     onPress={onPlusPress}
                 />
                 : null}
-
+            {/* name={cancel ? "cross" : "dots-three-vertical"} size={size || 24} color={cancel ? colors.button.textCancel : color || colors.button.textDark}  */}
+            {/* Edit Button */}
+            {onEditPress ?
+                <RoundIconBtn
+                    size={26}
+                    style={styles.editBtn}
+                    antIconName={enableAdditionalSettings ? "close" : "edit"}
+                    iconColor={enableAdditionalSettings ? colors.button.textCancel : null}
+                    onPress={onEditPress}
+                />
+                : null}
             {/* Additional Settings */}
             {onDotsPress ? <AdditionalSettingsBtn
                 cancel={enableAdditionalSettings}
                 size={26}
-                onPress={handleAdditionalSettingsClick}
+                onPress={onDotsPress}
                 style={[styles.settingsBtn]}
                 color={colors.button.dark}
             />
@@ -103,6 +114,12 @@ const styles = StyleSheet.create({
         backgroundColor: "transparent",
 
         elevation: 0,
+    },
+    editBtn: {
+        backgroundColor: "transparent",
+
+        elevation: 0,
+
     },
     settingsBtn: {
     },

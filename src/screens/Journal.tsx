@@ -184,7 +184,9 @@ const Journal = () => {
     return (
         <View style={styles.container}>
             {/* Search/filter bar will go here in the future. */}
-            <ControlBar  onPlusPress={openEntryDetail} enableAdditionalSettings={enableAdditionalSettings} onDotsPress={handleEnableAdditionalSettigns} />
+            <ControlBar  onPlusPress={openEntryDetail} onEditPress={handleEnableAdditionalSettigns} enableAdditionalSettings={enableAdditionalSettings}  />
+
+            {/* onDotsPress={handleEnableAdditionalSettigns} */}
 
             <JournalEntriesContainer
                 onLongPress={handleEnableAdditionalSettigns}

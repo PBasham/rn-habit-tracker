@@ -1,3 +1,11 @@
+/** TODO
+ * [] Add edit icon to controlBar
+ * [] Edit icon will toggle additional settings
+ * [] 3-Dots -> edit icon
+ */
+
+
+
 /*========================================
         Import Dependencies
 ========================================*/
@@ -44,7 +52,7 @@ const EntryCard: FC<EntryCardProps> = (props: EntryCardProps) => {
             {additionalSettings ? 
             <CheckBoxRnd onPress={checkboxPress} checked={selected} />
             : null }
-            <Pressable onPress={additionalSettings ? null : () => onPress(note)} style={[styles.container]} onLongPress={onLongPress} >
+            <Pressable onPress={additionalSettings ? checkboxPress : () => onPress(note)} style={[styles.container]} onLongPress={onLongPress} >
                 <View style={[styles.note, additionalSettings ? styles.additionalSettings : null]}>
                     <Text numberOfLines={2} style={styles.noteTitle}>{note.title}</Text>
                     <Text style={styles.noteDate}>{note.createdOn}</Text>
