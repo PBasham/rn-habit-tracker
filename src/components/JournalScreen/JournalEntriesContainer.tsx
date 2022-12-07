@@ -14,7 +14,22 @@ interface JournalEntriesContainerProps {
     selectEntry: (entry: any) => void
 }
 
-export const JournalEntriesContainer: FC<JournalEntriesContainerProps> = ({ journalEntries, removeJournalEntry, additionalSettings, selectEntry }) => {
+export const JournalEntriesContainer: FC<JournalEntriesContainerProps> = (props: JournalEntriesContainerProps) => {
+
+    const { journalEntries, removeJournalEntry, additionalSettings, selectEntry } = props
+
+    const [selectedEntries, setSelectedEntries] = useState([])
+
+    const addToSelected = (id: number) => {
+        setSelectedEntries((current) => {
+            return [...current, id]
+        })
+    }
+    const removeFromSelected = (id: number) => {
+        setSelectedEntries((current) => {
+            return current.filter((currentId) => currentId !== id)
+        })
+    }
 
     return (
         /* This will be a map of the users journal entries once I've set that up. */
@@ -28,6 +43,8 @@ export const JournalEntriesContainer: FC<JournalEntriesContainerProps> = ({ jour
                     additionalSettings={additionalSettings}
                     note={item}
                     onPress={selectEntry}
+                    addToSelected={addToSelected}
+                    removeFromSelected={removeFromSelected}
                     removeJournalEntry={removeJournalEntry}
                 />}
         />

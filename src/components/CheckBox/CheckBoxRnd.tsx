@@ -1,7 +1,7 @@
 /*========================================
         Import dependencies
 ========================================*/
-import React, {FC} from "react";
+import {FC} from "react";
 import { View, Pressable, StyleSheet } from "react-native"
 // icons --------------------------------------------------
 import { Entypo } from '@expo/vector-icons';
@@ -18,7 +18,7 @@ export const CheckBoxRnd: FC<CheckBoxRndProps> = ( props: CheckBoxRndProps) => {
 
     return (
         <View style={styles.container}>
-            <Pressable style={[checked ? styles.checked : null, styles.checkbox]}>
+            <Pressable style={[styles.checkbox, checked ? styles.checked : null]} onPress={onPress} >
             {checked ? <Entypo name={"check"} size={20} color={colors.general.light} /> : null}
             </Pressable>
 

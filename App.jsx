@@ -63,7 +63,6 @@ export default function App() {
 
     const getUserGoals = async () => {
         const result = await AsyncStorage.getItem("habitTrackerGoals")
-        // !REMOVE ME -- console.log("User Goals Result: ", result)
         if (!result) return
         setUserGoals(JSON.parse(result))
     }

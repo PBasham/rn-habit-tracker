@@ -58,7 +58,7 @@ const Journal = () => {
         const currentJournal = JSON.parse(result)
         setJournalEntries([...currentJournal])
     }
-
+    // remove single entry --------------------------------------------------
     const removeJournalEntry = (id: any) => {
 
         console.log("WooHoo!")
@@ -73,7 +73,22 @@ const Journal = () => {
         setJournalEntries(updatedJournalEntries)
 
     }
+    // remove multiple entries --------------------------------------------------
+    const removeSelectedEntries = (arrSelected: any) => {
 
+        console.log("I'm in removeSelectedEntries()")
+        // @ts-ignore
+        // const updatedJournalEntries = journalEntries.filter((entry) => entry.id !== id)
+
+        // console.log("journalEntries: ", journalEntries, "\n")
+        // console.log("updatedJournalEntries: ", updatedJournalEntries, "\n")
+
+
+        // AsyncStorage.setItem("journal", JSON.stringify(updatedJournalEntries))
+        // setJournalEntries(updatedJournalEntries)
+
+    }
+    // add entry to storage --------------------------------------------------
     const createNewJournalEntry = (title: string, entry: string, entryUpdated: boolean) => {
         // User context.date to get todays date
         console.log(selectedEntry)
