@@ -147,7 +147,7 @@ const HomeScreen = ({ navigation, userGoals }) => {
                             styles.feelingsContainer
                         ]}
                     >
-                        <Text style={{ fontSize: 36, color: selectedEmotion.color ? colors.text.light : colors.text.darkTransparent }}>
+                        <Text style={{ fontSize: 36, color: selectedEmotion.color ? colors.text.lighti : colors.text.darkTransparent }}>
                             {selectedEmotion.feeling || `+`}
                         </Text>
                     </Pressable>

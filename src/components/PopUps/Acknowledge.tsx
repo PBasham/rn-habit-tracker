@@ -3,22 +3,22 @@
 ========================================*/
 import React, { FC } from 'react'
 import { Modal, View, StyleSheet } from 'react-native'
-import colors from "../../misc/colors"
+// components  --------------------------------------------------
 import { StandardAntBtn } from "../buttons"
-import { HeaderOne, HeaderTwo } from "../Text"
+import { HeaderOne } from "../Text"
+// style --------------------------------------------------
+import colors from "../../misc/colors"
 
-interface ConfirmationProps {
+interface AcknowledgeProps {
     visible: boolean
     onConfirm: () => void
     confirmText?: string
-    onCancel: () => void
-    cancelText?: string
     message?: string
 }
 
-export const Confirmation: FC<ConfirmationProps> = (props: ConfirmationProps) => {
+export const Acknowledge: FC<AcknowledgeProps> = (props: AcknowledgeProps) => {
 
-    const { visible, onConfirm, confirmText, onCancel, cancelText, message } = props
+    const { visible, onConfirm, confirmText, message } = props
 
     return (
         <Modal visible={visible} animationType="none" transparent={true} >
@@ -26,12 +26,11 @@ export const Confirmation: FC<ConfirmationProps> = (props: ConfirmationProps) =>
                 <View style={styles.popupBox}>
                     <View style={styles.contentContainer}>
 
-                        <HeaderOne style={styles.content} content={message ? message : "Confirm?"} />
+                        <HeaderOne style={styles.content} content={message ? message : "This is a message to acknowledge something."} />
                     </View>
 
                     <View style={styles.options}>
-                        <StandardAntBtn text={cancelText ? cancelText : "Cancel"} onPress={onCancel} fontSize={20} backColor={colors.button.lightBlue} style={styles.popupBtn} />
-                        <StandardAntBtn text={confirmText ? confirmText : "Confirm"} onPress={onConfirm} fontSize={20} backColor={colors.button.lightBlue} style={styles.popupBtn} />
+                        <StandardAntBtn text={confirmText ? confirmText : "Acknowledge"} onPress={onConfirm} fontSize={20} backColor={colors.button.lightBlue} style={styles.popupBtn} />
                     </View>
                 </View>
             </View>

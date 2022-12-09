@@ -1,22 +1,20 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import { useEffect, useReducer, useRef } from "react";
+import { useReducer, useRef } from "react";
 import { StyleSheet, Text, View, Pressable, LayoutChangeEvent } from 'react-native'
-// svg
-import Svg, { Path } from "react-native-svg"
-// reanimated
-import Animated, { useAnimatedStyle, withTiming, useDerivedValue } from "react-native-reanimated";
-/*========================================
-        Import Styles
-========================================*/
-import colors from "../../misc/colors"
+// tabBar --------------------------------------------------
 import { BottomTabBarProps, BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
+// svg --------------------------------------------------
+import Svg, { Path } from "react-native-svg"
+// reanimated --------------------------------------------------
+import Animated, { useAnimatedStyle, withTiming, useDerivedValue } from "react-native-reanimated";
+// styles --------------------------------------------------
+import colors from "../../misc/colors"
 
-// Reanimated --------------------------------------------------
 
+// Reanimated -------------------------------------------------
 const AnimatedSvg = Animated.createAnimatedComponent(Svg)
-
 // --------------------------------------------------
 
 
@@ -83,7 +81,12 @@ const NavBar = ({ state: { index: activeIndex, routes }, navigation, descriptors
                             active={active}
                             options={options}
                             onLayout={(e) => handleLayout(e, index)}
-                            onPress={() => navigation.navigate(route.name)}
+                            onPress={() => {
+                                if (route.name === "Journal") {
+                                    
+                                }
+                                navigation.navigate(route.name)
+                            }}
                         />
                     )
                 })}

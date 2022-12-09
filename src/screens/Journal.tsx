@@ -18,8 +18,7 @@ import { EntryDetailModal } from "../components/JournalScreen/EntryDetailModal"
 import { JournalEntriesContainer } from "../components/JournalScreen/JournalEntriesContainer"
 import { Confirmation } from "../components/PopUps/Confirmation"
 import { HeaderOne } from "../components/Text/"
-// Context --------------------------------------------------
-import { DateContext } from "../context"
+import { useIsFocused } from "@react-navigation/native"
 /*========================================
         Import Styles
 ========================================*/
@@ -129,11 +128,11 @@ const Journal = () => {
             updatedJournalEntries = [newEntry, ...journalEntries]
         }
 
-        
+
         updatedJournalEntries.sort((a, b) => a.id < b.id ? 1 : -1)
-        
+
         AsyncStorage.setItem("journal", JSON.stringify(updatedJournalEntries))
-        setJournalEntries(() => {return [...updatedJournalEntries]})
+        setJournalEntries(() => { return [...updatedJournalEntries] })
 
 
     }
@@ -146,8 +145,6 @@ const Journal = () => {
     // SelectedEntries for additional settings --------------------------------------------------
     const [selectedEntries, setSelectedEntries] = useState([])
 
-
-
     const handleEnableAdditionalSettigns = () => {
         if (enableAdditionalSettings) {
             setSelectedEntries([])
@@ -158,6 +155,20 @@ const Journal = () => {
         }
 
     }
+
+
+    // useIsFocused --------------------------------------------------
+    const isFocused = useIsFocused()
+
+    useEffect(() => {
+        setSelectedEntries([])
+        setEnableAdditionalSettings(false)
+    }, [isFocused])
+    //  --------------------------------------------------
+
+
+
+
 
     // select entry for detail --------------------------------------------------
     const selectEntry = (entry: any) => {
@@ -198,7 +209,7 @@ const Journal = () => {
                 createNewJournalEntry={createNewJournalEntry}
                 removeJournalEntry={removeJournalEntry}
             />
-        <Confirmation visible={showConfirmation} onConfirm={removeSelectedEntries} onCancel={() => setShowConfirmation(false)} message={"Are you sure you want to delete the selected entries?"} />
+            <Confirmation visible={showConfirmation} onConfirm={removeSelectedEntries} onCancel={() => setShowConfirmation(false)} message={"Are you sure you want to delete the selected entries?"} />
         </View>
     )
 }
