@@ -161,8 +161,9 @@ const Journal = () => {
     const isFocused = useIsFocused()
 
     useEffect(() => {
-        setSelectedEntries([])
-        setEnableAdditionalSettings(false)
+        if (enableAdditionalSettings) {
+            handleEnableAdditionalSettigns()
+        }
     }, [isFocused])
     //  --------------------------------------------------
 
