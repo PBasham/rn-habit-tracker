@@ -1,24 +1,23 @@
-/** ToDo's for here:
-    * Add Modals for ceating a goal.
-    * View Goal Modal
-        * Way to delete goal from userGoals.
-        * Update goal
-    * ...
+/** ToDo
+     * 
  */
 /*========================================
         Import Dependencies
 ========================================*/
 import { FC, useEffect, useState } from "react"
-import { View, Text, StyleSheet, Pressable, FlatList, Dimensions, SectionList } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, Pressable, FlatList, Dimensions, SectionList } from 'react-native'
+import InsetShadow from "react-native-inset-shadow"
+// AsyncStorage --------------------------------------------------
+import AsyncStorage from "@react-native-async-storage/async-storage"
 // Components --------------------------------------------------
+import ControlBar from "../components/ControlBar/ControlBar"
 import { StandardAntBtn } from "../components/buttons"
 import { GoalCard } from "../components/ManageScreen/GoalCard"
 import { CategoryCard } from "../components/ManageScreen/CategoryCard"
-import { HeaderOne } from "../components/Text"
+import { HeaderOne, HeaderTwo } from "../components/Text"
 // Styles --------------------------------------------------
 // import { backgroundOne } from "../../assets/imgs/images.js"
 import colors from "../misc/colors.js"
-import AsyncStorage from "@react-native-async-storage/async-storage"
 
 interface ManageScreenProps {
     userGoals: any
@@ -41,8 +40,8 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, addGoal,
     // const [manageSort, setManageSort] = useState([])
 
     const categorySort = async () => {
-        const sortedGoals =  userGoals.sort((a, b) => a.category > b.category ? 1 : -1)
-        setUserGoals(() => {return [...sortedGoals]})
+        const sortedGoals = userGoals.sort((a, b) => a.category > b.category ? 1 : -1)
+        setUserGoals(() => { return [...sortedGoals] })
     }
     const categorySortRev = () => {
         const sortedGoals = userGoals.sort((a, b) => b.category > a.category ? 1 : -1)
@@ -54,7 +53,7 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, addGoal,
      * ? % Complete Asc / Des
      * ??
      */
-    
+
     useEffect(() => {
         categorySort()
     }, [])
@@ -79,45 +78,35 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, addGoal,
         }))
 
         setUserGoals(updatedGoals)
-        AsyncStorage.setItem("")
+        // AsyncStorage.setItem("")
     }
 
     return (
         <>
-            <View style={styles.container}>
-                <HeaderOne style={styles.header} content="My Goals" />
-                <View style={styles.userGoalsContainer}>
-
-                {userGoals.length ?
-                    <FlatList
-                    data={userGoals}
-                    contentContainerStyle={{ paddingVertical: 20 }}
-                    keyExtractor={(item, index) => item.id}
-                    renderItem={({ item }) =>
-                    <GoalCard
-                    goal={item}
-                    onPress={handleUpdateuserGoal}
-                    handleMarkComplete={handleMarkComplete}
-                    />}
-                    />
-                    :
-                    <HeaderOne
-                    style={{
-                        flex: 1,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        opacity: .5,
-                        marginTop: 20,
-                    }}
-                    content={"You don't currently have any goals for today!"}
-                />
-                }
+            <ScrollView style={styles.container}>
+            <ControlBar barTitle="Manage Goals"/>
+                <View style={styles.contentContainer}>
+                    {/* actionables -------------------------------------------------- */}
+                    {/* Todays Actionables */}
+                    <HeaderOne style={styles.headerOne} content={"Todays Actionables"} textAlign={"left"} />
+                    <View style={{ height: 300, }}>
+                        <InsetShadow>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: "center" }}>
+                                <HeaderTwo content={"Goals that need an action today will show up here."} style={{ width: "80%" }} />
+                            </View>
+                        </InsetShadow>
+                    </View>
+                    {/* Upcoming Actionables */}
+                    <HeaderOne style={styles.headerOne} content={"Upcoming"} textAlign={"left"} />
+                    <View style={{ height: 200, marginBottom: 100 }}>
+                        <InsetShadow>
+                            <View style={{ flex: 1, justifyContent: "center", alignItems: "center",}}>
+                                <HeaderTwo content={"Upcoming goals will show up here."} style={{ width: "80%" }} />
+                            </View>
+                        </InsetShadow>
+                    </View>
                 </View>
-                <Pressable onPress={() => console.log("Create new Goal!")} style={styles.createNewBtn}>
-                    <Text style={styles.btnText} >Create New Goal</Text>
-                </Pressable>
-                
-            </View>
+            </ScrollView>
         </>
     )
 }
@@ -130,40 +119,29 @@ const width = Dimensions.get("screen").width
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-
+        paddingBottom: "5%",
         backgroundColor: colors.general.background,
     },
-    header: {
-        marginTop: 40,
-        opacity: .5,
+    contentContainer: {
     },
-    userGoalsContainer: {
-        flex: 1,
-        flexDirection: "column",
-
-        marginTop: 20,
-        marginBottom: 20,
-        // paddingVertical: 20,
-        width: width,
-        borderColor: colors.general.darkTransparent,
-        borderTopWidth: 2,
-        borderBottomWidth: 2,
-        backgroundColor: colors.general.lightBlueTransparent,
+    headerOne: {
+        marginTop: 30,
+        marginBottom: 10,
+        paddingLeft: 25,
     },
-    createNewBtn: {
+    // createNewBtn: {
 
-        marginTop: "auto",
-        marginBottom: 40,
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-        width: "80%",
-        borderRadius: 15,
-        backgroundColor: "white",
+    //     marginTop: "auto",
+    //     marginBottom: 40,
+    //     paddingHorizontal: 15,
+    //     paddingVertical: 10,
+    //     width: "80%",
+    //     borderRadius: 15,
+    //     backgroundColor: "white",
 
-        elevation: 5,
-        shadowColor: colors.button.shadow,
-    },
+    //     elevation: 5,
+    //     shadowColor: colors.button.shadow,
+    // },
     btnText: {
         textAlign: "center",
         fontSize: 32,

@@ -7,8 +7,6 @@ import { StatusBar, StyleSheet, Text, View, ImageBackground, Dimensions, ScrollV
 // Context
 import { DateContext, UserContext } from "../context/"
 // components --------------------------------------------------
-import { backgroundOne } from "../../assets/imgs/images.js"
-import { RoundIconBtn } from "../components/buttons/"
 import EmotionColorModal from "../components/HomeScreen/EmotionColorModal.jsx"
 import GoalsContainer from "../components/HomeScreen/GoalsContainer.tsx"
 import { HeaderOne, HeaderTwo } from "../components/Text/"
@@ -17,12 +15,16 @@ import colors from "../misc/colors"
 // inset shadow --------------------------------------------------
 import InsetShadow from 'react-native-inset-shadow'
 
-// SCREEN GOALS
-// 1. Display the users goals for to=p
-// 2. If no goals, show pluss button and/or text for adding new goals. Opens Manage Screen or Modal.
-// 3. Feelings chart that saves and logs for the day. Changes bar color to selected color.
-//?4. Below this will be next habits by day.
-// SECTION END
+/** SCREEN GOALS
+ * 1. Display the users goals for the day, and upcoming.
+ * 2. If no goals, show pluss button and/or text for adding new goals. Opens Manage Screen or Modal.
+ * 
+ * 3. Feelings chart that saves and logs for the day. Changes bar color to selected color
+    * [] When emotion saves, save it with time as well,
+    * this will allow for logging of feelings throughout the day being tracked.
+    * 
+ * ?4. Below this will be next habits by day.
+ */
 
 
 const HomeScreen = ({ navigation, userGoals }) => {
@@ -155,7 +157,7 @@ const HomeScreen = ({ navigation, userGoals }) => {
                     <HeaderOne style={styles.headerOne} content={"Upcoming"} textAlign={"left"} />
                     <View style={{ height: 200, marginBottom: 100 }}>
                         <InsetShadow>
-                            <View style={{ flex: 1, justifyContent: "center", alignItems: "center", borderBottomWidth: 2, borderColor: colors.general.darkTransparent }}>
+                            <View style={{ flex: 1, justifyContent: "center", alignItems: "center",}}>
                                 <HeaderTwo content={"Upcoming goals will show up here."} style={{ width: "80%" }} />
                             </View>
                         </InsetShadow>

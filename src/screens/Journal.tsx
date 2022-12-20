@@ -8,20 +8,16 @@
 /*========================================
         Import Dependencies
 ========================================*/
+import { useEffect, useState } from "react"
+import { Dimensions, StyleSheet, View } from 'react-native'
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { execArgv } from "process"
-import { useEffect, useState, useContext } from "react"
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
-import { combineTransition } from "react-native-reanimated"
-import ControlBar from "../components/JournalScreen/ControlBar"
+import { useIsFocused } from "@react-navigation/native"
+// Components --------------------------------------------------
+import ControlBar from "../components/ControlBar/ControlBar"
 import { EntryDetailModal } from "../components/JournalScreen/EntryDetailModal"
 import { JournalEntriesContainer } from "../components/JournalScreen/JournalEntriesContainer"
 import { Confirmation } from "../components/PopUps/Confirmation"
-import { HeaderOne } from "../components/Text/"
-import { useIsFocused } from "@react-navigation/native"
-/*========================================
-        Import Styles
-========================================*/
+// style --------------------------------------------------
 import colors from "../misc/colors"
 
 
@@ -188,7 +184,7 @@ const Journal = () => {
     return (
         <View style={styles.container}>
             {/* Search/filter bar will go here in the future. */}
-            <ControlBar onPlusPress={openEntryDetail} onDeletePress={() => setShowConfirmation(true)} onEditPress={handleEnableAdditionalSettigns} enableAdditionalSettings={enableAdditionalSettings} />
+            <ControlBar barTitle="Journal" onPlusPress={openEntryDetail} onDeletePress={() => setShowConfirmation(true)} onEditPress={handleEnableAdditionalSettigns} editMode={enableAdditionalSettings} />
 
             {/* onDotsPress={handleEnableAdditionalSettigns} */}
 
