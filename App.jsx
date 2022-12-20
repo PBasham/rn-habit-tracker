@@ -54,7 +54,7 @@ export default function App() {
     const [userGoals, setUserGoals] = useState([])
 
     const getUserGoals = async () => {
-        const result = await AsyncStorage.getItem("habitTrackerGoals")
+        const result = await AsyncStorage.getItem("userGoals")
         if (!result) return
         setUserGoals(JSON.parse(result))
     }
@@ -62,7 +62,7 @@ export default function App() {
     // ---- Add Goal ----------------------------------------
     const addGoal = (newGoal) => {
         const updatedGoals = [...userGoals, newGoal]
-        AsyncStorage.setItem("habitTrackerGoals", JSON.stringify(updatedGoals))
+        AsyncStorage.setItem("userGoals", JSON.stringify(updatedGoals))
         setUserGoals((current) => {return updatedGoals})
     }
     // ---- Update goal ----------------------------------------

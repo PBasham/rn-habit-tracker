@@ -9,7 +9,7 @@ import { DateContext } from "../../context"
 import colors from "../../misc/colors"
 import { AdditionalSettingsBtn, RoundIconBtn, StandardAntBtn } from "../buttons"
 import { SettingsBtn } from "../buttons/SettingsBtn"
-import { EntrySettingsMenu } from "./EntrySettingsMenu"
+import { EntrySettingsMenu } from "../JournalScreen/EntrySettingsMenu"
 
 interface EntryDetailModalProps {
     visible: boolean

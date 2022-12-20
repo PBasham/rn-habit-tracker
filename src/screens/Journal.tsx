@@ -14,7 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useIsFocused } from "@react-navigation/native"
 // Components --------------------------------------------------
 import ControlBar from "../components/ControlBar/ControlBar"
-import { EntryDetailModal } from "../components/JournalScreen/EntryDetailModal"
+import { EntryDetailModal } from "../components/Modals/EntryDetailModal"
 import { JournalEntriesContainer } from "../components/JournalScreen/JournalEntriesContainer"
 import { Confirmation } from "../components/PopUps/Confirmation"
 // style --------------------------------------------------

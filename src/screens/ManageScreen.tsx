@@ -1,11 +1,13 @@
 /** ToDo
-     * 
+     [] Modal: Create component for me!
+        [] Add controle bar with back button that will undo anything done.
+        [] 
  */
 /*========================================
         Import Dependencies
 ========================================*/
 import { FC, useEffect, useState } from "react"
-import { View, Text, ScrollView, StyleSheet, Pressable, FlatList, Dimensions, SectionList } from 'react-native'
+import { View, ScrollView, Modal, StyleSheet, Dimensions } from 'react-native'
 import InsetShadow from "react-native-inset-shadow"
 // AsyncStorage --------------------------------------------------
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -15,8 +17,8 @@ import { StandardAntBtn } from "../components/buttons"
 import { GoalCard } from "../components/ManageScreen/GoalCard"
 import { CategoryCard } from "../components/ManageScreen/CategoryCard"
 import { HeaderOne, HeaderTwo } from "../components/Text"
+import { CreateGoalModal } from "../components/Modals"
 // Styles --------------------------------------------------
-// import { backgroundOne } from "../../assets/imgs/images.js"
 import colors from "../misc/colors.js"
 
 interface ManageScreenProps {
@@ -29,10 +31,9 @@ interface ManageScreenProps {
     setGoalsCategories: any
 }
 
-const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, addGoal, updateGoal, removeGoal, goalsCategories, setGoalsCategories }) => {
+const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
 
-
-
+    const { userGoals, setUserGoals, addGoal, updateGoal, removeGoal, goalsCategories, setGoalsCategories } = props
 
 
     // Sorting --------------------------------------------------
@@ -80,12 +81,21 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, addGoal,
         setUserGoals(updatedGoals)
         // AsyncStorage.setItem("")
     }
+    // Create Goal Modal --------------------------------------------------
+    const [showCreateGoalModal, setShowCreateGoalModal] = useState<boolean>(false)
+
+    const openGoalModal = () => {
+        setShowCreateGoalModal(true)
+    }
+    const closeGoalModal = () => {
+        setShowCreateGoalModal(false)
+    }
 
     return (
         <>
-            <ScrollView style={styles.container}>
-            <ControlBar barTitle="Manage Goals"/>
-                <View style={styles.contentContainer}>
+            <View style={styles.container}>
+                <ControlBar barTitle="Manage Goals" onPlusPress={openGoalModal} />
+                <ScrollView style={styles.contentContainer}>
                     {/* actionables -------------------------------------------------- */}
                     {/* Todays Actionables */}
                     <HeaderOne style={styles.headerOne} content={"Todays Actionables"} textAlign={"left"} />
@@ -100,13 +110,14 @@ const ManageScreen: FC<ManageScreenProps> = ({ userGoals, setUserGoals, addGoal,
                     <HeaderOne style={styles.headerOne} content={"Upcoming"} textAlign={"left"} />
                     <View style={{ height: 200, marginBottom: 100 }}>
                         <InsetShadow>
-                            <View style={{ flex: 1, justifyContent: "center", alignItems: "center",}}>
+                            <View style={{ flex: 1, justifyContent: "center", alignItems: "center", }}>
                                 <HeaderTwo content={"Upcoming goals will show up here."} style={{ width: "80%" }} />
                             </View>
                         </InsetShadow>
                     </View>
-                </View>
-            </ScrollView>
+                </ScrollView>
+            </View>
+            <CreateGoalModal visible={showCreateGoalModal} closeGoalModal={closeGoalModal} />
         </>
     )
 }
@@ -119,10 +130,11 @@ const width = Dimensions.get("screen").width
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingBottom: "5%",
         backgroundColor: colors.general.background,
     },
     contentContainer: {
+        flex: 1,
+        paddingBottom: "5%",
     },
     headerOne: {
         marginTop: 30,
