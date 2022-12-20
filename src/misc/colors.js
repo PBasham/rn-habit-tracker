@@ -12,6 +12,7 @@ export default {
         light: "#FFF",
         dark: "#000",
         darkTransparent: "rgba(0,0,0,.5)",
+        lightTransparent: "rgba(255,255,255,.4)",
         lightBlueTransparent: "rgba(173, 202, 208, .5)",
         background: "#C9F1EA",
         borders: "#D9D9D9",
