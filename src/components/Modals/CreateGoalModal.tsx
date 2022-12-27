@@ -51,16 +51,17 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
     })
     const [inpDueTime, setInpDueTime] = useState<string>(() => {
 
-        return `12:00pm`
+        return `12:00PM`
     })
 
 
     const handleCreateGoal = () => {
-        console.log(inpAction)
-        console.log(inpQty)
-        console.log(inpWhat)
-        console.log(dueDate)
-        console.log(dueTime)
+        // inpAction -- String ->
+        // inpQty -- String ->
+        // inpWhat -- String ->
+        // inpDueDate -- String -> the day to complete it by.
+        // specificTIme -- boolean -> if true, then a time for goal is set, otherwise just complete by the day.
+        // inpDueTime -- string -> specificTIme ? inpDueTime : "EOD"
     }
 
     const handleCheckBoxPress = () => {
@@ -97,6 +98,9 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
 
         if (mode === "date") {
             setDueDate(currentDateTime)
+            setInpDueDate(() => {
+                return `${currentDateTime.getMonth() + 1}/${currentDateTime.getDate()}/${currentDateTime.getFullYear()}`
+            })
             let fDate = (tempDateTime.getMonth() + 1) + "/" + tempDateTime.getDate() + "/" + tempDateTime.getFullYear()
 
         } else {
@@ -174,7 +178,7 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
                             disabled={!specificTIme}
                             onPress={handleTimePress}
                         >
-                            <Text style={styles.inpText} >{inpDueTime}</Text>
+                            <Text style={[styles.inpText, specificTIme ? null : styles.textInactive]} >{inpDueTime}</Text>
                         </Pressable>
                     </View>
                     {datePickerOpen ?
@@ -246,6 +250,9 @@ const styles = StyleSheet.create({
     },
     inactive: {
         backgroundColor: colors.general.lightBlueTransparent,
+    },
+    textInactive: {
+        color: colors.text.darkTransparent
     },
     inputMd: {
         minWidth: 150,
