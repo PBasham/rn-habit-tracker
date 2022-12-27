@@ -33,18 +33,26 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
     // states holding dateTimePicker info
     const [dueDate, setDueDate] = useState<any>(() => {
         let date = new Date()
-        date.setDate( date.getDate() + 1)
+        date.setDate(date.getDate() + 1)
         return date
     }
     )
-    const [dueTime, setDueTime] = useState<any>(new Date())
+    const [dueTime, setDueTime] = useState<any>(() => {
+        let date = new Date()
+        date.setHours(12)
+        date.setMinutes(0)
+        return date
+    })
     // show and saved date / time for goal
     const [inpDueDate, setInpDueDate] = useState<string>(() => {
         let date = new Date()
-        date.setDate( date.getDate() + 1)
+        date.setDate(date.getDate() + 1)
         return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
     })
-    const [inpDueTime, setInpDueTime] = useState<string>("")
+    const [inpDueTime, setInpDueTime] = useState<string>(() => {
+
+        return `12:00pm`
+    })
 
 
     const handleCreateGoal = () => {
@@ -68,14 +76,14 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
         const currentDateTime = selectedDateTime || (mode === "date" ? dueDate : dueTime)
         setDatePickerOpen(Platform.OS === "ios")
         setTimePickerOpen(Platform.OS === "ios")
-        
+
         let tempDateTime = new Date(currentDateTime)
 
         if (mode === "date") {
             console.log(currentDateTime)
             setDueDate(currentDateTime)
             let fDate = (tempDateTime.getMonth() + 1) + "/" + tempDateTime.getDate() + "/" + tempDateTime.getFullYear()
-            
+
         } else {
             console.log(currentDateTime)
             setDueTime(currentDateTime)
@@ -137,19 +145,19 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
                             style={[styles.input, styles.inputMd]}
                             onPress={handleDatePress}
                         >
-                            <Text>{inpDueDate}</Text>
+                            <Text style={styles.inpText}>{inpDueDate}</Text>
                         </Pressable>
                     </View>
                     <View style={styles.line}>
                         <Text style={styles.text} >Specific time?</Text>
                         <CheckBoxRnd checked={specificTIme} onPress={handleCheckBoxPress} />
-                            <Pressable
-                                style={[styles.input, styles.inputMd, specificTIme ? null : styles.inactive]}
-                                disabled={!specificTIme}
-                                onPress={handleTimePress}
-                            >
-                                {/* <Text>{}</Text> */}
-                            </Pressable>
+                        <Pressable
+                            style={[styles.input, styles.inputMd, specificTIme ? null : styles.inactive]}
+                            disabled={!specificTIme}
+                            onPress={handleTimePress}
+                        >
+                            <Text style={styles.inpText} >{inpDueTime}</Text>
+                        </Pressable>
                     </View>
                     {datePickerOpen ?
                         <DateTimePicker
@@ -211,6 +219,12 @@ const styles = StyleSheet.create({
 
         fontSize: 24,
         textAlign: "center",
+    },
+    inpText: {
+        flex: 1,
+        fontSize: 24,
+        textAlign: "center",
+        textAlignVertical: "center"
     },
     inactive: {
         backgroundColor: colors.general.lightBlueTransparent,
