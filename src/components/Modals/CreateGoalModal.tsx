@@ -1,9 +1,12 @@
 // Dependencies --------------------------------------------------
 import React, { useState, useRef } from 'react'
-import FC, { Dimensions, Modal, StyleSheet, Text, TextInput, View } from 'react-native'
+import FC, { Dimensions, Modal, Platform, Pressable, StyleSheet, Text, TextInput, Touchable, View } from 'react-native'
 import colors from "../../misc/colors"
 import { StandardAntBtn } from "../buttons"
 import { CheckBoxRnd } from "../CheckBox"
+// datepicker --------------------------------------------------
+import DateTimePicker from '@react-native-community/datetimepicker';
+// import RNDateTimePicker from "@react-native-community/datetimepicker"
 // components --------------------------------------------------
 import ControlBar from "../ControlBar/ControlBar"
 
@@ -14,26 +17,37 @@ interface CreateGoalModalProps {
 }
 
 export const CreateGoalModal = (props: CreateGoalModalProps) => {
+    // props --------------------------------------------------
     const { visible, closeGoalModal } = props
-
-    const actionRef = useRef(null)
+    // action qty what --------------------------------------------------
     const [inpAction, setInpAction] = useState<string>("")
-    const qtyRef = useRef(null)
-    const [inpQty, setInpQty] = useState<any>("")
-    const whatRef = useRef(null)
+    const [inpQty, setInpQty] = useState<string>("")
     const [inpWhat, setInpWhat] = useState<string>("")
-    const dueDateRef = useRef(null)
-    const [inpDueDate, setInpDueDate] = useState<string>("")
+    // specify time checkox --------------------------------------------------
+    const [specificTIme, setSpecificTIme] = useState(false)
+    // dateTimePicker --------------------------------------------------
+    // datePicker open
+    const [datePickerOpen, setDatePickerOpen] = useState<boolean>(false)
+    // timePicker open
+    const [timePickerOpen, setTimePickerOpen] = useState<boolean>(false)
+    // states holding dateTimePicker info
+    const [dueDate, setDueDate] = useState<any>(new Date())
+    const [dueTime, setDueTime] = useState<any>(new Date())
+    // show and saved date / time for goal
+    const [inpDueDate, setInpDueDate] = useState<string>(() => {
+        let date = new Date()
+        date.setDate( date.getDate() + 1)
+        return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+    })
     const [inpDueTime, setInpDueTime] = useState<string>("")
 
-    const [specificTIme, setSpecificTIme] = useState(false)
 
     const handleCreateGoal = () => {
         console.log(inpAction)
-        // console.log(inpQty)
-        // console.log(inpWhat)
-        // console.log(inpDueDate)
-        // console.log(inpDueTime)
+        console.log(inpQty)
+        console.log(inpWhat)
+        console.log(dueDate)
+        console.log(dueTime)
     }
 
     const handleCheckBoxPress = () => {
@@ -42,10 +56,42 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
 
 
     /*========================================
-            LEFT OFF:
-            Trying to ficure out why all of the onChange are sending object instead of text except for inpAction
+            DateTimePicker
     ========================================*/
-    
+    const onChange = (selectedDateTime: object, mode: string) => {
+        console.log(mode)
+        const currentDateTime = selectedDateTime || (mode === "date" ? dueDate : dueTime)
+        setDatePickerOpen(Platform.OS === "ios")
+        setTimePickerOpen(Platform.OS === "ios")
+        
+        let tempDateTime = new Date(currentDateTime)
+
+        if (mode === "date") {
+            console.log(currentDateTime)
+            setDueDate(currentDateTime)
+            let fDate = (tempDateTime.getMonth() + 1) + "/" + tempDateTime.getDate() + "/" + tempDateTime.getFullYear()
+            
+        } else {
+            console.log(currentDateTime)
+            setDueTime(currentDateTime)
+            let fTime = "Hours: " + tempDateTime.getHours() + " | Minutees: " + tempDateTime.getMinutes()
+        }
+        // console.log(fDate + "(" + fTime + ")")
+    }
+
+    const handleDatePress = () => {
+        setDatePickerOpen(true)
+    }
+    const handleTimePress = () => {
+        setTimePickerOpen(true)
+    }
+
+    /** TODO:
+         * [] Add date picker to by [date input] 
+         * [] Add time picker to by [time input] 
+         * [] When create goal is pressed, add item to storage and state.
+    ========================================*/
+
     return (
         <Modal visible={visible} animationType="slide" transparent={true} >
             <View style={styles.container} >
@@ -56,42 +102,65 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
                         <TextInput
                             style={[styles.input, styles.inputMd]}
                             placeholder="Read"
-                            ref={actionRef}
+                            // ref={actionRef}
                             onChangeText={(text) => setInpAction(text)}
                         />
                         <TextInput
                             style={[styles.input, styles.inputSml]}
                             keyboardType="numeric"
                             placeholder="1"
-                            ref={qtyRef}
-                            onChange={(qty) => setInpQty(qty)}
+                            // ref={qtyRef}
+                            onChangeText={(qty) => setInpQty(qty)}
                         />
                     </View>
                     <View style={styles.line}>
                         <TextInput
                             style={[styles.input, styles.inputLg]}
                             placeholder="Book"
-                            ref={whatRef}
+                            // ref={whatRef}
                             onChangeText={(text) => setInpWhat(text)}
                         />
                     </View>
                     <View style={styles.line}>
                         <Text style={styles.text} >By  </Text>
-                        <TextInput
+                        {/* make this a date picker */}
+                        <Pressable
                             style={[styles.input, styles.inputMd]}
-                            ref={dueDateRef}
-                            onChangeText={(text) => setInpDueDate(text)}
-                        />
+                            onPress={handleDatePress}
+                        >
+                            <Text>{inpDueDate}</Text>
+                        </Pressable>
                     </View>
                     <View style={styles.line}>
                         <Text style={styles.text} >Specific time?</Text>
                         <CheckBoxRnd checked={specificTIme} onPress={handleCheckBoxPress} />
-                        <TextInput
-                            style={[styles.input, styles.inputMd, specificTIme ? null : styles.inactive]}
-                            onChangeText={(text) => setInpDueTime(text)}
-                            editable={specificTIme}
-                        />
+                            <Pressable
+                                style={[styles.input, styles.inputMd, specificTIme ? null : styles.inactive]}
+                                disabled={!specificTIme}
+                                onPress={handleTimePress}
+                            >
+                                {/* <Text>{}</Text> */}
+                            </Pressable>
                     </View>
+                    {datePickerOpen ?
+                        <DateTimePicker
+                            testID="datePicker"
+                            value={dueDate}
+                            mode="date"
+                            onChange={(event, selectedDate) => onChange(selectedDate, "date")}
+                        />
+                        :
+                        null}
+                    {timePickerOpen ?
+                        <DateTimePicker
+                            testID="timePicker"
+                            value={dueTime}
+                            mode="time"
+                            is24Hour={false}
+                            onChange={(event, selectedDate) => onChange(selectedDate, "time")}
+                        />
+                        :
+                        null}
                     <StandardAntBtn backColor={colors.button.light} fontSize={32} text="Create Goal" onPress={handleCreateGoal} />
                 </View>
             </View>
@@ -126,6 +195,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         paddingHorizontal: 10,
         paddingVertical: 5,
+        height: 40,
         borderWidth: 1,
         backgroundColor: colors.general.lightTransparent,
 
@@ -134,7 +204,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     inactive: {
-        backgroundColor:  colors.general.lightBlueTransparent,
+        backgroundColor: colors.general.lightBlueTransparent,
     },
     inputMd: {
         minWidth: 150,
