@@ -67,6 +67,22 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
         setSpecificTIme(!specificTIme)
     }
 
+    // convert time to am/pm
+    const converTimeToAMPM = (time: Date) => {
+        let hh: number = time.getHours()
+        let m: number = time.getMinutes()
+        let s: number = time.getSeconds()
+        let tt: string = "AM"
+
+        if (hh >= 12) {
+            hh = hh - 12
+            tt = "PM"
+            if (hh === 0) hh = 12 
+        }
+
+        return `${hh.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}${tt}`
+
+    }
 
     /*========================================
             DateTimePicker
@@ -80,14 +96,16 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
         let tempDateTime = new Date(currentDateTime)
 
         if (mode === "date") {
-            console.log(currentDateTime)
             setDueDate(currentDateTime)
             let fDate = (tempDateTime.getMonth() + 1) + "/" + tempDateTime.getDate() + "/" + tempDateTime.getFullYear()
 
         } else {
-            console.log(currentDateTime)
             setDueTime(currentDateTime)
-            let fTime = "Hours: " + tempDateTime.getHours() + " | Minutees: " + tempDateTime.getMinutes()
+            setInpDueTime(() => {
+                let newTime = converTimeToAMPM(currentDateTime)
+                return newTime
+            })
+            let fTime = `${tempDateTime.getHours()}:${tempDateTime.getMinutes()}`
         }
         // console.log(fDate + "(" + fTime + ")")
     }
@@ -211,7 +229,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         marginVertical: 10,
         paddingHorizontal: 10,
-        paddingVertical: 5,
+        // paddingVertical: 5,
         height: 40,
         borderWidth: 1,
         backgroundColor: colors.general.lightTransparent,
