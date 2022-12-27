@@ -31,7 +31,12 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
     // timePicker open
     const [timePickerOpen, setTimePickerOpen] = useState<boolean>(false)
     // states holding dateTimePicker info
-    const [dueDate, setDueDate] = useState<any>(new Date())
+    const [dueDate, setDueDate] = useState<any>(() => {
+        let date = new Date()
+        date.setDate( date.getDate() + 1)
+        return date
+    }
+    )
     const [dueTime, setDueTime] = useState<any>(new Date())
     // show and saved date / time for goal
     const [inpDueDate, setInpDueDate] = useState<string>(() => {
@@ -88,7 +93,11 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
 
     /** TODO:
          * [] Add date picker to by [date input] 
+            * [x] set default date to current + 1
+            * [] On date update, update show value.
          * [] Add time picker to by [time input] 
+            * [] set default time to 12pm
+            * [] On time update, update show value
          * [] When create goal is pressed, add item to storage and state.
     ========================================*/
 
