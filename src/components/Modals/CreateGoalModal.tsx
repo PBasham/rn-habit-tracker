@@ -146,7 +146,6 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
             })
             let fTime = `${tempDateTime.getHours()}:${tempDateTime.getMinutes()}`
         }
-        // console.log(fDate + "(" + fTime + ")")
     }
 
     const handleDatePress = () => {
@@ -155,16 +154,6 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
     const handleTimePress = () => {
         setTimePickerOpen(true)
     }
-
-    /** TODO:
-         * [] Add date picker to by [date input] 
-            * [x] set default date to current + 1
-            * [] On date update, update show value.
-         * [] Add time picker to by [time input] 
-            * [] set default time to 12pm
-            * [] On time update, update show value
-         * [] When create goal is pressed, add item to storage and state.
-    ========================================*/
 
     return (
         <Modal visible={visible} animationType="slide" transparent={true} >
