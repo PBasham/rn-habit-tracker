@@ -68,7 +68,6 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
             date.setMinutes(0)
             return date
         })
-
         setInpDueDate(() => {
             let date = new Date()
             date.setDate(date.getDate() + 1)
@@ -76,6 +75,9 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
         })
         setInpDueTime(() => {return `12:00PM`})
         if (specificTIme) setSpecificTIme(false)
+        setInpAction("")
+        setInpQty("")
+        setInpWhat("")
     }
 
     const handleCreateGoal = () => {
