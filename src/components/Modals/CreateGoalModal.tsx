@@ -1,24 +1,26 @@
 // Dependencies --------------------------------------------------
 import React, { useState, useRef } from 'react'
-import FC, { Dimensions, Modal, Platform, Pressable, StyleSheet, Text, TextInput, Touchable, View } from 'react-native'
+import FC, { Dimensions, Modal, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 import colors from "../../misc/colors"
 import { StandardAntBtn } from "../buttons"
 import { CheckBoxRnd } from "../CheckBox"
-// datepicker --------------------------------------------------
+// datepicker ---------------
 import DateTimePicker from '@react-native-community/datetimepicker';
-// import RNDateTimePicker from "@react-native-community/datetimepicker"
 // components --------------------------------------------------
 import ControlBar from "../ControlBar/ControlBar"
+
+import { getDate } from "../../misc/helpers"
 
 
 interface CreateGoalModalProps {
     visible: boolean
     closeGoalModal: () => void
+    addGoal: (goal: object) => void
 }
 
 export const CreateGoalModal = (props: CreateGoalModalProps) => {
     // props --------------------------------------------------
-    const { visible, closeGoalModal } = props
+    const { visible, closeGoalModal, addGoal } = props
     // action qty what --------------------------------------------------
     const [inpAction, setInpAction] = useState<string>("")
     const [inpQty, setInpQty] = useState<string>("")
@@ -54,14 +56,45 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
         return `12:00PM`
     })
 
+    const handleClose = () => {
+        setDueDate(() => {
+            let date = new Date()
+            date.setDate(date.getDate() + 1)
+            return date
+        })
+        setDueTime(() => {
+            let date = new Date()
+            date.setHours(12)
+            date.setMinutes(0)
+            return date
+        })
+
+        setInpDueDate(() => {
+            let date = new Date()
+            date.setDate(date.getDate() + 1)
+            return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+        })
+        setInpDueTime(() => {return `12:00PM`})
+        if (specificTIme) setSpecificTIme(false)
+    }
 
     const handleCreateGoal = () => {
-        // inpAction -- String ->
-        // inpQty -- String ->
-        // inpWhat -- String ->
-        // inpDueDate -- String -> the day to complete it by.
-        // specificTIme -- boolean -> if true, then a time for goal is set, otherwise just complete by the day.
-        // inpDueTime -- string -> specificTIme ? inpDueTime : "EOD"
+        let newGoal = {
+            id: Date.now(),
+            createdOn: getDate(),
+            action: inpAction,
+            what: inpWhat,
+            qty: 0,
+            goalQty: inpQty,
+            dueDate: inpDueDate,
+            specificTime: specificTIme,
+            dueTime: specificTIme ? inpDueTime : null,
+            complete: false,
+        }
+
+        addGoal(newGoal)
+        handleClose()
+        closeGoalModal()
     }
 
     const handleCheckBoxPress = () => {
@@ -78,7 +111,7 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
         if (hh >= 12) {
             hh = hh - 12
             tt = "PM"
-            if (hh === 0) hh = 12 
+            if (hh === 0) hh = 12
         }
 
         return `${hh.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}${tt}`
@@ -134,7 +167,10 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
     return (
         <Modal visible={visible} animationType="slide" transparent={true} >
             <View style={styles.container} >
-                <ControlBar onBackPress={closeGoalModal} />
+                <ControlBar onBackPress={() => {
+                    handleClose()
+                    closeGoalModal()
+                    }} />
                 <View style={styles.contentContainer}>
                     <View style={styles.line}>
                         <Text style={styles.text} >I want to </Text>
@@ -200,7 +236,12 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
                         />
                         :
                         null}
-                    <StandardAntBtn backColor={colors.button.light} fontSize={32} text="Create Goal" onPress={handleCreateGoal} />
+                    <StandardAntBtn
+                        backColor={
+                            inpAction.length && inpQty.length && inpWhat.length ?
+                                colors.general.light : colors.general.lightBlueTransparent
+                        }
+                        fontSize={32} text="Create Goal" onPress={inpAction.length && inpQty.length && inpWhat.length ? handleCreateGoal : null} />
                 </View>
             </View>
         </Modal>

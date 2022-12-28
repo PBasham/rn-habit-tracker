@@ -32,7 +32,6 @@ export default function App() {
 
     const findUser = async () => {
         const result = await AsyncStorage.getItem("habitTrackerUser")
-        console.log("\nfindUser(): App.js result ", result, "\n")
         if (!result) return
         setUser(JSON.parse(result))
     }
@@ -85,8 +84,6 @@ export default function App() {
 
     const getUserHistory = async () => {
         const result = await AsyncStorage.getItem("userHabitHistory")
-        // !REMOVE ME -- 
-        console.log("\n getUserHistory(): App.js Result: ", result, "\n")
         if (!result) return
         setUserHabitHistory(JSON.parse(result))
     }
