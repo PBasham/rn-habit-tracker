@@ -1,11 +1,14 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { rootCertificates } from "tls"
-import colors from "../../misc/colors"
+// components --------------------------------------------------
 import { CheckBox } from "../CheckBox/CheckBox"
+// styling --------------------------------------------------
+import colors from "../../misc/colors"
+// helpers --------------------------------------------------
+import { getDate } from "../../misc/helpers"
 
 interface GoalCardProps {
     goal: {
@@ -41,15 +44,27 @@ export const GoalCard: FC<GoalCardProps> = ({ goal, onPress, handleMarkComplete 
      * category: "Willpower",
      */
 
+    const [pastDue, setPastDue] = useState(() => {
+        return new Date(goal.dueDate) < new Date(getDate())
+    })
+
+    /**TODO:
+         * [] Add 'red' 'past due' text on top of card?
+     */
+    
 
     return (
         // change style if completed.
-        <View style={[styles.goalCard, goal.complete ? styles.goalCard_complete : null]}>
+        <View style={[
+            styles.goalCard,
+            goal.complete ? styles.goalCard_complete : null,
+            !goal.complete && pastDue ? styles.pastDue : null,
+        ]}>
             <View style={styles.firstSection}>
                 <Text numberOfLines={2} style={[styles.what, goal.complete ? styles.goalCard_completeText : null]} >{goal.action} {goal.goalQty} {goal.what}</Text>
-                <Text numberOfLines={1} style={[styles.category, {color: goal.complete ? colors.text.light : null}]} >{goal.dueDate}</Text>
+                <Text numberOfLines={1} style={[styles.category, { color: goal.complete ? colors.text.light : null }]} >{goal.dueDate}</Text>
             </View>
-            <Text style={[styles.qty, {color: goal.complete ? colors.text.light : null}]} >{goal.qty}/{goal.goalQty}</Text>
+            <Text style={[styles.qty, { color: goal.complete ? colors.text.light : null }]} >{goal.qty}/{goal.goalQty}</Text>
             <CheckBox onPress={() => handleMarkComplete(goal.id)} checked={goal.complete} />
             {/* checkbox for if it's complete or not */}
         </View>
@@ -109,5 +124,9 @@ const styles = StyleSheet.create({
         color: colors.text.darkTransparent,
     },
     status: {
+    },
+    pastDue: {
+        borderColor: "red",
+        borderWidth: 1,
     },
 })
