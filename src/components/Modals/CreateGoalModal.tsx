@@ -51,10 +51,7 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
         date.setDate(date.getDate() + 1)
         return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
     })
-    const [inpDueTime, setInpDueTime] = useState<string>(() => {
-
-        return `12:00PM`
-    })
+    const [inpDueTime, setInpDueTime] = useState<string>(() => {return `12:00PM`})
 
     const handleClose = () => {
         setDueDate(() => {

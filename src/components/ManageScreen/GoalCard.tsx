@@ -10,11 +10,12 @@ import { CheckBox } from "../CheckBox/CheckBox"
 interface GoalCardProps {
     goal: {
         id: number
-        action: string,
+        action: string
         what: string
         qty: number
         goalQty: number
         // timeType: string
+        dueDate: string
         dueTime: string
         // days: string[]
         complete: boolean
@@ -45,8 +46,8 @@ export const GoalCard: FC<GoalCardProps> = ({ goal, onPress, handleMarkComplete 
         // change style if completed.
         <View style={[styles.goalCard, goal.complete ? styles.goalCard_complete : null]}>
             <View style={styles.firstSection}>
-                {/* <Text numberOfLines={1} style={[styles.category, {color: goal.complete ? colors.text.light : null}]} >{goal.category}</Text> */}
                 <Text numberOfLines={2} style={[styles.what, goal.complete ? styles.goalCard_completeText : null]} >{goal.action} {goal.goalQty} {goal.what}</Text>
+                <Text numberOfLines={1} style={[styles.category, {color: goal.complete ? colors.text.light : null}]} >{goal.dueDate}</Text>
             </View>
             <Text style={[styles.qty, {color: goal.complete ? colors.text.light : null}]} >{goal.qty}/{goal.goalQty}</Text>
             <CheckBox onPress={() => handleMarkComplete(goal.id)} checked={goal.complete} />

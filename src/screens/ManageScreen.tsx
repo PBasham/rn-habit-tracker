@@ -2,6 +2,12 @@
      [] Modal: Create component for me!
         [] Add controle bar with back button that will undo anything done.
         [] 
+    [] Way to identify 'PastDue' actionables under todays actionables.
+        [] header? color? what?
+    [] When an item is completed, it should no longer show up on actionables, but a seperate archive section?
+        [] OR create section below for completed, and add option to archive it seperatly -- Out of view.
+    [] Add time if specific is working correctly.
+    [] //! BREAK down into components.
  */
 /*========================================
         Import Dependencies
@@ -74,7 +80,7 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
         let updatedGoals = userGoals.map((current => {
             // @ts-ignore
             if (current.id === goalId) {
-                if (current.complete ===  true) {
+                if (current.complete === true) {
                     return {
                         ...current,
                         qty: current.qtyBeforeComplete,
@@ -115,18 +121,29 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
                     <HeaderOne style={styles.headerOne} content={"Todays Actionables"} textAlign={"left"} />
                     {/* if there are no goals, height 300, otherwise */}
                     <View style={styles.goalContainer}>
-                        {userGoals.filter((current) => current.dueDate === getDate()).length ?
-                            userGoals.filter((current) => current.dueDate === getDate()).map((current, idx) => {
-                                return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
-                            })
+                        {userGoals.filter((current) => new Date(current.dueDate) <= new Date(getDate())).length ?
+                            <>
+                                {
+
+                                    userGoals.filter((current) => current.dueDate === getDate()).map((current, idx) => {
+                                        return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
+                                    })
+                                }
+                                {
+                                    userGoals.filter((current) => new Date(current.dueDate) < new Date(getDate())).map((current, idx) => {
+                                        return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
+                                    })
+                                }
+
+                            </>
                             :
                             <HeaderTwo content={"Goals that need an action today will show up here."} style={{ width: "80%" }} />}
                     </View>
                     {/* Upcoming Actionables */}
                     <HeaderOne style={styles.headerOne} content={"Upcoming"} textAlign={"left"} />
-                    <View style={[styles.goalContainer,{marginBottom: 100}]}>
-                        {userGoals.filter((current) => current.dueDate !== getDate()).length ?
-                            userGoals.filter((current) => current.dueDate !== getDate()).map((current, idx) => {
+                    <View style={[styles.goalContainer, { marginBottom: 100 }]}>
+                        {userGoals.filter((current) => new Date(current.dueDate) > new Date(getDate())).length ?
+                            userGoals.filter((current) => new Date(current.dueDate) > new Date(getDate())).map((current, idx) => {
                                 return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
                             })
                             :
