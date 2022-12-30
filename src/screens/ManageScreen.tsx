@@ -1,10 +1,19 @@
 /** ToDo
-     [] Modal: Create component for me!
-        [] Add controle bar with back button that will undo anything done.
-        [] 
-    [] Way to identify 'PastDue' actionables under todays actionables.
-        [] header? color? what?
-    [] When an item is completed, it should no longer show up on actionables, but a seperate archive section?
+    [x] CreateGoalModal: Create component for me!
+        [x] Add controle bar with back button that will undo anything done.
+        [x] Ability to create goal
+    [x] Way to identify 'PastDue' actionables under todays actionables.
+        [x] header? color? what?
+    [] Added back in categories for goals,
+        [] Create category cards that will hold all items that have that category,
+            -- like cards with x/x goals completed for the category
+            -- this will open up upon click and show the items in that category. 
+            //?-- If done this way, how would this sort out the completed? 
+                //?-- maybe only daily would keep the completed?
+            -- Each day in upcoming would contain multiple category cards? or just a general number of task?
+            //! Run this by someone for opinions.
+    [] Section for complete, below upcoming.
+        [] When an item is completed, it should no longer show up on actionables, but a seperate archive section?
         [] OR create section below for completed, and add option to archive it seperatly -- Out of view.
     [] Add time if specific is working correctly.
     [] //! BREAK down into components.
