@@ -2,6 +2,10 @@
     [x] CreateGoalModal: Create component for me!
         [x] Add controle bar with back button that will undo anything done.
         [x] Ability to create goal
+    [] FOr goals:
+        [] Add goal
+        [] remove goal
+        [] update goal
     [x] Way to identify 'PastDue' actionables under todays actionables.
         [x] header? color? what?
     [] Added back in categories for goals,
@@ -23,7 +27,6 @@
 ========================================*/
 import { FC, useEffect, useState } from "react"
 import { View, ScrollView, Modal, StyleSheet, Dimensions } from 'react-native'
-import InsetShadow from "react-native-inset-shadow"
 // AsyncStorage --------------------------------------------------
 import AsyncStorage from "@react-native-async-storage/async-storage"
 // Components --------------------------------------------------
