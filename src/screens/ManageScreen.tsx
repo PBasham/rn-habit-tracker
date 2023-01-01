@@ -138,30 +138,24 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
                     <GoalContainer
                         header="Todays Actionables"
                         headerTwo="Goals that need an action today will show up here."
-
                         filteredList={userGoals.filter((current) => current.dueDate === getDate() || (!current.complete && new Date(current.dueDate) < new Date(getDate())))}
-
                         handleMarkComplete={handleMarkComplete}
                     />
                     {/* Upcoming Actionables */}
-                    <HeaderOne style={styles.headerOne} content={"Upcoming"} textAlign={"left"} />
-                    <View style={[styles.goalContainer,]}>
-                        {userGoals.filter((current) => new Date(current.dueDate) > new Date(getDate())).length ?
-                            userGoals.filter((current) => new Date(current.dueDate) > new Date(getDate())).map((current, idx) => {
-                                return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
-                            })
-                            :
-                            <HeaderTwo content={"Upcoming goals will show up here."} style={{ width: "80%" }} />}
-                    </View>
-                    <HeaderOne style={styles.headerOne} content={"Complete"} textAlign={"left"} />
-                    <View style={[styles.goalContainer, { marginBottom: 100 }]}>
-                        {userGoals.filter((current) => new Date(current.dueDate) < new Date(getDate()) && current.complete).length ?
-                            userGoals.filter((current) => new Date(current.dueDate) < new Date(getDate()) && current.complete).map((current, idx) => {
-                                return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
-                            })
-                            :
-                            <HeaderTwo content={"Upcoming goals will show up here."} style={{ width: "80%" }} />}
-                    </View>
+                    <GoalContainer
+                        header="Upcoming"
+                        headerTwo="Upcoming goals will show up here."
+                        filteredList={userGoals.filter((current) => new Date(current.dueDate) > new Date(getDate()))}
+                        handleMarkComplete={handleMarkComplete}
+                    />
+                    <GoalContainer
+                        header="Conplete"
+                        headerTwo="Completed goals will show up here."
+                        filteredList={userGoals.filter((current) => new Date(current.dueDate) < new Date(getDate()) && current.complete)}
+                        containerStyle={{ marginBottom: 100 }}
+                        handleMarkComplete={handleMarkComplete}
+                    />
+                    
                     {/** Component
                      * Header:
                      * containerStyle:
@@ -245,4 +239,23 @@ const styles = StyleSheet.create({
     })
     :
     <HeaderTwo content={"Goals that need an action today will show up here."} style={{ width: "80%" }} />}
+</View> */}
+
+{/* <HeaderOne style={styles.headerOne} content={"Upcoming"} textAlign={"left"} />
+<View style={[styles.goalContainer,]}>
+    {userGoals.filter((current) => new Date(current.dueDate) > new Date(getDate())).length ?
+        userGoals.filter((current) => new Date(current.dueDate) > new Date(getDate())).map((current, idx) => {
+            return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
+        })
+        :
+        <HeaderTwo content={"Upcoming goals will show up here."} style={{ width: "80%" }} />}
+</View> */}
+{/* <HeaderOne style={styles.headerOne} content={"Complete"} textAlign={"left"} />
+<View style={[styles.goalContainer, { marginBottom: 100 }]}>
+    {userGoals.filter((current) => new Date(current.dueDate) < new Date(getDate()) && current.complete).length ?
+        userGoals.filter((current) => new Date(current.dueDate) < new Date(getDate()) && current.complete).map((current, idx) => {
+            return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
+        })
+        :
+        <HeaderTwo content={"Upcoming goals will show up here."} style={{ width: "80%" }} />}
 </View> */}
