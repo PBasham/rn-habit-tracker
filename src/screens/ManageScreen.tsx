@@ -138,7 +138,7 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
                     {/* if there are no goals, height 300, otherwise */}
                     <View style={styles.goalContainer}>
                         {userGoals.filter((current) => 
-                                new Date(current.dueDate) <= new Date(getDate()) && !current.complete).length
+                                new Date(current.dueDate) <= new Date(getDate())).length
                         ?
                         <>
                             {
