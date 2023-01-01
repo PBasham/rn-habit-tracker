@@ -137,25 +137,16 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
                     <HeaderOne style={styles.headerOne} content={"Todays Actionables"} textAlign={"left"} />
                     {/* if there are no goals, height 300, otherwise */}
                     <View style={styles.goalContainer}>
-                        {userGoals.filter((current) => 
-                                new Date(current.dueDate) <= new Date(getDate())).length
-                        ?
-                        <>
-                            {
+                        {userGoals.filter((current) =>
+                            current.dueDate === getDate() || (!current.complete && new Date(current.dueDate) < new Date(getDate()))
+                        ).length
+                            ?
+                            userGoals.filter((current) => current.dueDate === getDate() || (!current.complete && new Date(current.dueDate) < new Date(getDate()))).map((current, idx) => {
+                                return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
 
-                                userGoals.filter((current) => current.dueDate === getDate()).map((current, idx) => {
-                                    return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
-                                })
-                            }
-                            {
-                                userGoals.filter((current) => new Date(current.dueDate) < new Date(getDate()) && !current.complete).map((current, idx) => {
-                                    return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
-                                })
-                            }
-
-                        </>
-                        :
-                        <HeaderTwo content={"Goals that need an action today will show up here."} style={{ width: "80%" }} />}
+                            })
+                            :
+                            <HeaderTwo content={"Goals that need an action today will show up here."} style={{ width: "80%" }} />}
                     </View>
                     {/* Upcoming Actionables */}
                     <HeaderOne style={styles.headerOne} content={"Upcoming"} textAlign={"left"} />
@@ -228,3 +219,20 @@ const styles = StyleSheet.create({
         minHeight: 300,
     }
 })
+
+/*========================================
+        Code Graveyard
+========================================*/
+// Possible filter for 'todays actionables as well as past due' --------------------------------------------------
+// <>
+//     {
+//         userGoals.filter((current) => current.dueDate === getDate()).map((current, idx) => {
+//             return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
+//         })
+//     }
+//     {
+//         userGoals.filter((current) => new Date(current.dueDate) < new Date(getDate()) && !current.complete).map((current, idx) => {
+//             return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
+//         })
+//     }
+// </>
