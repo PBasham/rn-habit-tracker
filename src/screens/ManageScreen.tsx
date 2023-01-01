@@ -20,8 +20,8 @@
     *?       -- maybe only daily would keep the completed?
     *?        -- Each day in upcoming would contain multiple category cards? or just a *general number of task?
     *       ! Run this by someone for opinions.
-    ** [] Section for complete, below upcoming.
-    *    [] When an item is completed, it should no longer show up on actionables, but a seperate archive section?
+    ** [x] Section for complete, below upcoming.
+    *    [x] When an item is completed, it should no longer show up on actionables, but a seperate archive section?
     *    [] OR create section below for completed, and add option to archive it seperatly -- Out of view.
     * [] Add time if specific is working correctly.
     * [] ! BREAK down into components.
@@ -137,27 +137,29 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
                     <HeaderOne style={styles.headerOne} content={"Todays Actionables"} textAlign={"left"} />
                     {/* if there are no goals, height 300, otherwise */}
                     <View style={styles.goalContainer}>
-                        {userGoals.filter((current) => new Date(current.dueDate) <= new Date(getDate())).length ?
-                            <>
-                                {
+                        {userGoals.filter((current) => 
+                                new Date(current.dueDate) <= new Date(getDate()) && !current.complete).length
+                        ?
+                        <>
+                            {
 
-                                    userGoals.filter((current) => current.dueDate === getDate()).map((current, idx) => {
-                                        return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
-                                    })
-                                }
-                                {
-                                    userGoals.filter((current) => new Date(current.dueDate) < new Date(getDate())).map((current, idx) => {
-                                        return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
-                                    })
-                                }
+                                userGoals.filter((current) => current.dueDate === getDate()).map((current, idx) => {
+                                    return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
+                                })
+                            }
+                            {
+                                userGoals.filter((current) => new Date(current.dueDate) < new Date(getDate()) && !current.complete).map((current, idx) => {
+                                    return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
+                                })
+                            }
 
-                            </>
-                            :
-                            <HeaderTwo content={"Goals that need an action today will show up here."} style={{ width: "80%" }} />}
+                        </>
+                        :
+                        <HeaderTwo content={"Goals that need an action today will show up here."} style={{ width: "80%" }} />}
                     </View>
                     {/* Upcoming Actionables */}
                     <HeaderOne style={styles.headerOne} content={"Upcoming"} textAlign={"left"} />
-                    <View style={[styles.goalContainer, { marginBottom: 100 }]}>
+                    <View style={[styles.goalContainer,]}>
                         {userGoals.filter((current) => new Date(current.dueDate) > new Date(getDate())).length ?
                             userGoals.filter((current) => new Date(current.dueDate) > new Date(getDate())).map((current, idx) => {
                                 return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
@@ -165,6 +167,31 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
                             :
                             <HeaderTwo content={"Upcoming goals will show up here."} style={{ width: "80%" }} />}
                     </View>
+                    <HeaderOne style={styles.headerOne} content={"Complete"} textAlign={"left"} />
+                    <View style={[styles.goalContainer, { marginBottom: 100 }]}>
+                        {userGoals.filter((current) => new Date(current.dueDate) < new Date(getDate()) && current.complete).length ?
+                            userGoals.filter((current) => new Date(current.dueDate) < new Date(getDate()) && current.complete).map((current, idx) => {
+                                return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
+                            })
+                            :
+                            <HeaderTwo content={"Upcoming goals will show up here."} style={{ width: "80%" }} />}
+                    </View>
+                    {/** Component
+                     * Header:
+                     * containerStyle:
+                     * list
+                     * emptyMessage
+                     * 
+                     HeaderOne
+                     View
+                        Check on length of filter
+                            if length, filter for those items
+                            otherwise give HeaderTwo Message
+                     /View
+                    
+                    
+                    
+                    */}
                 </ScrollView>
             </View>
             <CreateGoalModal visible={showCreateGoalModal} closeGoalModal={closeGoalModal} addGoal={addGoal} />
