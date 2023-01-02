@@ -11,12 +11,13 @@ interface GoalContainerProps {
     headerTwo: string
     filteredList: any
     containerStyle?: object
+    onGoalPress: (goal: object) => void
     handleMarkComplete: (goalId: any) => void
 }
 
 export const GoalContainer: FC<GoalContainerProps> = (props: GoalContainerProps) => {
 
-    const { header, headerTwo, filteredList, containerStyle, handleMarkComplete } = props
+    const { header, headerTwo, filteredList, containerStyle, onGoalPress, handleMarkComplete } = props
 
     return (
         <>
@@ -24,7 +25,7 @@ export const GoalContainer: FC<GoalContainerProps> = (props: GoalContainerProps)
             <View style={styles.goalContainer}>
                 {filteredList.length ?
                 filteredList.map((current, idx) => {
-                    return <GoalCard key={idx} goal={current} onPress={() => null} handleMarkComplete={handleMarkComplete} />
+                    return <GoalCard key={idx} goal={current} onPress={onGoalPress} handleMarkComplete={handleMarkComplete} />
                 })
                 :
                     <HeaderTwo content={headerTwo} style={styles.headerTwo} />

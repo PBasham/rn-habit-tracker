@@ -2,7 +2,7 @@
         Import Dependencies
 ========================================*/
 import React, { FC, useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, Pressable, StyleSheet } from 'react-native'
 // components --------------------------------------------------
 import { CheckBox } from "../CheckBox/CheckBox"
 // styling --------------------------------------------------
@@ -24,7 +24,7 @@ interface GoalCardProps {
         complete: boolean
         // category?: string
     }
-    onPress: (updatedGoal: any) => void
+    onPress: (goal: any) => void
     handleMarkComplete: (goalId: number) => void
 }
 
@@ -51,15 +51,17 @@ export const GoalCard: FC<GoalCardProps> = ({ goal, onPress, handleMarkComplete 
     /**TODO:
          * [] Add 'red' 'past due' text on top of card?
      */
-    
+
 
     return (
         // change style if completed.
-        <View style={[
-            styles.goalCard,
-            goal.complete ? styles.goalCard_complete : null,
-            !goal.complete && pastDue ? styles.pastDue : null,
-        ]}>
+        <Pressable
+            onPress={() => onPress(goal)}
+            style={[
+                styles.goalCard,
+                goal.complete ? styles.goalCard_complete : null,
+                !goal.complete && pastDue ? styles.pastDue : null,
+            ]}>
             <View style={styles.firstSection}>
                 <Text numberOfLines={2} style={[styles.what, goal.complete ? styles.goalCard_completeText : null]} >{goal.action} {goal.goalQty} {goal.what}</Text>
                 <Text numberOfLines={1} style={[styles.category, { color: goal.complete ? colors.text.light : null }]} >{goal.dueDate}</Text>
@@ -67,7 +69,7 @@ export const GoalCard: FC<GoalCardProps> = ({ goal, onPress, handleMarkComplete 
             <Text style={[styles.qty, { color: goal.complete ? colors.text.light : null }]} >{goal.qty}/{goal.goalQty}</Text>
             <CheckBox onPress={() => handleMarkComplete(goal.id)} checked={goal.complete} />
             {/* checkbox for if it's complete or not */}
-        </View>
+        </Pressable>
     )
 }
 

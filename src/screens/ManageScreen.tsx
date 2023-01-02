@@ -1,9 +1,9 @@
 /** // TODO
-    ** [x] CreateGoalModal: Create component for me!
-    *    [x] Add controle bar with back button that will undo anything done.
-    *    [x] Ability to create goal
+    * //[x] CreateGoalModal: Create component for me!
+    * //   [x] Add controle bar with back button that will undo anything done.
+    * //   [x] Ability to create goal
     ** [] For goals:
-    *    [x] Add goal
+    * //   [x] Add goal
     *    [] remove goal
     *    [] update goal
     * TODO [] EditGoalModal:
@@ -11,7 +11,7 @@
     *    [] Allow for editing each thing...
     *    [] Update goal from this.
     * // [x] Way to identify 'PastDue' actionables under todays actionables.
-    *    [x] header? color? what?
+    * //   [x] header? color? what?
     ** [] Added back in categories for goals,
     *    [] Create category cards that will hold all items that have that category,
     *        -- like cards with x/x goals completed for the category
@@ -21,7 +21,7 @@
     *?        -- Each day in upcoming would contain multiple category cards? or just a *general number of task?
     *       ! Run this by someone for opinions.
     * // [x] Section for complete, below upcoming.
-    *    [x] When an item is completed, it should no longer show up on actionables, but a seperate archive section?
+    * //   [x] When an item is completed, it should no longer show up on actionables, but a seperate archive section?
     *    [] OR create section below for completed, and add option to archive it seperatly -- Out of view.
     * [] Add time if specific is working correctly.
     * // [x] BREAK down into components.
@@ -45,6 +45,7 @@ import { getDate } from "../misc/helpers"
 // Styles --------------------------------------------------
 import colors from "../misc/colors.js"
 import { GoalContainer } from "../components/ManageScreen/GoalContainer"
+import { EditGoalModal } from "../components/Modals/EditGoalModal"
 
 interface ManageScreenProps {
     userGoals: any
@@ -86,8 +87,18 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
         // AsyncStorage.setItem("userGoals", "")
 
     }, [])
+    // Edit Goal Modal --------------------------------------------------
+    const [editGoalModalVisible, setEditGoalModalVisible] = useState<boolean>(false)
+    const [selectedGoal, setSelectedGoal] = useState<any>([])
 
-
+    const handleGoalPress = (goal: object) => {
+        setEditGoalModalVisible(true)
+        setSelectedGoal(goal)
+    }
+    const closeEditModal = () => {
+        setEditGoalModalVisible(false)
+        setSelectedGoal([])
+    }
     const handleUpdateuserGoal = (updatedGoal: any) => {
         console.log("I'll handle the update")
     }
@@ -137,12 +148,14 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
                         header="Todays Actionables"
                         headerTwo="Goals that need an action today will show up here."
                         filteredList={userGoals.filter((current) => current.dueDate === getDate() || (!current.complete && new Date(current.dueDate) < new Date(getDate())))}
+                        onGoalPress={handleGoalPress}
                         handleMarkComplete={handleMarkComplete}
                     />
                     <GoalContainer
                         header="Upcoming"
                         headerTwo="Upcoming goals will show up here."
                         filteredList={userGoals.filter((current) => new Date(current.dueDate) > new Date(getDate()))}
+                        onGoalPress={handleGoalPress}
                         handleMarkComplete={handleMarkComplete}
                     />
                     <GoalContainer
@@ -150,11 +163,17 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
                         headerTwo="Completed goals will show up here."
                         filteredList={userGoals.filter((current) => new Date(current.dueDate) < new Date(getDate()) && current.complete)}
                         containerStyle={{ marginBottom: 100 }}
+                        onGoalPress={handleGoalPress}
                         handleMarkComplete={handleMarkComplete}
                     />
                 </ScrollView>
             </View>
             <CreateGoalModal visible={showCreateGoalModal} closeGoalModal={closeGoalModal} addGoal={addGoal} />
+            <EditGoalModal
+                visible={editGoalModalVisible}
+                closeModal={closeEditModal}
+                selectedGoal={selectedGoal}
+            />
             {/* Edit goal modal */}
         </>
     )
