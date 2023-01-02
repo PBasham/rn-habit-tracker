@@ -2,10 +2,12 @@
         Import Dependencies
 ========================================*/
 import React, { FC } from 'react'
-import { View, Text, StyleSheet, Modal } from 'react-native'
+import { View, Text, StyleSheet, Modal, Dimensions } from 'react-native'
 import colors from "../../misc/colors"
 import { fonts } from "../../misc/fonts"
+import { getDate } from "../../misc/helpers"
 import ControlBar from "../ControlBar/ControlBar"
+import { HeaderOne, HeaderTwo } from "../Text"
 
 interface EditGoalModalProps {
     visible: boolean
@@ -18,6 +20,7 @@ interface EditGoalModalProps {
         goalQty: number
         // timeType: string
         dueDate: string
+        specificTime: boolean
         dueTime: string
         // days: string[]
         complete: boolean
@@ -27,28 +30,53 @@ interface EditGoalModalProps {
 
 export const EditGoalModal: FC<EditGoalModalProps> = (props: EditGoalModalProps) => {
     const { visible, closeModal, selectedGoal } = props
-    
+
     return (
         <Modal visible={visible} transparent={true} >
             <View style={styles.container}>
-            <ControlBar onBackPress={closeModal}/>
-            <View style={styles.contentContainer}>
-                <Text style={styles.text}>{selectedGoal.action}</Text>
-            </View>
+                <ControlBar onBackPress={closeModal} />
+                <View style={styles.contentContainer}>
+                    <HeaderOne 
+                    content="Your goal is to: " 
+                    textAlign="left" />
+                    <Text style={[styles.text, styles.marginTop]}>{`${selectedGoal.action} ${selectedGoal.goalQty} ${selectedGoal.what} by ${selectedGoal.dueDate}${selectedGoal.specificTime ? ` at ${selectedGoal.dueTime}` : ``}`}</Text>
+                    {selectedGoal.dueDate < getDate() ? null :
+                        <>
+                            <HeaderOne
+                                style={styles.marginTop}
+                                content="Your goal is currently past due."
+                                textAlign="left" />
+                            <HeaderTwo
+                            
+                                style={styles.marginTop}
+                                content="No need to worry, You can still work towards this goal!"
+                                textAlign="left" />
+                        </>}
+                </View>
             </View>
         </Modal>
     )
 }
 
+const width = Dimensions.get("screen").width
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: "center",
+
         backgroundColor: colors.general.background
     },
     contentContainer: {
         flex: 1,
+
+        marginTop: "20%",
+        width: width - 50,
     },
     text: {
         fontSize: fonts.body.size,
     },
+    marginTop: {
+        marginTop: 10,
+    }
 })
