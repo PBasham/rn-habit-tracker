@@ -10,6 +10,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import ControlBar from "../ControlBar/ControlBar"
 
 import { getDate } from "../../misc/helpers"
+import { fonts } from "../../misc/fonts"
 
 
 interface CreateGoalModalProps {
@@ -256,7 +257,7 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
     },
     text: {
-        fontSize: 24,
+        fontSize: fonts.body.size,
     },
     input: {
         marginHorizontal: 10,
@@ -268,12 +269,12 @@ const styles = StyleSheet.create({
         backgroundColor: colors.general.lightTransparent,
 
 
-        fontSize: 24,
+        fontSize: fonts.body.size,
         textAlign: "center",
     },
     inpText: {
         flex: 1,
-        fontSize: 24,
+        fontSize: fonts.body.size,
         textAlign: "center",
         textAlignVertical: "center"
     },

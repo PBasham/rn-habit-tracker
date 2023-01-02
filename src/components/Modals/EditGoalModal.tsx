@@ -27,7 +27,7 @@ interface EditGoalModalProps {
 
 export const EditGoalModal: FC<EditGoalModalProps> = (props: EditGoalModalProps) => {
     const { visible, closeModal, selectedGoal } = props
-    console.log(selectedGoal)
+    
     return (
         <Modal visible={visible} transparent={true} >
             <View style={styles.container}>
