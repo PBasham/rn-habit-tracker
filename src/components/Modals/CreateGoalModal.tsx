@@ -69,7 +69,7 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
         setInpDueDate(() => {
             let date = new Date()
             date.setDate(date.getDate() + 1)
-            return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+            return `${((date.getMonth()) + 1)}/${(date.getDate())}/${date.getFullYear()}`
         })
         setInpDueTime(() => {return `12:00PM`})
         if (specificTIme) setSpecificTIme(false)
@@ -122,7 +122,6 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
             DateTimePicker
     ========================================*/
     const onChange = (selectedDateTime: object, mode: string) => {
-        console.log(mode)
         const currentDateTime = selectedDateTime || (mode === "date" ? dueDate : dueTime)
         setDatePickerOpen(Platform.OS === "ios")
         setTimePickerOpen(Platform.OS === "ios")
@@ -132,17 +131,14 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
         if (mode === "date") {
             setDueDate(currentDateTime)
             setInpDueDate(() => {
-                return `${currentDateTime.getMonth() + 1}/${currentDateTime.getDate()}/${currentDateTime.getFullYear()}`
+                return `${(currentDateTime.getMonth() + 1).toString().padStart(2, "0")}/${currentDateTime.getDate().toString().padStart(2, "0")}/${currentDateTime.getFullYear()}`
             })
-            let fDate = (tempDateTime.getMonth() + 1) + "/" + tempDateTime.getDate() + "/" + tempDateTime.getFullYear()
-
         } else {
             setDueTime(currentDateTime)
             setInpDueTime(() => {
                 let newTime = converTimeToAMPM(currentDateTime)
                 return newTime
             })
-            let fTime = `${tempDateTime.getHours()}:${tempDateTime.getMinutes()}`
         }
     }
 

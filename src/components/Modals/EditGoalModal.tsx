@@ -32,7 +32,7 @@ export const EditGoalModal: FC<EditGoalModalProps> = (props: EditGoalModalProps)
     const { visible, closeModal, selectedGoal } = props
 
     const [goalUpdated, setGoalUpdated] = useState(false)
-    
+
     const handleEdit = () => {
 
     }
@@ -41,24 +41,22 @@ export const EditGoalModal: FC<EditGoalModalProps> = (props: EditGoalModalProps)
         <Modal visible={visible} transparent={true} >
             <View style={styles.container}>
                 <ControlBar onBackPress={closeModal} onDotsPress
-                ={() => null} />
+                    ={() => null} />
                 <View style={styles.contentContainer}>
-                    <HeaderOne 
-                    content="Your goal is to: " 
-                    textAlign="left" />
+                    <HeaderOne
+                        content="Your goal is to: "
+                        textAlign="left" />
                     <Text style={[styles.text, styles.marginTop]}>{`${selectedGoal.action} ${selectedGoal.goalQty} ${selectedGoal.what} by ${selectedGoal.dueDate}${selectedGoal.specificTime ? ` at ${selectedGoal.dueTime}` : ``}`}</Text>
-                    {selectedGoal.dueDate < getDate() ? null :
-                        <>
-                            <HeaderOne
-                                style={styles.marginTop}
-                                content="Your goal is currently past due."
-                                textAlign="left" />
-                            <HeaderTwo
-                            
-                                style={styles.marginTop}
-                                content="No need to worry, You can still work towards this goal!"
-                                textAlign="left" />
-                        </>}
+                    {selectedGoal.dueDate < getDate() ? null : <>
+                        <HeaderOne
+                            style={styles.marginTop}
+                            content="Your goal is currently past due."
+                            textAlign="left" />
+                        <HeaderTwo
+                            style={styles.marginTop}
+                            content="No need to worry, You can still work towards this goal!"
+                            textAlign="left" />
+                    </>}
                 </View>
             </View>
         </Modal>

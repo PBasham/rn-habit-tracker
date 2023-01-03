@@ -181,7 +181,11 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
                     />
                 </ScrollView>
             </View>
-            <CreateGoalModal visible={showCreateGoalModal} closeGoalModal={closeGoalModal} addGoal={addGoal} />
+            <CreateGoalModal
+                visible={showCreateGoalModal}
+                closeGoalModal={closeGoalModal}
+                addGoal={addGoal}
+            />
             <EditGoalModal
                 visible={editGoalModalVisible}
                 closeModal={closeEditModal}
