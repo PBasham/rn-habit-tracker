@@ -120,5 +120,6 @@ const styles = StyleSheet.create({
 
     },
     settingsBtn: {
+        marginLeft: "auto",
     },
 })

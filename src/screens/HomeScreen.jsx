@@ -29,13 +29,10 @@ import InsetShadow from 'react-native-inset-shadow'
 
 const HomeScreen = ({ navigation, userGoals }) => {
 
-    console.log("user goals: ", userGoals)
     /** useContext **/
     const user = useContext(UserContext)
     const todaysDate = useContext(DateContext)
-
-    console.log("todaysDate ", todaysDate)
-
+    console.log(todaysDate)
     /* State */
     const [selectedEmotion, setSelectedEmotion] = useState({})
 
@@ -56,7 +53,6 @@ const HomeScreen = ({ navigation, userGoals }) => {
     // gets the users feelingLog
     const findFeelingsLog = async () => {
         const result = await AsyncStorage.getItem("feelingsLog")
-        console.log("result ", result)
         // checks if the user has any entries
         if (result === null) return
         // if they do, parse it and set it in state
@@ -66,9 +62,7 @@ const HomeScreen = ({ navigation, userGoals }) => {
 
 
         if (todaysDate in currentFeelingsLog) {
-            console.log("Entry for today exist!")
             // set bar to respective feeling and color
-            console.log("currentFeelingsLog: ", currentFeelingsLog)
             setSelectedEmotion({
                 feeling: currentFeelingsLog[todaysDate].feeling,
                 color: currentFeelingsLog[todaysDate].color
@@ -85,14 +79,11 @@ const HomeScreen = ({ navigation, userGoals }) => {
     useEffect(() => {
         findGreet()
         findFeelingsLog()
-        console.log("feelingsLog: ", feelingsLog)
         // AsyncStorage.clear()
     }, [])
 
     /** Functions */
     const handleEmotionPick = (feeling, color) => {
-
-        console.log(`\n\nCurrent Feelings log: `, feelingsLog, `\n\n`)
 
         const todaysEmotion = {
             id: Date.now(),
@@ -103,18 +94,11 @@ const HomeScreen = ({ navigation, userGoals }) => {
         const updatedFeelingsLog = { ...feelingsLog, [todaysDate]: todaysEmotion }
         if (todaysDate in feelingsLog) {
             // if so, replace it
-            console.log("Already an entry for today. Just update the bar.")
         } else {
             // otherwise create it
-            console.log("Create new entry for log!")
         }
-        console.log("Updated feelings log: ", updatedFeelingsLog)
         AsyncStorage.setItem("feelingsLog", JSON.stringify(updatedFeelingsLog))
         setFeelingsLog(updatedFeelingsLog)
-
-
-
-        console.log(`todaysEmotion:`, todaysEmotion)
     }
 
     /*========================================

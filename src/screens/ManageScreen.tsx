@@ -2,12 +2,14 @@
     * //[x] CreateGoalModal: Create component for me!
     * //   [x] Add controle bar with back button that will undo anything done.
     * //   [x] Ability to create goal
+    * TODO [] Added view archive in additional settings.
     ** [] For goals:
     * //   [x] Add goal
+        * Add completed date when marked as completed.
     *    [] remove goal
     *    [] update goal
     * TODO [] EditGoalModal:
-    *    [] Open for each goal when goal is clicked.
+    *    [x] Open for each goal when goal is clicked.
     *    [] Allow for editing each thing...
     *    [] Update goal from this.
     * // [x] Way to identify 'PastDue' actionables under todays actionables.
@@ -35,17 +37,14 @@ import { View, ScrollView, Modal, StyleSheet, Dimensions } from 'react-native'
 import AsyncStorage from "@react-native-async-storage/async-storage"
 // Components --------------------------------------------------
 import ControlBar from "../components/ControlBar/ControlBar"
-import { StandardAntBtn } from "../components/buttons"
-import { GoalCard } from "../components/ManageScreen/GoalCard"
 import { CategoryCard } from "../components/ManageScreen/CategoryCard"
-import { HeaderOne, HeaderTwo } from "../components/Text"
 import { CreateGoalModal } from "../components/Modals"
+import { GoalContainer } from "../components/ManageScreen/GoalContainer"
+import { EditGoalModal } from "../components/Modals/EditGoalModal"
 // helperFunctions --------------------------------------------------
 import { getDate } from "../misc/helpers"
 // Styles --------------------------------------------------
 import colors from "../misc/colors.js"
-import { GoalContainer } from "../components/ManageScreen/GoalContainer"
-import { EditGoalModal } from "../components/Modals/EditGoalModal"
 
 interface ManageScreenProps {
     userGoals: any
@@ -95,6 +94,18 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
         setEditGoalModalVisible(true)
         setSelectedGoal(goal)
     }
+    const handleGoalLongPress = () => {
+        /**This will be 
+         * Open popup
+            * options:
+            * * Edit Goal
+            * * Delete Goal
+            * * Archive Goal
+            * * Cancel
+                * ? Should Archive be a seperate item / list? I think so.
+                * ? Upon rendering list of user goals, any goal that is completed and over a week past its date, will be automatically archived.
+        */
+    }
     const closeEditModal = () => {
         setEditGoalModalVisible(false)
         setSelectedGoal([])
@@ -113,6 +124,7 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
                         ...current,
                         qty: current.qtyBeforeComplete,
                         complete: false,
+                        completeDate: null,
                     }
                 } else {
                     return {
@@ -120,6 +132,7 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
                         qtyBeforeComplete: current.qty,
                         qty: current.goalQty,
                         complete: true,
+                        completeDate: getDate(),
                     }
                 }
             }
@@ -154,14 +167,14 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
                     <GoalContainer
                         header="Upcoming"
                         headerTwo="Upcoming goals will show up here."
-                        filteredList={userGoals.filter((current) => new Date(current.dueDate) > new Date(getDate()))}
+                        filteredList={userGoals.filter((current) => new Date(current.dueDate) > new Date(getDate()) && !current.complete)}
                         onGoalPress={handleGoalPress}
                         handleMarkComplete={handleMarkComplete}
                     />
                     <GoalContainer
-                        header="Conplete"
+                        header="Complete"
                         headerTwo="Completed goals will show up here."
-                        filteredList={userGoals.filter((current) => new Date(current.dueDate) < new Date(getDate()) && current.complete)}
+                        filteredList={userGoals.filter((current) => (new Date(current.dueDate) < new Date(getDate()) || new Date(current.dueDate) > new Date(getDate())) && current.complete)}
                         containerStyle={{ marginBottom: 100 }}
                         onGoalPress={handleGoalPress}
                         handleMarkComplete={handleMarkComplete}

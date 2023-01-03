@@ -1,7 +1,7 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { View, Text, StyleSheet, Modal, Dimensions } from 'react-native'
 import colors from "../../misc/colors"
 import { fonts } from "../../misc/fonts"
@@ -31,10 +31,17 @@ interface EditGoalModalProps {
 export const EditGoalModal: FC<EditGoalModalProps> = (props: EditGoalModalProps) => {
     const { visible, closeModal, selectedGoal } = props
 
+    const [goalUpdated, setGoalUpdated] = useState(false)
+    
+    const handleEdit = () => {
+
+    }
+
     return (
         <Modal visible={visible} transparent={true} >
             <View style={styles.container}>
-                <ControlBar onBackPress={closeModal} />
+                <ControlBar onBackPress={closeModal} onDotsPress
+                ={() => null} />
                 <View style={styles.contentContainer}>
                     <HeaderOne 
                     content="Your goal is to: " 
