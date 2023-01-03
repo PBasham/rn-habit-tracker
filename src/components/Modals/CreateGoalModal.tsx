@@ -115,7 +115,6 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
             hh = hh - 12
             tt = "PM"
         }
-        console.log(hh)
         if (hh === 0) hh = 12
 
         return `${hh.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}${tt}`
@@ -130,16 +129,12 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
         setDatePickerOpen(Platform.OS === "ios")
         setTimePickerOpen(Platform.OS === "ios")
 
-        let tempDateTime = new Date(currentDateTime)
-
         if (mode === "date") {
-            // setDueDate(currentDateTime)
             setInpDueDate(currentDateTime)
         } else {
             setDueTime(currentDateTime)
             setInpDueTime(() => {
                 let newTime = converTimeToAMPM(currentDateTime)
-                console.log(newTime)
                 return newTime
             })
         }

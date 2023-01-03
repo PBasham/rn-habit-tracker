@@ -54,7 +54,9 @@ export const GoalCard: FC<GoalCardProps> = ({ goal, onPress, handleMarkComplete 
             let gmm = parseInt(goal.dueTime.slice(3, 5))
             let gtt = goal.dueTime.slice(5)
             if (gtt === "AM") ghh -= 12
-            return new Date(goal.dueDate) < new Date(formatDate(getDate())) || (goal.dueDate === formatDate(getDate()) && (ghh < hh || (ghh === hh && gmm < mm)))
+            let tempDate = new Date(goal.dueDate)
+            tempDate.setHours(ghh, gmm)
+            return tempDate < getDate()
         }
         return new Date(goal.dueDate) < new Date(formatDate(getDate()))
     })

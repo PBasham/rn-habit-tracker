@@ -60,7 +60,6 @@ export default function App() {
 
     // ---- Add Goal ----------------------------------------
     const addGoal = (newGoal) => {
-        // console.log(userGoals)
         console.log(newGoal)
         const updatedGoals = [...userGoals, newGoal]
         AsyncStorage.setItem("userGoals", JSON.stringify(updatedGoals))
