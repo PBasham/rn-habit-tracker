@@ -20,6 +20,7 @@ interface GoalCardProps {
         // timeType: string
         dueDate: string
         dueTime: string
+        specificTime: boolean
         // days: string[]
         complete: boolean
         // category?: string
@@ -64,7 +65,7 @@ export const GoalCard: FC<GoalCardProps> = ({ goal, onPress, handleMarkComplete 
             ]}>
             <View style={styles.firstSection}>
                 <Text numberOfLines={2} style={[styles.what, goal.complete ? styles.goalCard_completeText : null]} >{goal.action} {goal.goalQty} {goal.what}</Text>
-                <Text numberOfLines={1} style={[styles.category, { color: goal.complete ? colors.text.light : null }]} >{goal.dueDate}</Text>
+                <Text numberOfLines={1} style={[styles.category, { color: goal.complete ? colors.text.light : null }]} >{`${goal.dueDate}${goal.specificTime ? ` @ ${goal.dueTime}` : ``}`}</Text>
             </View>
             <Text style={[styles.qty, { color: goal.complete ? colors.text.light : null }]} >{goal.qty}/{goal.goalQty}</Text>
             <CheckBox onPress={() => handleMarkComplete(goal.id)} checked={goal.complete} />
