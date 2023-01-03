@@ -46,14 +46,19 @@ export const GoalCard: FC<GoalCardProps> = ({ goal, onPress, handleMarkComplete 
      */
 
     const [pastDue, setPastDue] = useState(() => {
+        if (goal.specificTime) {
+            let date = getDate()
+            let hh = date.getHours()
+            let mm = date.getMinutes()
+            let ghh = parseInt(goal.dueTime.slice(0, 2))
+            let gmm = parseInt(goal.dueTime.slice(3, 5))
+            let gtt = goal.dueTime.slice(5)
+            if (gtt === "AM") ghh -= 12
+            return new Date(goal.dueDate) < new Date(formatDate(getDate())) || (goal.dueDate === formatDate(getDate()) && (ghh < hh || (ghh === hh && gmm < mm)))
+        }
         return new Date(goal.dueDate) < new Date(formatDate(getDate()))
     })
 
-    useEffect(() => {
-        console.log(new Date(goal.dueDate))
-        console.log(getDate())
-    },[])
-    
     return (
         // change style if completed.
         <Pressable
