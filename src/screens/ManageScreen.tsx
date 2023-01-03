@@ -160,7 +160,7 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
                     <GoalContainer
                         header="Todays Actionables"
                         headerTwo="Goals that need an action today will show up here."
-                        filteredList={userGoals.filter((current) => current.dueDate === getDate() || (!current.complete && new Date(current.dueDate) < new Date(getDate())))}
+                        filteredList={userGoals.filter((current) => (new Date(current.dueDate) === new Date(getDate())) || (!current.complete && new Date(current.dueDate) < new Date(getDate())))}
                         onGoalPress={handleGoalPress}
                         handleMarkComplete={handleMarkComplete}
                     />

@@ -9,7 +9,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 // components --------------------------------------------------
 import ControlBar from "../ControlBar/ControlBar"
 
-import { getDate } from "../../misc/helpers"
+import { formatDate, getDate } from "../../misc/helpers"
 import { fonts } from "../../misc/fonts"
 
 
@@ -34,32 +34,33 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
     // timePicker open
     const [timePickerOpen, setTimePickerOpen] = useState<boolean>(false)
     // states holding dateTimePicker info
-    const [dueDate, setDueDate] = useState<any>(() => {
-        let date = new Date()
-        date.setDate(date.getDate() + 1)
-        return date
-    }
-    )
+    // const [dueDate, setDueDate] = useState<any>(() => {
+    //     let date = new Date()
+    //     date.setDate(date.getDate() + 1)
+    //     return date
+    // }
+    // )
     const [dueTime, setDueTime] = useState<any>(() => {
         let date = new Date()
-        date.setHours(12)
-        date.setMinutes(0)
+        date.setHours(23)
+        date.setMinutes(59)
         return date
     })
     // show and saved date / time for goal
-    const [inpDueDate, setInpDueDate] = useState<string>(() => {
+    const [inpDueDate, setInpDueDate] = useState<any>(() => {
         let date = new Date()
         date.setDate(date.getDate() + 1)
-        return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+        // return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+        return date
     })
-    const [inpDueTime, setInpDueTime] = useState<string>(() => {return `12:00PM`})
+    const [inpDueTime, setInpDueTime] = useState<string>(() => {return `11:59PM`})
 
     const handleClose = () => {
-        setDueDate(() => {
-            let date = new Date()
-            date.setDate(date.getDate() + 1)
-            return date
-        })
+        // setDueDate(() => {
+        //     let date = new Date()
+        //     date.setDate(date.getDate() + 1)
+        //     return date
+        // })
         setDueTime(() => {
             let date = new Date()
             date.setHours(12)
@@ -69,9 +70,10 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
         setInpDueDate(() => {
             let date = new Date()
             date.setDate(date.getDate() + 1)
-            return `${((date.getMonth()) + 1)}/${(date.getDate())}/${date.getFullYear()}`
+            // return `${((date.getMonth()) + 1)}/${(date.getDate())}/${date.getFullYear()}`
+            return date
         })
-        setInpDueTime(() => {return `12:00PM`})
+        setInpDueTime(() => {return `11:59PM`})
         if (specificTIme) setSpecificTIme(false)
         setInpAction("")
         setInpQty("")
@@ -86,7 +88,8 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
             what: inpWhat,
             qty: 0,
             goalQty: inpQty,
-            dueDate: inpDueDate,
+            dueDate: formatDate(inpDueDate),
+            // dueDate: inpDueDate,
             specificTime: specificTIme,
             dueTime: specificTIme ? inpDueTime : null,
             complete: false,
@@ -111,8 +114,9 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
         if (hh >= 12) {
             hh = hh - 12
             tt = "PM"
-            if (hh === 0) hh = 12
         }
+        console.log(hh)
+        if (hh === 0) hh = 12
 
         return `${hh.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}${tt}`
 
@@ -122,21 +126,20 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
             DateTimePicker
     ========================================*/
     const onChange = (selectedDateTime: object, mode: string) => {
-        const currentDateTime = selectedDateTime || (mode === "date" ? dueDate : dueTime)
+        const currentDateTime = selectedDateTime || (mode === "date" ? inpDueDate : dueTime)
         setDatePickerOpen(Platform.OS === "ios")
         setTimePickerOpen(Platform.OS === "ios")
 
         let tempDateTime = new Date(currentDateTime)
 
         if (mode === "date") {
-            setDueDate(currentDateTime)
-            setInpDueDate(() => {
-                return `${(currentDateTime.getMonth() + 1).toString().padStart(2, "0")}/${currentDateTime.getDate().toString().padStart(2, "0")}/${currentDateTime.getFullYear()}`
-            })
+            // setDueDate(currentDateTime)
+            setInpDueDate(currentDateTime)
         } else {
             setDueTime(currentDateTime)
             setInpDueTime(() => {
                 let newTime = converTimeToAMPM(currentDateTime)
+                console.log(newTime)
                 return newTime
             })
         }
@@ -188,7 +191,7 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
                             style={[styles.input, styles.inputMd]}
                             onPress={handleDatePress}
                         >
-                            <Text style={styles.inpText}>{inpDueDate}</Text>
+                            <Text style={styles.inpText}>{formatDate(inpDueDate)}</Text>
                         </Pressable>
                     </View>
                     <View style={styles.line}>
@@ -205,7 +208,7 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
                     {datePickerOpen ?
                         <DateTimePicker
                             testID="datePicker"
-                            value={dueDate}
+                            value={inpDueDate}
                             mode="date"
                             onChange={(event, selectedDate) => onChange(selectedDate, "date")}
                         />

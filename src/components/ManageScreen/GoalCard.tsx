@@ -1,14 +1,14 @@
 /*========================================
         Import Dependencies
 ========================================*/
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 // components --------------------------------------------------
 import { CheckBox } from "../CheckBox/CheckBox"
 // styling --------------------------------------------------
 import colors from "../../misc/colors"
 // helpers --------------------------------------------------
-import { getDate } from "../../misc/helpers"
+import { formatDate, getDate } from "../../misc/helpers"
 
 interface GoalCardProps {
     goal: {
@@ -45,14 +45,14 @@ export const GoalCard: FC<GoalCardProps> = ({ goal, onPress, handleMarkComplete 
      */
 
     const [pastDue, setPastDue] = useState(() => {
-        return new Date(goal.dueDate) < new Date(getDate())
+        return new Date(goal.dueDate) < new Date(formatDate(getDate()))
     })
 
-    /**TODO:
-         * [] Add 'red' 'past due' text on top of card?
-     */
-
-
+    useEffect(() => {
+        console.log(new Date(goal.dueDate))
+        console.log(getDate())
+    },[])
+    
     return (
         // change style if completed.
         <Pressable
