@@ -62,14 +62,38 @@ export default function App() {
     const addGoal = (newGoal) => {
         console.log(newGoal)
         const updatedGoals = [...userGoals, newGoal]
+
+        let pastDueGoals = updatedGoals.filter((current) => {
+            let date = new Date(current.dueDate)
+            date.setHours(parseInt(current.dueTime.slice(0, 2)), parseInt(current.dueTime.slice(3, 5)))
+
+            return date < getDate()
+
+        })
+        // let notPastDueGoals
+        /*========================================
+                LEFT OFF:
+                setting up past due and not past due list tha filter and re-combine
+        ========================================*/
+
+
+        updatedGoals.sort((a, b) => {
+            let aDate = new Date(a.dueDate)
+            let bDate = new Date(b.dueDate)
+            if (a.dueTime !== null) aDate.setHours(parseInt(a.dueTime.slice(0, 2)), parseInt(a.dueTime.slice(3, 5)))
+            if (b.dueTime !== null) bDate.setHours(parseInt(b.dueTime.slice(0, 2)), parseInt(b.dueTime.slice(3, 5)))
+
+            return aDate < bDate ? -1 : 1
+        })
+        // ----------
         AsyncStorage.setItem("userGoals", JSON.stringify(updatedGoals))
-        setUserGoals((current) => {return updatedGoals})
+        setUserGoals((current) => { return updatedGoals })
     }
     // ---- Update goal ----------------------------------------
     const updateGoal = (updatedGoal) => {
         const updatedGoals = userGoals.map((currentGoal) => {
             if (currentGoal.id === updatedGoal.id) {
-                return {...updatedGoal}
+                return { ...updatedGoal }
             }
             return currentGoal
         })

@@ -91,7 +91,7 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
             dueDate: formatDate(inpDueDate),
             // dueDate: inpDueDate,
             specificTime: specificTIme,
-            dueTime: specificTIme ? inpDueTime : null,
+            dueTime: inpDueTime,
             complete: false,
         }
 

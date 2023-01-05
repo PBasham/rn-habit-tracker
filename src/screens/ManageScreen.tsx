@@ -73,7 +73,6 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
         const sortedGoals = userGoals.sort((a, b) => b.category > a.category ? 1 : -1)
         setUserGoals(sortedGoals)
     }
-
     /**Sort Types
      * Category Asc / Des
      * ? % Complete Asc / Des
