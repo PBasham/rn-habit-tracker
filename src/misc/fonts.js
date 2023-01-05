@@ -16,5 +16,11 @@ export const fonts = {
         subText: "",
         date: "",
 
+    },
+    input: {
+        face: "",
+        label: 18,
+        text: 18,
+        placeholder: 16,
     }
 }

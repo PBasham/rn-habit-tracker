@@ -19,6 +19,10 @@ export default {
         shadow: "#D9D9D9",
         accentBlue: "#DBF4F0",
     },
+    input: {
+        background: "",
+        blueGrey: "#f8f8f8",
+    },
     text: {
         dark: "#000",
         darkTransparent: "rgba(0,0,0,.5)",

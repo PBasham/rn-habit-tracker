@@ -11,8 +11,6 @@ import ControlBar from "../ControlBar/ControlBar"
 
 import { formatDate, getDate } from "../../misc/helpers"
 import { fonts } from "../../misc/fonts"
-import { backgroundOne } from "../../../assets/imgs/images"
-import { InputWithTitle } from "../input/InputWithTitle"
 
 
 interface CreateGoalModalProps {
@@ -149,8 +147,6 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
         setTimePickerOpen(true)
     }
 
-    
-
     return (
         <Modal visible={visible} animationType="slide" transparent={true} >
             <View style={styles.container} >
@@ -161,14 +157,76 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
                         closeGoalModal()
                     }} />
                 <View style={styles.contentContainer}>
-                    <View style={styles.inputGroup}>
-                        <InputWithTitle title="TITLE" pressableDetail={false} />
-                        <InputWithTitle title="DESC" pressableDetail={true} />
+                    <View style={styles.line}>
+                        <Text style={styles.text} >I want to </Text>
+                        <TextInput
+                            style={[styles.input, styles.inputMd]}
+                            placeholder="Read"
+                            // ref={actionRef}
+                            onChangeText={(text) => setInpAction(text)}
+                        />
+                        <TextInput
+                            style={[styles.input, styles.inputSml]}
+                            keyboardType="numeric"
+                            placeholder="1"
+                            // ref={qtyRef}
+                            onChangeText={(qty) => setInpQty(qty)}
+                        />
                     </View>
-                    <View style={styles.inputGroup}>
-                        <InputWithTitle title="Goal" pressableDetail={true} />
-                        <InputWithTitle title="Due Date" pressableDetail={true} />
+                    <View style={styles.line}>
+                        <TextInput
+                            style={[styles.input, styles.inputLg]}
+                            placeholder="Book"
+                            // ref={whatRef}
+                            onChangeText={(text) => setInpWhat(text)}
+                        />
                     </View>
+                    <View style={styles.line}>
+                        <Text style={styles.text} >By  </Text>
+                        {/* make this a date picker */}
+                        <Pressable
+                            style={[styles.input, styles.inputMd]}
+                            onPress={handleDatePress}
+                        >
+                            <Text style={styles.inpText}>{formatDate(inpDueDate)}</Text>
+                        </Pressable>
+                    </View>
+                    <View style={styles.line}>
+                        <Text style={styles.text} >Specific time?</Text>
+                        <CheckBoxRnd checked={specificTIme} onPress={handleCheckBoxPress} />
+                        <Pressable
+                            style={[styles.input, styles.inputMd, specificTIme ? null : styles.inactive]}
+                            disabled={!specificTIme}
+                            onPress={handleTimePress}
+                        >
+                            <Text style={[styles.inpText, specificTIme ? null : styles.textInactive]} >{inpDueTime}</Text>
+                        </Pressable>
+                    </View>
+                    {datePickerOpen ?
+                        <DateTimePicker
+                            testID="datePicker"
+                            value={inpDueDate}
+                            mode="date"
+                            onChange={(event, selectedDate) => onChange(selectedDate, "date")}
+                        />
+                        :
+                        null}
+                    {timePickerOpen ?
+                        <DateTimePicker
+                            testID="timePicker"
+                            value={dueTime}
+                            mode="time"
+                            is24Hour={false}
+                            onChange={(event, selectedDate) => onChange(selectedDate, "time")}
+                        />
+                        :
+                        null}
+                    <StandardAntBtn
+                        backColor={
+                            inpAction.length && inpQty.length && inpWhat.length ?
+                                colors.general.light : colors.general.lightBlueTransparent
+                        }
+                        fontSize={32} text="Create Goal" onPress={inpAction.length && inpQty.length && inpWhat.length ? handleCreateGoal : null} />
                 </View>
             </View>
         </Modal>
@@ -178,7 +236,6 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
 const width = Dimensions.get("screen").width
 
 const styles = StyleSheet.create({
-
     container: {
         flex: 1,
         alignItems: "center",
@@ -197,9 +254,6 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: fonts.body.size,
-    },
-    inputGroup: {
-        marginBottom: 30,
     },
     input: {
         marginHorizontal: 10,
@@ -238,79 +292,3 @@ const styles = StyleSheet.create({
         minWidth: "100%"
     },
 })
-
-/*========================================
-        Old code for component
-========================================*/
-// {
-// <View style={styles.line}>
-//                         <Text style={styles.text} >I want to </Text>
-//                         <TextInput
-//                             style={[styles.input, styles.inputMd]}
-//                             placeholder="Read"
-//                             // ref={actionRef}
-//                             onChangeText={(text) => setInpAction(text)}
-//                         />
-//                         <TextInput
-//                             style={[styles.input, styles.inputSml]}
-//                             keyboardType="numeric"
-//                             placeholder="1"
-//                             // ref={qtyRef}
-//                             onChangeText={(qty) => setInpQty(qty)}
-//                         />
-//                     </View>
-//                     <View style={styles.line}>
-//                         <TextInput
-//                             style={[styles.input, styles.inputLg]}
-//                             placeholder="Book"
-//                             // ref={whatRef}
-//                             onChangeText={(text) => setInpWhat(text)}
-//                         />
-//                     </View>
-//                     <View style={styles.line}>
-//                         <Text style={styles.text} >By  </Text>
-//                         {/* make this a date picker */}
-//                         <Pressable
-//                             style={[styles.input, styles.inputMd]}
-//                             onPress={handleDatePress}
-//                         >
-//                             <Text style={styles.inpText}>{formatDate(inpDueDate)}</Text>
-//                         </Pressable>
-//                     </View>
-//                     <View style={styles.line}>
-//                         <Text style={styles.text} >Specific time?</Text>
-//                         <CheckBoxRnd checked={specificTIme} onPress={handleCheckBoxPress} />
-//                         <Pressable
-//                             style={[styles.input, styles.inputMd, specificTIme ? null : styles.inactive]}
-//                             disabled={!specificTIme}
-//                             onPress={handleTimePress}
-//                         >
-//                             <Text style={[styles.inpText, specificTIme ? null : styles.textInactive]} >{inpDueTime}</Text>
-//                         </Pressable>
-//                     </View>
-//                     {datePickerOpen ?
-//                         <DateTimePicker
-//                             testID="datePicker"
-//                             value={inpDueDate}
-//                             mode="date"
-//                             onChange={(event, selectedDate) => onChange(selectedDate, "date")}
-//                         />
-//                         :
-//                         null}
-//                     {timePickerOpen ?
-//                         <DateTimePicker
-//                             testID="timePicker"
-//                             value={dueTime}
-//                             mode="time"
-//                             is24Hour={false}
-//                             onChange={(event, selectedDate) => onChange(selectedDate, "time")}
-//                         />
-//                         :
-//                         null}
-//                     <StandardAntBtn
-//                         backColor={
-//                             inpAction.length && inpQty.length && inpWhat.length ?
-//                                 colors.general.light : colors.general.lightBlueTransparent
-//                         }
-//                         fontSize={32} text="Create Goal" onPress={inpAction.length && inpQty.length && inpWhat.length ? handleCreateGoal : null} />
-//                     }
