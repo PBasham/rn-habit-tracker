@@ -12,6 +12,7 @@ import { formatDate, getDate } from "../../misc/helpers"
 import { fonts } from "../../misc/fonts"
 import colors from "../../misc/colors"
 import { HeaderTwo } from "../Text";
+import { ColorPicker } from "../ColorPicker/ColorPicker";
 
 
 
@@ -147,28 +148,7 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
                             pressableDetail={false} />
                         <InputWithTitle title="DESC" onPress={() => null} value={goalDesc} pressableDetail={true} />
                     </View>
-                    <HeaderTwo content="Card Color" textAlign="left" />
-                    <View style={styles.colorContainer}>
-                        {Object.keys(colors.cardColors).map((current, idx) => (
-                            <Pressable
-                                key={current + colors.cardColors[current]}
-                                style={{
-                                    borderColor: selectedColor === current ? "black" : "transparent",
-                                    backgroundColor: selectedColor === current ? "white" : "transparent",
-                                    borderWidth: 2,
-                                    padding: 1,
-                                    borderRadius: 50,
-                                }}
-                                onPress={() => setSelectedColor(current)}
-                            >
-                                <View style={[
-                                    { backgroundColor: colors.cardColors[current] },
-                                    styles.colorBall,
-                                    selectedColor === current ? styles.colorBallSelected : null,
-                                ]}></View>
-                            </Pressable>
-                        ))}
-                    </View>
+                    <ColorPicker header="Card Color" selectedColor={selectedColor} selectColor={setSelectedColor}/>
                     <View style={styles.inputGroup}>
                         <InputWithTitle title="Goal" onPress={() => null} value={`${goalDetail.qty} ${goalDetail.measure}`} pressableDetail={true} />
                         <InputWithTitle title="Due Date" onPress={handleDatePress} value={formatDate(goalDue.dueDate)} pressableDetail={true} />
@@ -187,7 +167,7 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
                     testID="datePicker"
                     value={goalDue.dueDate}
                     mode="date"
-                    onChange={(event, selectedDate) => onChange(selectedDate, "date")}
+                    onChange={(event, selectedDate) => onChange(selectedDate)}
                 />
                 :
                 null}
@@ -246,27 +226,6 @@ const styles = StyleSheet.create({
         fontSize: fonts.body.size,
         textAlign: "center",
         textAlignVertical: "center"
-    },
-    colorContainer: {
-        flexDirection: "row",
-        justifyContent: 'space-evenly',
-        flexWrap: "wrap",
-
-        marginBottom: 30,
-        width: width - 50,
-    },
-    colorBall: {
-        // margin: 5,
-        height: 40,
-        width: 40,
-        borderRadius: 50,
-        borderWidth: 2,
-        borderColor: "#C4C4C4",
-
-    },
-    colorBallSelected: {
-        // borderWidth: 4,
-        borderColor: "transparent",
     },
     inactive: {
         backgroundColor: colors.general.lightBlueTransparent,
