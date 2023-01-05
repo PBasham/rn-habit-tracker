@@ -10,5 +10,16 @@ export const formatDate = (date) => {
     const yyyy = date.getFullYear()
     return `${mm}/${dd}/${yyyy}`
 }
+export const getNamedDayMonthYear = () => {
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    let date = new Date()
+    let monthName = monthNames[date.getMonth()]
+    let dayName = dayNames[date.getDay()]
+
+    return `${dayName}, ${monthName} ${date.getDate()}`
+}
 // export const sortByDueDate = () => {
 // }

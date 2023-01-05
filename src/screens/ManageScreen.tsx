@@ -114,7 +114,7 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
     }
 
     const handleMarkComplete = (goalId: number) => {
-        
+
         // check if qty goal === current qty, if so mark complete, other wise mark incomplete if not already.
         let updatedGoals = userGoals.map((current => {
             // @ts-ignore

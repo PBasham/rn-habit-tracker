@@ -63,13 +63,13 @@ export default function App() {
         console.log(newGoal)
         const updatedGoals = [...userGoals, newGoal]
 
-        let pastDueGoals = updatedGoals.filter((current) => {
-            let date = new Date(current.dueDate)
-            date.setHours(parseInt(current.dueTime.slice(0, 2)), parseInt(current.dueTime.slice(3, 5)))
+        // let pastDueGoals = updatedGoals.filter((current) => {
+        //     let date = new Date(current.dueDate)
+        //     date.setHours(parseInt(current.dueTime.slice(0, 2)), parseInt(current.dueTime.slice(3, 5)))
 
-            return date < getDate()
+        //     return date < getDate()
 
-        })
+        // })
         // let notPastDueGoals
         /*========================================
                 LEFT OFF:

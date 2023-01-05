@@ -14,6 +14,7 @@ import { HeaderOne, HeaderTwo } from "../components/Text/"
 import colors from "../misc/colors"
 // inset shadow --------------------------------------------------
 import InsetShadow from 'react-native-inset-shadow'
+import { getNamedDayMonthYear } from "../misc/helpers"
 
 /** SCREEN GOALS
  * 1. Display the users goals for the day, and upcoming.
@@ -32,11 +33,11 @@ const HomeScreen = ({ navigation, userGoals }) => {
     /** useContext **/
     const user = useContext(UserContext)
     const todaysDate = useContext(DateContext)
-    console.log(todaysDate)
     /* State */
     const [selectedEmotion, setSelectedEmotion] = useState({})
 
     const [greet, setGreet] = useState(null)
+    const [namedDate, setNamedDate] = useState(null)
 
     const [emotionModalVisible, setEmotionModalVisible] = useState(false)
 
@@ -49,6 +50,7 @@ const HomeScreen = ({ navigation, userGoals }) => {
         if (hrs === 1 || hrs < 17) return setGreet("Afternoon")
         setGreet("Evening")
     }
+    const getNamedDate = () => {setNamedDate(getNamedDayMonthYear())}
 
     // gets the users feelingLog
     const findFeelingsLog = async () => {
@@ -78,6 +80,7 @@ const HomeScreen = ({ navigation, userGoals }) => {
     /** UseEffect */
     useEffect(() => {
         findGreet()
+        getNamedDate()
         findFeelingsLog()
         // AsyncStorage.clear()
     }, [])
@@ -108,10 +111,14 @@ const HomeScreen = ({ navigation, userGoals }) => {
         navigation.navigate("Manage", { userGoals: userGoals })
     }
 
+const [test, setTest] = useState(new Date())
+
     return (
         <>
             <ScrollView style={styles.container}>
                 <View style={styles.contentContainer}>
+                    <HeaderTwo style={styles.homeMessage} content={namedDate} textAlign="left" />
+                    <HeaderOne style={styles.homeMessage} content={`Good ${greet}, ${user.name}`} textAlign="left" />
                     {/* actionables -------------------------------------------------- */}
                     {/* Todays Actionables */}
                     <HeaderOne style={styles.headerOne} content={"Todays Actionables"} textAlign={"left"} />
@@ -186,8 +193,8 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         paddingLeft: 25,
     },
-    headerTwo: {
-
+    homeMessage: {
+        marginLeft: 25,
     },
     feelingsContainer: {
         flexDirection: "row",
