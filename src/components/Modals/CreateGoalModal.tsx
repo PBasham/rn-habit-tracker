@@ -51,8 +51,8 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
             title: goalTitle,
             desc: goalDesc,
 
-            color: "",
-            category: "",
+            color: selectedColor,
+            // category: ,
 
             qty: 0,
             goalQty: goalDetail.qty,
@@ -88,19 +88,6 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
         return `${hh.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}${tt}`
 
     }
-
-    const theColors = Object.keys(colors.cardColors).map((current, idx) => (
-        <Pressable
-            key={current + colors.cardColors[current]}
-            style={[
-                { backgroundColor: colors.cardColors[current] },
-                selectedColor === current ? styles.colorBallSelected : null,
-                styles.colorBall,
-            ]}
-            onPress={() => setSelectedColor(current)}
-        >
-        </Pressable>
-    ))
 
     /*========================================
             DateTimePicker

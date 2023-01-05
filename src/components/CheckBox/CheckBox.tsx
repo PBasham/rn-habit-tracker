@@ -21,7 +21,7 @@ export const CheckBox: FC<CheckBoxProps> = ({ onPress, checked, color, brdColor,
     return (
         <View style={styles.container}>
             <Pressable onPress={onPress} style={[style, styles.checkbox, checked ? styles.checkbox_checked : null]}>
-                {checked ? <Entypo name={"check"} size={20} color={colors.general.light} /> : null}
+                {checked ? <Entypo name={"check"} size={15} color={colors.general.light} /> : null}
             </Pressable>
         </View>
     )
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
 
-        width: 25,
+        width: 20,
         aspectRatio: 1,
         borderWidth: 2,
         borderColor: colors.button.grey,
