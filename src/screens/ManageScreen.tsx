@@ -83,8 +83,8 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
         // removed until categories are re-implimented
         // categorySort()
         // AsyncStorage.setItem("userGoals", "")
-
     }, [])
+
     // Edit Goal Modal --------------------------------------------------
     const [editGoalModalVisible, setEditGoalModalVisible] = useState<boolean>(false)
     const [selectedGoal, setSelectedGoal] = useState<any>([])
@@ -114,6 +114,7 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
     }
 
     const handleMarkComplete = (goalId: number) => {
+        
         // check if qty goal === current qty, if so mark complete, other wise mark incomplete if not already.
         let updatedGoals = userGoals.map((current => {
             // @ts-ignore
@@ -143,13 +144,9 @@ const ManageScreen: FC<ManageScreenProps> = (props: ManageScreenProps) => {
     }
     // Create Goal Modal --------------------------------------------------
     const [showCreateGoalModal, setShowCreateGoalModal] = useState<boolean>(false)
-
-    const openGoalModal = () => {
-        setShowCreateGoalModal(true)
-    }
-    const closeGoalModal = () => {
-        setShowCreateGoalModal(false)
-    }
+    const openGoalModal = () => {setShowCreateGoalModal(true)}
+    const closeGoalModal = () => {setShowCreateGoalModal(false)}
+    //  --------------------------------------------------
 
     return (
         <>
