@@ -1,18 +1,18 @@
 // Dependencies --------------------------------------------------
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import FC, { Dimensions, Modal, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
-import colors from "../../misc/colors"
 import { StandardAntBtn } from "../buttons"
-import { CheckBoxRnd } from "../CheckBox"
 // datepicker ---------------
 import DateTimePicker from '@react-native-community/datetimepicker';
 // components --------------------------------------------------
 import ControlBar from "../ControlBar/ControlBar"
-
+import { InputWithTitle } from "../input/InputWithTitle"
+// misc/helpers --------------------------------------------------
 import { formatDate, getDate } from "../../misc/helpers"
 import { fonts } from "../../misc/fonts"
-import { backgroundOne } from "../../../assets/imgs/images"
-import { InputWithTitle } from "../input/InputWithTitle"
+import colors from "../../misc/colors"
+import { HeaderTwo } from "../Text";
+
 
 
 interface CreateGoalModalProps {
@@ -24,86 +24,51 @@ interface CreateGoalModalProps {
 export const CreateGoalModal = (props: CreateGoalModalProps) => {
     // props --------------------------------------------------
     const { visible, closeGoalModal, addGoal } = props
-    // action qty what --------------------------------------------------
-    const [inpAction, setInpAction] = useState<string>("")
-    const [inpQty, setInpQty] = useState<string>("")
-    const [inpWhat, setInpWhat] = useState<string>("")
-    // specify time checkox --------------------------------------------------
-    const [specificTIme, setSpecificTIme] = useState(false)
     // dateTimePicker --------------------------------------------------
     // datePicker open
     const [datePickerOpen, setDatePickerOpen] = useState<boolean>(false)
-    // timePicker open
-    const [timePickerOpen, setTimePickerOpen] = useState<boolean>(false)
-    // states holding dateTimePicker info
-    // const [dueDate, setDueDate] = useState<any>(() => {
-    //     let date = new Date()
-    //     date.setDate(date.getDate() + 1)
-    //     return date
-    // }
-    // )
-    const [dueTime, setDueTime] = useState<any>(() => {
-        let date = new Date()
-        date.setHours(23)
-        date.setMinutes(59)
-        return date
-    })
     // show and saved date / time for goal
     const [inpDueDate, setInpDueDate] = useState<any>(() => {
         let date = new Date()
         date.setDate(date.getDate() + 1)
-        // return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
         return date
     })
-    const [inpDueTime, setInpDueTime] = useState<string>(() => { return `11:59PM` })
 
     const handleClose = () => {
-        // setDueDate(() => {
-        //     let date = new Date()
-        //     date.setDate(date.getDate() + 1)
-        //     return date
-        // })
-        setDueTime(() => {
-            let date = new Date()
-            date.setHours(12)
-            date.setMinutes(0)
-            return date
-        })
         setInpDueDate(() => {
             let date = new Date()
             date.setDate(date.getDate() + 1)
-            // return `${((date.getMonth()) + 1)}/${(date.getDate())}/${date.getFullYear()}`
             return date
         })
-        setInpDueTime(() => { return `11:59PM` })
-        if (specificTIme) setSpecificTIme(false)
-        setInpAction("")
-        setInpQty("")
-        setInpWhat("")
     }
 
     const handleCreateGoal = () => {
         let newGoal = {
             id: Date.now(),
             createdOn: getDate(),
-            action: inpAction,
-            what: inpWhat,
+
+            title: goalTitle,
+            desc: goalDesc,
+
+            color: "",
+            category: "",
+
             qty: 0,
-            goalQty: inpQty,
+            goalQty: goalDetail.qty,
+            measure: goalDetail.measure,
+
             dueDate: formatDate(inpDueDate),
-            // dueDate: inpDueDate,
-            specificTime: specificTIme,
-            dueTime: inpDueTime,
+
             complete: false,
         }
-
+        console.log(newGoal)
         addGoal(newGoal)
         handleClose()
         closeGoalModal()
     }
 
     const handleCheckBoxPress = () => {
-        setSpecificTIme(!specificTIme)
+        // setSpecificTIme(!specificTIme)
     }
 
     // convert time to am/pm
@@ -123,33 +88,44 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
 
     }
 
+    const theColors = Object.keys(colors.cardColors).map((current, idx) => (
+        <Pressable
+            key={current + colors.cardColors[current]}
+            style={[
+                { backgroundColor: colors.cardColors[current] },
+                selectedColor === current ? styles.colorBallSelected : null,
+                styles.colorBall,
+            ]}
+            onPress={() => setSelectedColor(current)}
+        >
+        </Pressable>
+    ))
+
     /*========================================
             DateTimePicker
     ========================================*/
-    const onChange = (selectedDateTime: object, mode: string) => {
-        const currentDateTime = selectedDateTime || (mode === "date" ? inpDueDate : dueTime)
+    const onChange = (selectedDateTime: object) => {
+        const currentDateTime = selectedDateTime || inpDueDate
         setDatePickerOpen(Platform.OS === "ios")
-        setTimePickerOpen(Platform.OS === "ios")
-
-        if (mode === "date") {
-            setInpDueDate(currentDateTime)
-        } else {
-            setDueTime(currentDateTime)
-            setInpDueTime(() => {
-                let newTime = converTimeToAMPM(currentDateTime)
-                return newTime
-            })
-        }
+        setGoalDue((current) => {
+            return { ...current, dueDate: currentDateTime }
+        })
     }
 
     const handleDatePress = () => {
         setDatePickerOpen(true)
     }
-    const handleTimePress = () => {
-        setTimePickerOpen(true)
-    }
 
-    
+    const [goalTitle, setGoalTitle] = useState("")
+    const [goalDesc, setGoalDesc] = useState("")
+    const [selectedColor, setSelectedColor] = useState<string>("white")
+    const [goalDetail, setGoalDetail] = useState({
+        qty: null,
+        measure: null,
+    })
+    const [goalDue, setGoalDue] = useState({
+        dueDate: new Date(),
+    })
 
     return (
         <Modal visible={visible} animationType="slide" transparent={true} >
@@ -161,16 +137,67 @@ export const CreateGoalModal = (props: CreateGoalModalProps) => {
                         closeGoalModal()
                     }} />
                 <View style={styles.contentContainer}>
-                    <View style={styles.inputGroup}>
-                        <InputWithTitle title="TITLE" pressableDetail={false} />
-                        <InputWithTitle title="DESC" pressableDetail={true} />
+                    <View>
                     </View>
                     <View style={styles.inputGroup}>
-                        <InputWithTitle title="Goal" pressableDetail={true} />
-                        <InputWithTitle title="Due Date" pressableDetail={true} />
+                        <InputWithTitle
+                            title="TITLE"
+                            onChangeText={setGoalTitle}
+                            value={goalTitle}
+                            pressableDetail={false} />
+                        <InputWithTitle title="DESC" onPress={() => null} value={goalDesc} pressableDetail={true} />
+                    </View>
+                    <HeaderTwo content="Card Color" textAlign="left" />
+                    <View style={styles.colorContainer}>
+                        {Object.keys(colors.cardColors).map((current, idx) => (
+                            <Pressable
+                                key={current + colors.cardColors[current]}
+                                style={{
+                                    borderColor: selectedColor === current ? "black" : "transparent",
+                                    backgroundColor: selectedColor === current ? "white" : "transparent",
+                                    borderWidth: 2,
+                                    padding: 1,
+                                    borderRadius: 50,
+                                }}
+                                onPress={() => setSelectedColor(current)}
+                            >
+                                <View style={[
+                                    { backgroundColor: colors.cardColors[current] },
+                                    styles.colorBall,
+                                    selectedColor === current ? styles.colorBallSelected : null,
+                                ]}></View>
+                            </Pressable>
+                        ))}
+                    </View>
+                    <View style={styles.inputGroup}>
+                        <InputWithTitle title="Goal" onPress={() => null} value={`${goalDetail.qty} ${goalDetail.measure}`} pressableDetail={true} />
+                        <InputWithTitle title="Due Date" onPress={handleDatePress} value={formatDate(goalDue.dueDate)} pressableDetail={true} />
                     </View>
                 </View>
+                <StandardAntBtn
+                    style={{ padding: 10, }}
+                    backColor="white"
+                    width={"50%"}
+                    fontSize={fonts.body.size} text="Create Goal" onPress={handleCreateGoal} />
             </View>
+
+            {/* datepicker -------------------------------------------------- */}
+            {datePickerOpen ?
+                <DateTimePicker
+                    testID="datePicker"
+                    value={goalDue.dueDate}
+                    mode="date"
+                    onChange={(event, selectedDate) => onChange(selectedDate, "date")}
+                />
+                :
+                null}
+            {/* Modals
+                Description modal
+                Goal detail modal
+                Date picker modal
+
+                create task button
+             */}
         </Modal>
     )
 }
@@ -219,6 +246,27 @@ const styles = StyleSheet.create({
         fontSize: fonts.body.size,
         textAlign: "center",
         textAlignVertical: "center"
+    },
+    colorContainer: {
+        flexDirection: "row",
+        justifyContent: 'space-evenly',
+        flexWrap: "wrap",
+
+        marginBottom: 30,
+        width: width - 50,
+    },
+    colorBall: {
+        // margin: 5,
+        height: 40,
+        width: 40,
+        borderRadius: 50,
+        borderWidth: 2,
+        borderColor: "#C4C4C4",
+
+    },
+    colorBallSelected: {
+        // borderWidth: 4,
+        borderColor: "transparent",
     },
     inactive: {
         backgroundColor: colors.general.lightBlueTransparent,

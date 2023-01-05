@@ -19,8 +19,8 @@ export const fonts = {
     },
     input: {
         face: "",
-        label: 18,
-        text: 18,
+        label: 16,
+        text: 16,
         placeholder: 16,
     }
 }

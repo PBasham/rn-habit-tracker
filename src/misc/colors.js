@@ -1,13 +1,4 @@
 export default {
-    // blue: "rgb(56,182,255)",
-    // light: "#FFF",
-    // greyish: "#1e1e1e",
-    // dark: "#000",
-    // pink: "#F7EEFF",
-    // lightblue: "#CCEAFF",
-    // brightblue: "#72EEFF",
-    // mintgreen: "#E4F3C2",
-    // transparentDark: "rgba(0,0,0,.8)",
     general: {
         light: "#FFF",
         dark: "#000",
@@ -48,4 +39,18 @@ export default {
         greenAccent: "rgb(28, 126, 58)",
         greenTransparent: "rgba(51, 185, 92, .5)",
     },
+    cardColors: {
+        white: "#FFFFFF",
+        black: "#000000",
+        blue: "#0048BA",
+        lightBlue: "#7CB9E8",
+        pink: "#F19CBB",
+        red: "#DB2D43",
+        lightRed: "#CB4154",
+        orange: "#C46210",
+        yellow: "#FFEF00",
+        lightYellow: "#FFFF99",
+        green: "#006B3C",
+        lime: "#D0FF14",
+    }
 }

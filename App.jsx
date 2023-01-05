@@ -77,14 +77,14 @@ export default function App() {
         ========================================*/
 
 
-        updatedGoals.sort((a, b) => {
-            let aDate = new Date(a.dueDate)
-            let bDate = new Date(b.dueDate)
-            if (a.dueTime !== null) aDate.setHours(parseInt(a.dueTime.slice(0, 2)), parseInt(a.dueTime.slice(3, 5)))
-            if (b.dueTime !== null) bDate.setHours(parseInt(b.dueTime.slice(0, 2)), parseInt(b.dueTime.slice(3, 5)))
+        // updatedGoals.sort((a, b) => {
+        //     let aDate = new Date(a.dueDate)
+        //     let bDate = new Date(b.dueDate)
+        //     if (a.dueTime !== null) aDate.setHours(parseInt(a.dueTime.slice(0, 2)), parseInt(a.dueTime.slice(3, 5)))
+        //     if (b.dueTime !== null) bDate.setHours(parseInt(b.dueTime.slice(0, 2)), parseInt(b.dueTime.slice(3, 5)))
 
-            return aDate < bDate ? -1 : 1
-        })
+        //     return aDate < bDate ? -1 : 1
+        // })
         // ----------
         AsyncStorage.setItem("userGoals", JSON.stringify(updatedGoals))
         setUserGoals((current) => { return updatedGoals })

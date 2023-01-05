@@ -12,7 +12,7 @@ import colors from "../../misc/colors"
 interface StandardAntBtnProps {
     text?: string
     height?: number
-    width?: number
+    width?: number | string
     color?: string
     backColor?: string
     bdrRad?: number
