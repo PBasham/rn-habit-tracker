@@ -9,7 +9,7 @@ import { CheckBoxRnd } from "../CheckBox"
 import colors from "../../misc/colors"
 
 interface EntryCardProps {
-    onPress: (arg0:any) => void
+    onPress: (arg0: any) => void
     onLongPress: () => void
     selected: boolean
     addToSelected: (id: any) => void
@@ -46,9 +46,9 @@ const EntryCard: FC<EntryCardProps> = (props: EntryCardProps) => {
 
     return (
         <View style={styles.outerContaienr}>
-            {additionalSettings ? 
-            <CheckBoxRnd onPress={checkboxPress} checked={selected} />
-            : null }
+            {additionalSettings ?
+                <CheckBoxRnd onPress={checkboxPress} checked={selected} />
+                : null}
             <Pressable onPress={additionalSettings ? checkboxPress : () => onPress(note)} style={[styles.container]} onLongPress={onLongPress} >
                 <View style={[styles.note, additionalSettings ? styles.additionalSettings : null]}>
                     <Text numberOfLines={2} style={styles.noteTitle}>{note.title}</Text>
@@ -61,7 +61,7 @@ const EntryCard: FC<EntryCardProps> = (props: EntryCardProps) => {
 
 export default EntryCard
 
-const viewWidth = Dimensions.get("screen").width * .0
+const width = Dimensions.get("screen").width
 
 const styles = StyleSheet.create({
     outerContaienr: {
@@ -69,6 +69,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
+        height: 60,
+        // width: width - 40,
     },
     checkbox: {
         marginHorizontal: 5,
@@ -76,14 +78,11 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingTop: 8,
-        paddingBottom: 8,
     },
     note: {
-        padding: "3%",
-        borderRadius: 5,
-
-        minHeight: 60,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        
         width: "100%",
 
         backgroundColor: colors.general.light,
